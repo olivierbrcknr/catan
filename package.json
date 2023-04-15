@@ -1,0 +1,31 @@
+{
+  "name": "catan",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.35",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "eslint-config-next": "^13.3.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.7",
+    "sass": "^1.62.0",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "airtable": "^0.11.6",
+    "clsx": "^1.2.1",
+    "moment": "^2.29.4",
+    "next": "^13.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-markdown": "^8.0.7"
+  }
+}
