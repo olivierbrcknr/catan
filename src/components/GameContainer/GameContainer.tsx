@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 
 import { fetchAirTableData } from "../../utils/airtable";
-import dummyData from "../../utils/dummyObject";
+// import dummyData from "../../utils/dummyObject";
 import GameMain from "../GameMain";
 import GameScreenSetup from "../GameScreenSetup";
 
@@ -67,8 +67,8 @@ const GameContainer = ({}: GameContainerProps) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = dummyData;
-      // const data = await fetchAirTableData();
+      // const data = dummyData;
+      const data = await fetchAirTableData();
       setAirTableData(data as AirtableData);
       console.log(data);
     };

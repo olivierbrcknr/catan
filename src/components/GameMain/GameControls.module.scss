@@ -4,6 +4,9 @@
   grid-template-columns: 80px 1fr 80px;
   grid-gap: var(--gap);
   padding: var(--gap);
+
+  background: var(--color-background);
+  border-top: solid 2px var(--color-black);
 }
 
 .playpause {

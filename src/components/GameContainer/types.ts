@@ -49,7 +49,7 @@ export type Rule = {
   Evil: number;
   Name: string;
   Set?: string[];
-  Description: strin;
+  Description: string;
   "End Time"?: number;
   Icon: string;
   "Start Time"?: number;

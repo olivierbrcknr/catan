@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 
 import type { Event } from "../GameContainer/types";
@@ -22,6 +23,10 @@ const EventCard = ({ event }: EventCardProps) => {
         event.Type === "One time event" && styles.typeOneTime
       )}
     >
+      <div className={styles.Icon}>
+        {/* @ts-ignore */}
+        <FontAwesomeIcon icon={"fa-" + event.Icon} />
+      </div>
       <div className={styles.Title}>{event.Name}</div>
       <div className={styles.Description}>{event.Description}</div>
     </div>
