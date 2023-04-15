@@ -1,8 +1,10 @@
 import Head from "next/head";
-import Image from "next/image";
+
+import GameContainer from "../components/GameContainer";
+
 import styles from "../styles/Home.module.scss";
 
-export default function Home() {
+function Home() {
   return (
     <>
       <Head>
@@ -15,8 +17,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div>Hello</div>
+        {/* This is the main game container, it is wrapped to allow for more 'website' stuff around it */}
+        <GameContainer />
       </main>
     </>
   );
 }
+
+export default Home;

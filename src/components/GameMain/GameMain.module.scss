@@ -1,0 +1,34 @@
+.GameMain {
+  height: 100%;
+  width: 100%;
+
+  display: grid;
+  grid-template-areas:
+    "events rules"
+    "controls controls";
+
+  grid-template-rows: 1fr max-content;
+  grid-template-columns: 1fr 400px;
+
+  background: url("/dot-grid.svg");
+}
+
+.Events {
+  padding: calc(var(--gap) * 2);
+
+  grid-area: events;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(var(--card-height), 1fr));
+
+  overflow-y: scroll;
+}
+
+.Rules {
+  grid-area: rules;
+}
+
+.Controls {
+  grid-area: controls;
+}

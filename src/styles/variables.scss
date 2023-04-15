@@ -1,2 +1,31 @@
 :root {
+  --font-family-reg: "Helvetica", sans-serif;
+
+  --color-background: #fff;
+
+  --color-black: #000;
+  --color-white: #fff;
+
+  --color-primary: #f00;
+
+  --card-width: 150px;
+  --card-height: 240px;
+
+  --card-color-bg: var(--color-white);
+  --card-color-outline: var(--color-black);
+
+  --color-player-red: #ff3030;
+  --color-player-orange: #ff9330;
+  --color-player-blue: #3083ff;
+  --color-player-white: #999999;
+
+  --color-event-type-temporary: #00ff94;
+  --color-event-type-barbarian-ship: #ff9900;
+  --color-event-type-one-time: #8500ff;
+
+  --player-background-opacity: 0.5;
+
+  --border-radius: 10px;
+
+  --gap: 10px;
 }

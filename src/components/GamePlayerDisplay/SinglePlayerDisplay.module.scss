@@ -1,0 +1,38 @@
+.SinglePlayerDisplay {
+  padding: 10px;
+
+  flex: 1;
+
+  color: var(--player-color);
+
+  border-radius: var(--border-radius);
+  overflow: hidden;
+
+  display: flex;
+  justify-content: space-betweem;
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--player-color);
+    opacity: var(--player-background-opacity);
+  }
+}
+
+.SinglePlayerDisplay:global(.color-red) {
+  --player-color: var(--color-player-red);
+}
+.SinglePlayerDisplay:global(.color-blue) {
+  --player-color: var(--color-player-blue);
+}
+.SinglePlayerDisplay:global(.color-orange) {
+  --player-color: var(--color-player-orange);
+}
+.SinglePlayerDisplay:global(.color-white) {
+  --player-color: var(--color-player-white);
+}

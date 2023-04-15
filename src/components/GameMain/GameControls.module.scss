@@ -1,0 +1,17 @@
+.GameControls {
+  display: grid;
+  grid-template-areas: "play_pause players settings";
+  grid-template-columns: 80px 1fr 80px;
+  grid-gap: var(--gap);
+  padding: var(--gap);
+}
+
+.playpause {
+  grid-area: play_pause;
+}
+.players {
+  grid-area: players;
+}
+.settings {
+  grid-area: settings;
+}

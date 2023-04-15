@@ -1,0 +1,62 @@
+@import "../../styles/mixins.scss";
+
+.SinglePlayerSelect {
+  padding: 10px;
+
+  color: var(--player-color);
+
+  border-radius: var(--border-radius);
+  overflow: hidden;
+
+  display: flex;
+  justify-content: space-betweem;
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--player-color);
+    opacity: var(--player-background-opacity);
+  }
+}
+
+.SinglePlayerSelect:global(.color-red) {
+  --player-color: var(--color-player-red);
+}
+.SinglePlayerSelect:global(.color-blue) {
+  --player-color: var(--color-player-blue);
+}
+.SinglePlayerSelect:global(.color-orange) {
+  --player-color: var(--color-player-orange);
+}
+.SinglePlayerSelect:global(.color-white) {
+  --player-color: var(--color-player-white);
+}
+
+.SinglePlayerSelect input {
+  @include button-reset;
+  @include font-reg;
+
+  mix-blend-mode: multiply;
+
+  &::placeholder {
+    color: currentColor;
+    opacity: 0.4;
+  }
+}
+
+.isInactive {
+  opacity: 0.4;
+}
+
+.RemoveButton {
+  cursor: pointer;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+}

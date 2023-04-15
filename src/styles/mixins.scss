@@ -1,0 +1,24 @@
+@mixin button-reset {
+  font-family: inherit;
+  letter-spacing: inherit;
+  padding: 0;
+  white-space: normal;
+  text-align: left;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  outline: none;
+  cursor: default;
+}
+
+@mixin center-children {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin font-reg {
+  font-size: 22px;
+  font-family: var(--font-family-reg);
+  letter-spacing: 0.03em;
+}
