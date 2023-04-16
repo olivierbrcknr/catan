@@ -81,13 +81,16 @@ const GameScreenSetup = ({
       </div>
 
       <h3>Players</h3>
-      {players.map((p, i) => (
-        <SinglePlayerSelect
-          key={`Player-${i}`}
-          player={p}
-          onChange={(v) => onSinglePlayerChange(v, i)}
-        />
-      ))}
+
+      <div className={styles.PlayerSelection}>
+        {players.map((p, i) => (
+          <SinglePlayerSelect
+            key={`Player-${i}`}
+            player={p}
+            onChange={(v) => onSinglePlayerChange(v, i)}
+          />
+        ))}
+      </div>
 
       <h3>Settings</h3>
 

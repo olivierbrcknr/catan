@@ -10,13 +10,31 @@ import styles from "./GamePlayerDisplay.module.scss";
 
 export interface GamePlayerDisplayProps {
   players: Player[];
+  setPlayers: (v: Player[]) => void;
 }
 
-const GamePlayerDisplay = ({ players }: GamePlayerDisplayProps) => {
+const GamePlayerDisplay = ({ players, setPlayers }: GamePlayerDisplayProps) => {
+  const onSinglePlayerChangePoints = (
+    player: Player,
+    index: number,
+    value: number
+  ) => {
+    let allPlayers = players;
+    allPlayers[index] = {
+      ...player,
+      points: value,
+    };
+    setPlayers([...allPlayers]);
+  };
+
   return (
     <div className={styles.GamePlayerDisplay}>
-      {players.map((p) => (
-        <SinglePlayerDisplay key={`Player-${p.color}`} player={p} />
+      {players.map((p, i) => (
+        <SinglePlayerDisplay
+          onChangePoints={(v) => onSinglePlayerChangePoints(p, i, v)}
+          key={`Player-${p.color}`}
+          player={p}
+        />
       ))}
     </div>
   );

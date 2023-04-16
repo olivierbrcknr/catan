@@ -37,7 +37,7 @@ const SinglePlayerSelect = ({ player, onChange }: SinglePlayerSelectProps) => {
       )}
     >
       <input
-        placeholder="Player Name"
+        placeholder={`Player ${player.color}`}
         value={player?.name || ""}
         onChange={(evt) => onChangeName(evt.target.value)}
       />

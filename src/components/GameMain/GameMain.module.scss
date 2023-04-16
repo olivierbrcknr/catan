@@ -1,3 +1,5 @@
+@import "../../styles/mixins.scss";
+
 .GameMain {
   height: 100%;
   width: 100%;
@@ -8,7 +10,7 @@
     "controls controls";
 
   grid-template-rows: 1fr max-content;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: 1fr 320px;
 
   background: url("/dot-grid.svg");
 }
@@ -22,15 +24,39 @@
   grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
   grid-template-rows: repeat(auto-fill, minmax(var(--card-height), 1fr));
 
-  grid-gap: var(--gap);
+  grid-gap: calc(var(--gap) * 2);
 
   overflow-y: scroll;
+  z-index: 1;
 }
 
 .Rules {
   grid-area: rules;
+
+  padding: calc(var(--gap) * 2);
+
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap) * 2);
+
+  border-left: solid 2px var(--color-black);
+  z-index: 1;
 }
 
 .Controls {
   grid-area: controls;
+}
+
+.NewEventContainer {
+  @include center-children;
+
+  grid-row-start: events;
+  grid-column-start: events;
+  grid-row-end: rules;
+  grid-column-end: rules;
+  z-index: 2;
+
+  background: #0003;
 }

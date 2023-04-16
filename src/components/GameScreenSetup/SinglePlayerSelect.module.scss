@@ -2,6 +2,7 @@
 
 .SinglePlayerSelect {
   padding: 10px;
+  padding-right: 40px;
 
   color: var(--player-color);
 
@@ -9,7 +10,7 @@
   overflow: hidden;
 
   display: flex;
-  justify-content: space-betweem;
+  width: 300px;
 
   &:before {
     content: "";
@@ -36,26 +37,47 @@
 .SinglePlayerSelect:global(.color-white) {
   --player-color: var(--color-player-white);
 }
+.SinglePlayerSelect:global(.color-brown) {
+  --player-color: var(--color-player-brown);
+}
+.SinglePlayerSelect:global(.color-green) {
+  --player-color: var(--color-player-green);
+}
 
 .SinglePlayerSelect input {
   @include button-reset;
   @include font-reg;
 
+  width: 100%;
+
   mix-blend-mode: multiply;
 
   &::placeholder {
     color: currentColor;
-    opacity: 0.4;
+    opacity: 0.6;
   }
 }
 
-.isInactive {
-  opacity: 0.4;
+.SinglePlayerSelect.isInactive {
+  opacity: 0.5;
+}
+
+.SinglePlayerSelect.isInactive:focus-within {
+  opacity: 0.7;
 }
 
 .RemoveButton {
+  @include center-children;
+  padding-bottom: 4px;
+
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 0.3;
   &:hover {
     opacity: 1;
   }

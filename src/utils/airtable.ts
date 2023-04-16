@@ -3,8 +3,6 @@ import Airtable from "airtable";
 import { AIRTABLE_BASE_ID } from "../utils/constants";
 
 const fetchAirTableData = async () => {
-  console.log("fetching data from airtable");
-
   const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
     AIRTABLE_BASE_ID
   );
@@ -19,7 +17,6 @@ const fetchAirTableData = async () => {
   const callDone = () => {
     doneCounter++;
     if (doneCounter >= 2) {
-      console.log("all fetched");
       return allData;
     }
   };

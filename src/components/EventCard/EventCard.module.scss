@@ -1,8 +1,11 @@
+@import "../../styles/mixins.scss";
+
 .EventCard {
   --event-card-highlight-color: #000;
 
-  width: var(--card-width);
-  height: var(--card-height);
+  min-width: var(--card-width);
+  min-height: var(--card-height);
+  height: min-content;
 
   border-radius: 5px;
   border: solid 3px var(--card-color-outline);
@@ -41,4 +44,44 @@
 
 .Description {
   font-size: 12px;
+}
+
+.Controls {
+  margin-top: auto;
+  width: 100%;
+  @include center-children;
+}
+
+.Controls progress {
+  width: 100%;
+  @include button-reset;
+  height: 10px;
+
+  &::-webkit-progress-bar {
+    background-color: transparent;
+    border-radius: 100px;
+    border: solid 2px var(--event-card-highlight-color);
+  }
+
+  &::-webkit-progress-value {
+    background: var(--event-card-highlight-color);
+  }
+}
+.Controls button {
+  @include button-reset;
+  color: var(--event-card-highlight-color);
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  font-weight: bold;
+  border: solid 2px var(--event-card-highlight-color);
+  cursor: pointer;
+
+  &:active {
+    background: var(--event-card-highlight-color);
+    color: var(--color-white);
+  }
+}
+
+.typeBarbarianShip .Controls {
+  color: var(--event-card-highlight-color);
 }

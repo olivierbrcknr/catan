@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 
 import { fetchAirTableData } from "../../utils/airtable";
-// import dummyData from "../../utils/dummyObject";
 import GameMain from "../GameMain";
 import GameScreenSetup from "../GameScreenSetup";
 
@@ -29,7 +28,7 @@ const GameContainer = ({}: GameContainerProps) => {
     events: [],
     rules: [],
   });
-  const [activeData, setActiveData] = useState<AirtableData>({
+  const [filteredData, setFilteredData] = useState<AirtableData>({
     events: [],
     rules: [],
   });
@@ -40,18 +39,32 @@ const GameContainer = ({}: GameContainerProps) => {
     {
       isActive: false,
       color: "red",
+      points: 2,
     },
     {
       isActive: false,
       color: "orange",
+      points: 2,
     },
     {
       isActive: false,
       color: "blue",
+      points: 2,
     },
     {
       isActive: false,
       color: "white",
+      points: 2,
+    },
+    {
+      isActive: false,
+      color: "green",
+      points: 2,
+    },
+    {
+      isActive: false,
+      color: "brown",
+      points: 2,
     },
   ]);
 
@@ -67,39 +80,28 @@ const GameContainer = ({}: GameContainerProps) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // const data = dummyData;
       const data = await fetchAirTableData();
       setAirTableData(data as AirtableData);
-      console.log(data);
     };
     fetchData().catch(console.error);
   }, []);
 
   useEffect(() => {
-    setActiveData(filterData(airTableData, filter, gameSettings));
+    setFilteredData(filterData(airTableData, filter, gameSettings));
   }, [airTableData, filter, gameSettings]);
-
-  useEffect(() => {
-    console.log("filtered");
-    console.log(activeData);
-  }, [activeData]);
-
-  if (isDev) {
-    // console.log("players", currentPlayers);
-    // console.log("settings", gameSettings);
-    // console.log("filter", filter);
-  }
 
   return (
     <div className={styles.GameContainer}>
       {gameIsRunning ? (
         <GameMain
+          hasShipExtension={filter.expansionPacks?.has("Cities and Knights")}
           players={currentPlayers}
+          setPlayers={setCurrentPlayers}
           onClickCancelGame={() => {
             setGameIsRunning(false);
           }}
           gameSettings={gameSettings}
-          activeData={activeData}
+          filteredData={filteredData}
         />
       ) : (
         <GameScreenSetup
@@ -117,9 +119,9 @@ const GameContainer = ({}: GameContainerProps) => {
 
       {isDev && (
         <div className={styles.info}>
-          Events: {activeData.events.length}
+          Events: {filteredData.events.length}
           <br />
-          Rules: {activeData.rules.length}
+          Rules: {filteredData.rules.length}
           <br />
           <br />
           Funk: {gameSettings.funkLevel}

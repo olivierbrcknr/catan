@@ -1,7 +1,9 @@
 .SinglePlayerDisplay {
-  padding: 10px;
+  padding: 4px;
 
   flex: 1;
+
+  font-size: 16px;
 
   color: var(--player-color);
 
@@ -35,4 +37,10 @@
 }
 .SinglePlayerDisplay:global(.color-white) {
   --player-color: var(--color-player-white);
+}
+.SinglePlayerDisplay:global(.color-brown) {
+  --player-color: var(--color-player-brown);
+}
+.SinglePlayerDisplay:global(.color-green) {
+  --player-color: var(--color-player-green);
 }
