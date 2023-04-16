@@ -3,6 +3,10 @@ import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 
 import { fetchAirTableData } from "../../utils/airtable";
+import {
+  EVENT_FREQUENCY_MEDIUM,
+  PLAYER_START_POINTS,
+} from "../../utils/constants";
 import GameMain from "../GameMain";
 import GameScreenSetup from "../GameScreenSetup";
 
@@ -39,22 +43,22 @@ const GameContainer = ({}: GameContainerProps) => {
     {
       isActive: false,
       color: "red",
-      points: 2,
+      points: PLAYER_START_POINTS,
     },
     {
       isActive: false,
       color: "orange",
-      points: 2,
+      points: PLAYER_START_POINTS,
     },
     {
       isActive: false,
       color: "blue",
-      points: 2,
+      points: PLAYER_START_POINTS,
     },
     {
       isActive: false,
       color: "white",
-      points: 2,
+      points: PLAYER_START_POINTS,
     },
     // {
     //   isActive: false,
@@ -71,10 +75,13 @@ const GameContainer = ({}: GameContainerProps) => {
   const [gameSettings, setGameSettings] = useState<GameSettings>({
     funkLevel: 5,
     evilLevel: 5,
-    eventFrequency: 2,
+    eventFrequency: EVENT_FREQUENCY_MEDIUM,
+    maxPointsNeeded: 10,
   });
 
-  const [filter, setFilter] = useState<CardFilter>({});
+  const [filter, setFilter] = useState<CardFilter>({
+    expansionPacks: new Set([]),
+  });
 
   const [cards, setCards] = useState<Set<CardID>>();
 
@@ -90,6 +97,16 @@ const GameContainer = ({}: GameContainerProps) => {
     setFilteredData(filterData(airTableData, filter, gameSettings));
   }, [airTableData, filter, gameSettings]);
 
+  const handleEndGame = () => {
+    setGameIsRunning(false);
+
+    let allPlayers = currentPlayers.map((p) => ({
+      ...p,
+      points: PLAYER_START_POINTS,
+    }));
+    setCurrentPlayers([...allPlayers]);
+  };
+
   return (
     <div className={styles.GameContainer}>
       {gameIsRunning ? (
@@ -97,9 +114,7 @@ const GameContainer = ({}: GameContainerProps) => {
           hasShipExtension={filter.expansionPacks?.has("Cities and Knights")}
           players={currentPlayers}
           setPlayers={setCurrentPlayers}
-          onClickCancelGame={() => {
-            setGameIsRunning(false);
-          }}
+          onClickCancelGame={handleEndGame}
           gameSettings={gameSettings}
           filteredData={filteredData}
         />
@@ -107,9 +122,7 @@ const GameContainer = ({}: GameContainerProps) => {
         <GameScreenSetup
           players={currentPlayers}
           onChangePlayers={setCurrentPlayers}
-          onClickStart={() => {
-            setGameIsRunning(true);
-          }}
+          onClickStart={() => setGameIsRunning(true)}
           gameSettings={gameSettings}
           onChangeSettings={setGameSettings}
           activeFilters={filter}

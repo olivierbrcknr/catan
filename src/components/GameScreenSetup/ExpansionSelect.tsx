@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from "react";
-
 import clsx from "clsx";
 
 import type { ExpansionPack } from "../GameContainer/types";
@@ -7,52 +5,50 @@ import type { ExpansionPack } from "../GameContainer/types";
 import styles from "./ExpansionSelect.module.scss";
 
 interface ExpansionSelectProps {
-  onChange: (expansions: ExpansionPack[]) => void;
+  value: Set<ExpansionPack>;
+  onChange: (v: Set<ExpansionPack>) => void;
 }
 
 const expansions: {
   label: string;
-  value: ExpansionPack[];
+  value: Set<ExpansionPack>;
   className: string;
 }[] = [
   {
     label: "Base Game only",
-    value: [],
+    value: new Set([]),
     className: styles.TypeBase,
   },
   {
     label: "Seafarers",
-    value: ["Cities and Knights"],
+    value: new Set(["Cities and Knights"]),
     className: styles.TypeSeafarers,
   },
   {
     label: "Cities & Knights",
-    value: ["Seafarers"],
+    value: new Set(["Seafarers"]),
     className: styles.TypeCitiesKinghts,
   },
   {
     label: "Seafarers and Cities & Knights",
-    value: ["Cities and Knights", "Seafarers"],
+    value: new Set(["Cities and Knights", "Seafarers"]),
     className: styles.TypeSeaAndKinights,
   },
 ];
 
-const ExpansionSelect = ({ onChange }: ExpansionSelectProps) => {
-  const [selection, setSelection] = useState<ExpansionPack[]>(
-    expansions[0].value
-  );
-
+const ExpansionSelect = ({ value, onChange }: ExpansionSelectProps) => {
   return (
     <div className={styles.ExpansionSelect}>
       {expansions.map((exp, i) => (
         <button
           key={"expansion-" + i}
           onClick={() => {
-            setSelection(exp.value);
+            onChange(exp.value);
           }}
           className={clsx(
             styles.Expansion,
-            selection === exp.value && styles.isSelected,
+            value === exp.value && styles.isSelected,
+            value.size === 0 && i === 0 && styles.isSelected,
             exp.className
           )}
         >

@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 
-import {
-  EVENT_FREQUENCY_BASE_TIME,
-  BASE_PROBABILITY,
-} from "../../utils/constants";
+import { BASE_PROBABILITY } from "../../utils/constants";
 import type {
   AirtableData,
   GameData,
@@ -237,7 +234,7 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
 
   useEffect(() => {
     setEventInterval((eI) => {
-      const intervalTimer = EVENT_FREQUENCY_BASE_TIME;
+      const intervalTimer = settings.eventFrequency;
       if (sec > intervalTimer * eI) return eI + 1;
       return eI;
     });

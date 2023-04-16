@@ -15,7 +15,7 @@ interface ButtonProps {
 const Button = ({ onClick, children, disabled }: ButtonProps) => {
   return (
     <button
-      onClick={onClick}
+      onClick={disabled ? null : onClick}
       className={clsx(styles.Button, disabled && styles.isDisabled)}
     >
       {children}

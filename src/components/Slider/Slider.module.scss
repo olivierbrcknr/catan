@@ -1,0 +1,48 @@
+@import "../../styles/mixins.scss";
+
+.Slider {
+  display: flex;
+  gap: var(--gap);
+}
+
+.Label {
+  opacity: 0.5;
+}
+
+.Slider input[type="range"] {
+  @include button-reset;
+
+  &:focus {
+    // outline: none;
+  }
+  &::-webkit-slider-runnable-track {
+    @include button-reset;
+    width: 100%;
+    height: 2px;
+    cursor: pointer;
+    background-color: var(--color-black);
+    // animate: 0.2s;
+    // box-shadow: 1px 1px 1px #000000;
+    // background: #3071a9;
+    // border-radius: 5px;
+    // border: 1px solid #000000;
+  }
+  &::-webkit-slider-thumb {
+    @include button-reset;
+    width: 20px;
+    height: 40px;
+
+    margin-top: -22px;
+    margin-left: -10px;
+
+    @include box-design(var(--color-white), true);
+
+    &:active {
+      transform: translate(4px, 4px);
+      box-shadow: none !important;
+    }
+  }
+  &:focus::-webkit-slider-runnable-track {
+    // background: #3071a9;
+  }
+}

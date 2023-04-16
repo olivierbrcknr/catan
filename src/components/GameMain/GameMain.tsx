@@ -17,6 +17,7 @@ import RuleCard from "../RuleCard";
 import { useGameChange } from "./game";
 import GameControls from "./GameControls";
 import GameEventPopover from "./GameEventPopover";
+import GameWinnerPopover from "./GameWinnerPopover";
 
 import styles from "./GameMain.module.scss";
 
@@ -48,6 +49,17 @@ const GameMain = ({
     setbarbarianShipArrived,
   } = useGameChange(filteredData, gameSettings);
 
+  const [winner, setWinner] = useState<Player | undefined>();
+
+  useEffect(() => {
+    players.forEach((p) => {
+      if (p.points >= gameSettings.maxPointsNeeded) {
+        setIsPause(true);
+        setWinner(p);
+      }
+    });
+  }, [players, gameSettings.maxPointsNeeded, setIsPause]);
+
   return (
     <div className={styles.GameMain}>
       <div className={styles.Events}>
@@ -78,6 +90,7 @@ const GameMain = ({
           onClickCancelGame={onClickCancelGame}
           players={players}
           setPlayers={setPlayers}
+          maxPoints={gameSettings.maxPointsNeeded}
         />
       </div>
 
@@ -87,6 +100,12 @@ const GameMain = ({
             onClickContinue={setEventIsRead}
             newEvent={gameData.newEvent}
           />
+        </div>
+      )}
+
+      {winner && (
+        <div className={styles.WinnerContainer}>
+          <GameWinnerPopover onDone={onClickCancelGame} winner={winner} />
         </div>
       )}
     </div>

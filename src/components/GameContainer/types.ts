@@ -11,6 +11,7 @@ export type GameSettings = {
   /** 0-10 */
   evilLevel: number;
   eventFrequency: number;
+  maxPointsNeeded: number;
 };
 
 export type EventType =
@@ -21,7 +22,7 @@ export type EventType =
 export type ExpansionPack = "Cities and Knights" | "Seafarers";
 
 export type CardFilter = {
-  expansionPacks?: Set<ExpansionPack>;
+  expansionPacks: Set<ExpansionPack>;
 };
 
 export type CardID = string;

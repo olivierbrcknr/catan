@@ -11,9 +11,14 @@ import styles from "./GamePlayerDisplay.module.scss";
 export interface GamePlayerDisplayProps {
   players: Player[];
   setPlayers: (v: Player[]) => void;
+  maxPoints: number;
 }
 
-const GamePlayerDisplay = ({ players, setPlayers }: GamePlayerDisplayProps) => {
+const GamePlayerDisplay = ({
+  players,
+  setPlayers,
+  maxPoints,
+}: GamePlayerDisplayProps) => {
   const onSinglePlayerChangePoints = (
     player: Player,
     index: number,
@@ -34,6 +39,7 @@ const GamePlayerDisplay = ({ players, setPlayers }: GamePlayerDisplayProps) => {
           onChangePoints={(v) => onSinglePlayerChangePoints(p, i, v)}
           key={`Player-${p.color}`}
           player={p}
+          maxPoints={maxPoints}
         />
       ))}
     </div>

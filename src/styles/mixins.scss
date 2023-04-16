@@ -1,4 +1,6 @@
 @mixin button-reset {
+  appearance: none;
+
   font-family: inherit;
   letter-spacing: inherit;
   padding: 0;
@@ -8,6 +10,8 @@
   background-color: transparent;
   color: inherit;
   outline: none;
+
+  user-select: none;
 
   cursor: pointer;
 }

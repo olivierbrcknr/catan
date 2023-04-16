@@ -16,6 +16,7 @@ export interface GameControlsProps {
   onTogglePause: () => void;
   onBarbarianShipArrived: () => void;
   hasShipExtension: boolean;
+  maxPoints: number;
 }
 
 const isDev = process.env.NODE_ENV === "development";
@@ -28,6 +29,7 @@ const GameControls = ({
   onTogglePause,
   onBarbarianShipArrived,
   hasShipExtension,
+  maxPoints,
 }: GameControlsProps) => {
   return (
     <div className={styles.GameControls}>
@@ -42,7 +44,11 @@ const GameControls = ({
         )}
       </div>
       <div className={styles.players}>
-        <GamePlayerDisplay setPlayers={setPlayers} players={players} />
+        <GamePlayerDisplay
+          setPlayers={setPlayers}
+          players={players}
+          maxPoints={maxPoints}
+        />
       </div>
       <div className={styles.settings}>
         <button onClick={onClickCancelGame}>Exit</button>

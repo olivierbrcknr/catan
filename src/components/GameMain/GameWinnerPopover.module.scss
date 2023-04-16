@@ -1,0 +1,28 @@
+@import "../../styles/mixins.scss";
+
+.GameWinnerPopover {
+  @include center-children;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  background: var(--player-color);
+}
+
+.GameWinnerPopover:global(.color-red) {
+  --player-color: var(--color-player-red);
+}
+.GameWinnerPopover:global(.color-blue) {
+  --player-color: var(--color-player-blue);
+}
+.GameWinnerPopover:global(.color-orange) {
+  --player-color: var(--color-player-orange);
+}
+.GameWinnerPopover:global(.color-white) {
+  --player-color: var(--color-player-white);
+}
+.GameWinnerPopover:global(.color-brown) {
+  --player-color: var(--color-player-brown);
+}
+.GameWinnerPopover:global(.color-green) {
+  --player-color: var(--color-player-green);
+}

@@ -60,3 +60,13 @@
 
   background: #0003;
 }
+
+.WinnerContainer {
+  @include center-children;
+
+  grid-row-start: events;
+  grid-column-start: events;
+  grid-row-end: controls;
+  grid-column-end: controls;
+  z-index: 3;
+}
