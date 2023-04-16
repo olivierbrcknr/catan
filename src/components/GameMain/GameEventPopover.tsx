@@ -26,7 +26,7 @@ const GameEventPopover = ({
   let card: JSX.Element = null;
 
   if (newEvent.type === "event") {
-    card = <EventCard isInit event={newEvent} />;
+    card = <EventCard isInit isPause event={newEvent} />;
   }
   if (newEvent.type === "rule") {
     card = <RuleCard rule={newEvent} />;
