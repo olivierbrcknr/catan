@@ -1,0 +1,46 @@
+@import "../../styles/mixins.scss";
+
+.ExpansionSelect {
+  display: flex;
+  gap: var(--gap);
+}
+
+.Expansion {
+  @include button-reset;
+  @include box-design(
+    var(--color-white),
+    true,
+    var(--expansion-highlight-color)
+  );
+  @include center-children;
+
+  width: 120px;
+  height: 90px;
+
+  text-align: center;
+
+  &:active {
+    transform: translate(4px, 4px);
+    box-shadow: none !important;
+  }
+
+  &.isSelected {
+    @include box-design(var(--expansion-highlight-color), true);
+    color: var(--color-white);
+  }
+}
+
+.TypeBase {
+  --expansion-highlight-color: #ff0000;
+}
+
+.TypeSeafarers {
+  --expansion-highlight-color: #019dcd;
+}
+.TypeCitiesKinghts {
+  --expansion-highlight-color: #d97f1e;
+}
+
+.TypeSeaAndKinights {
+  --expansion-highlight-color: #8500ff;
+}

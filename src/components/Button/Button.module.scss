@@ -1,0 +1,22 @@
+@import "../../styles/mixins.scss";
+
+.Button {
+  @include button-reset;
+  @include box-design(var(--color-white), true);
+  @include center-children;
+
+  min-width: 120px;
+  min-height: 50px;
+
+  text-align: center;
+
+  &:active {
+    transform: translate(4px, 4px);
+    box-shadow: none !important;
+  }
+}
+
+.isDisabled {
+  opacity: 0.4;
+  cursor: default;
+}

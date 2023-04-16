@@ -1,16 +1,13 @@
 @import "../../styles/mixins.scss";
 
 .SinglePlayerSelect {
+  @include box-design(var(--player-color));
   padding: 10px;
   padding-right: 40px;
-
-  color: var(--player-color);
-
-  border-radius: var(--border-radius);
   overflow: hidden;
 
   display: flex;
-  width: 300px;
+  flex: 1;
 
   &:before {
     content: "";
@@ -49,8 +46,6 @@
   @include font-reg;
 
   width: 100%;
-
-  mix-blend-mode: multiply;
 
   &::placeholder {
     color: currentColor;

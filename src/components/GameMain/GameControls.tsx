@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import type { Player } from "../GameContainer/types";
-import GamePlayerDisplay from "../GamePlayerDisplay";
+
+import GamePlayerDisplay from "./GamePlayerDisplay";
 
 import styles from "./GameControls.module.scss";
 

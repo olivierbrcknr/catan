@@ -8,13 +8,32 @@
   background-color: transparent;
   color: inherit;
   outline: none;
-  cursor: default;
+
+  cursor: pointer;
 }
 
 @mixin center-children {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@mixin hard-shadow($color: var(--color-black)) {
+  box-shadow: 4px 4px 0px $color;
+}
+
+@mixin box-design(
+  $color: var(--color-white),
+  $hasShadow: false,
+  $shadowColor: var(--color-black)
+) {
+  border-radius: var(--outline-radius);
+  border: solid var(--outline-width) var(--outline-color);
+  background-color: $color;
+
+  @if $hasShadow {
+    @include hard-shadow($shadowColor);
+  }
 }
 
 @mixin font-reg {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import clsx from "clsx";
 
+import Button from "../Button";
 import type {
   Player,
   GameSettings,
@@ -9,6 +10,7 @@ import type {
   ExpansionPack,
 } from "../GameContainer/types";
 
+import ExpansionSelect from "./ExpansionSelect";
 import SinglePlayerSelect from "./SinglePlayerSelect";
 
 import styles from "./GameScreenSetup.module.scss";
@@ -22,8 +24,6 @@ export interface GameScreenSetupProps {
   activeFilters: CardFilter;
   onChangeFilters: (v: CardFilter) => void;
 }
-
-const expansions: ExpansionPack[] = ["Cities and Knights", "Seafarers"];
 
 const GameScreenSetup = ({
   onClickStart,
@@ -42,18 +42,10 @@ const GameScreenSetup = ({
     onChangePlayers([...allPlayers]);
   };
 
-  const onExpansionChange = (v: boolean, expansion: ExpansionPack) => {
-    let newExpansions = new Set(activeFilters.expansionPacks);
-
-    if (v) {
-      newExpansions.add(expansion);
-    } else {
-      newExpansions.delete(expansion);
-    }
-
+  const onExpansionChange = (expPacks: ExpansionPack[]) => {
     onChangeFilters({
       ...activeFilters,
-      expansionPacks: newExpansions,
+      expansionPacks: new Set(expPacks),
     });
   };
 
@@ -65,22 +57,25 @@ const GameScreenSetup = ({
 
   return (
     <div className={styles.GameScreenSetup}>
-      <h3>Expansion Packs</h3>
+      <h2>Extensions</h2>
 
-      <div>
+      <ExpansionSelect onChange={onExpansionChange} />
+
+      {/*<div onChange={onExpansionChange}>
         {expansions.map((exp, i) => (
           <span key={`expansion-${i}`}>
             <input
+              type="radio"
+              value={exp.type}
+              name="expansion"
               id={`checkbox-expansion-${i}`}
-              type="checkbox"
-              onChange={(evt) => onExpansionChange(evt.target.checked, exp)}
             />
-            <label htmlFor={`checkbox-expansion-${i}`}>{exp}</label>
+            <label htmlFor={`checkbox-expansion-${i}`}>{exp.label}</label>
           </span>
         ))}
-      </div>
+      </div>*/}
 
-      <h3>Players</h3>
+      <h2>Who‘s Playing?</h2>
 
       <div className={styles.PlayerSelection}>
         {players.map((p, i) => (
@@ -92,7 +87,7 @@ const GameScreenSetup = ({
         ))}
       </div>
 
-      <h3>Settings</h3>
+      <h2>Gameplay</h2>
 
       {Object.keys(gameSettings).map((key, i) => (
         <span key={`setting-${i}`}>
@@ -110,14 +105,16 @@ const GameScreenSetup = ({
         </span>
       ))}
 
-      <h3>Cards</h3>
+      <h2>Events & Rules</h2>
 
-      <button
+      <button>Edit Deck</button>
+
+      <Button
         disabled={players.filter((p) => p.isActive).length < 2}
         onClick={onClickStart}
       >
         Start!
-      </button>
+      </Button>
     </div>
   );
 };
