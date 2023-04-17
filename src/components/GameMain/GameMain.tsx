@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import EventCard from "../EventCard";
 import type {
   Player,
@@ -47,6 +49,7 @@ const GameMain = ({
     setEventIsRead,
     setEventIsDone,
     setbarbarianShipArrived,
+    resetGame,
   } = useGameChange(filteredData, gameSettings);
 
   const [winner, setWinner] = useState<Player | undefined>();
@@ -59,6 +62,11 @@ const GameMain = ({
       }
     });
   }, [players, gameSettings.maxPointsNeeded, setIsPause]);
+
+  const handleCancelGame = () => {
+    resetGame();
+    onClickCancelGame();
+  };
 
   return (
     <div className={styles.GameMain}>
@@ -87,12 +95,21 @@ const GameMain = ({
           onTogglePause={() => {
             setIsPause(!isPause);
           }}
-          onClickCancelGame={onClickCancelGame}
+          onClickCancelGame={handleCancelGame}
           players={players}
           setPlayers={setPlayers}
           maxPoints={gameSettings.maxPointsNeeded}
         />
       </div>
+
+      {isPause && !gameData.newEvent && (
+        <div className={styles.IsPauseIndicator}>
+          <FontAwesomeIcon
+            className={styles.IsPauseIndicator_Icon}
+            icon="pause"
+          />
+        </div>
+      )}
 
       {gameData.newEvent && (
         <div className={styles.NewEventContainer}>
@@ -105,7 +122,7 @@ const GameMain = ({
 
       {winner && (
         <div className={styles.WinnerContainer}>
-          <GameWinnerPopover onDone={onClickCancelGame} winner={winner} />
+          <GameWinnerPopover onDone={handleCancelGame} winner={winner} />
         </div>
       )}
     </div>

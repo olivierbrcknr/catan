@@ -3,14 +3,24 @@
 .Slider {
   display: flex;
   gap: var(--gap);
+  width: 100%;
+  align-items: center;
 }
 
 .Label {
-  opacity: 0.5;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 4em;
+
+  @include font-gamma;
+  font-weight: 600;
+  color: var(--color-font-med);
 }
 
 .Slider input[type="range"] {
   @include button-reset;
+
+  flex-grow: 1;
 
   &:focus {
     // outline: none;
@@ -21,6 +31,7 @@
     height: 2px;
     cursor: pointer;
     background-color: var(--color-black);
+
     // animate: 0.2s;
     // box-shadow: 1px 1px 1px #000000;
     // background: #3071a9;
@@ -33,15 +44,15 @@
     height: 40px;
 
     margin-top: -22px;
-    margin-left: -10px;
+    margin-left: -4px;
 
     @include box-design(var(--color-white), true);
-
-    &:active {
-      transform: translate(4px, 4px);
-      box-shadow: none !important;
-    }
   }
+  &:active::-webkit-slider-thumb {
+    transform: translate(4px, 4px);
+    box-shadow: none !important;
+  }
+
   &:focus::-webkit-slider-runnable-track {
     // background: #3071a9;
   }

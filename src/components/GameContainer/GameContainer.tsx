@@ -4,6 +4,7 @@ import clsx from "clsx";
 
 import { fetchAirTableData } from "../../utils/airtable";
 import {
+  CARD_VARIETY_MEDIUM,
   EVENT_FREQUENCY_MEDIUM,
   PLAYER_START_POINTS,
 } from "../../utils/constants";
@@ -76,6 +77,7 @@ const GameContainer = ({}: GameContainerProps) => {
     funkLevel: 5,
     evilLevel: 5,
     eventFrequency: EVENT_FREQUENCY_MEDIUM,
+    cardVariety: CARD_VARIETY_MEDIUM,
     maxPointsNeeded: 10,
   });
 
@@ -140,6 +142,8 @@ const GameContainer = ({}: GameContainerProps) => {
           Funk: {gameSettings.funkLevel}
           <br />
           Evil: {gameSettings.evilLevel}
+          <br />
+          Variety: {gameSettings.cardVariety}
         </div>
       )}
     </div>

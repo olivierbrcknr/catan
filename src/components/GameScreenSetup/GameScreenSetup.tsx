@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 
 import {
+  CARD_VARIETY_LOW,
+  CARD_VARIETY_MEDIUM,
+  CARD_VARIETY_HIGH,
   EVENT_FREQUENCY_LOW,
   EVENT_FREQUENCY_MEDIUM,
   EVENT_FREQUENCY_HIGH,
@@ -64,14 +67,17 @@ const GameScreenSetup = ({
 
   return (
     <div className={styles.GameScreenSetup}>
-      <h2>Extensions</h2>
+      <h1>Fate of Catan</h1>
 
-      <ExpansionSelect
-        value={activeFilters.expansionPacks}
-        onChange={onExpansionChange}
-      />
+      <section>
+        <h2>Extensions</h2>
 
-      {/*<div onChange={onExpansionChange}>
+        <ExpansionSelect
+          value={activeFilters.expansionPacks}
+          onChange={onExpansionChange}
+        />
+
+        {/*<div onChange={onExpansionChange}>
         {expansions.map((exp, i) => (
           <span key={`expansion-${i}`}>
             <input
@@ -84,68 +90,105 @@ const GameScreenSetup = ({
           </span>
         ))}
       </div>*/}
+      </section>
 
-      <h2>Who‘s Playing?</h2>
+      <section>
+        <h2>Who‘s Playing?</h2>
 
-      <div className={styles.PlayerSelection}>
-        {players.map((p, i) => (
-          <SinglePlayerSelect
-            key={`Player-${i}`}
-            player={p}
-            onChange={(v) => onSinglePlayerChange(v, i)}
+        <div className={styles.Row}>
+          {players.map((p, i) => (
+            <SinglePlayerSelect
+              key={`Player-${i}`}
+              player={p}
+              onChange={(v) => onSinglePlayerChange(v, i)}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2>Gameplay</h2>
+
+        <TabSelect
+          options={[
+            {
+              label: "Low",
+              value: EVENT_FREQUENCY_LOW,
+            },
+            {
+              label: "Medium",
+              value: EVENT_FREQUENCY_MEDIUM,
+            },
+            {
+              label: "High",
+              value: EVENT_FREQUENCY_HIGH,
+            },
+          ]}
+          value={gameSettings.eventFrequency}
+          onChange={(v) => settingsChange(v, "eventFrequency")}
+        />
+      </section>
+
+      <section>
+        <h2>Events & Rules</h2>
+        <div className={styles.Row}>
+          <h3>Evilness</h3>
+          <Slider
+            value={gameSettings.evilLevel}
+            min={0}
+            labelMin={"kind"}
+            max={10}
+            labelMax={"evil"}
+            onChange={(v) => settingsChange(v, "evilLevel")}
           />
-        ))}
-      </div>
+        </div>
+        <div className={styles.Row}>
+          <h3>Funkiness</h3>
+          <Slider
+            value={gameSettings.funkLevel}
+            min={0}
+            labelMin={"ordinary"}
+            max={10}
+            labelMax={"funky"}
+            onChange={(v) => settingsChange(v, "funkLevel")}
+          />
+        </div>
+        <div className={styles.Row}>
+          <h3>Card Variety</h3>
+          <TabSelect
+            options={[
+              {
+                label: "Low",
+                value: CARD_VARIETY_LOW,
+              },
+              {
+                label: "Medium",
+                value: CARD_VARIETY_MEDIUM,
+              },
+              {
+                label: "High",
+                value: CARD_VARIETY_HIGH,
+              },
+            ]}
+            value={gameSettings.cardVariety}
+            onChange={(v) => settingsChange(v, "cardVariety")}
+          />
+        </div>
+      </section>
 
-      <h2>Gameplay</h2>
+      <section>
+        <div className={styles.Row}>
+          <Button onClick={() => {}}>Edit Deck</Button>
 
-      <TabSelect
-        options={[
-          {
-            label: "Low",
-            value: EVENT_FREQUENCY_LOW,
-          },
-          {
-            label: "Medium",
-            value: EVENT_FREQUENCY_MEDIUM,
-          },
-          {
-            label: "High",
-            value: EVENT_FREQUENCY_HIGH,
-          },
-        ]}
-        value={gameSettings.eventFrequency}
-        onChange={(v) => settingsChange(v, "eventFrequency")}
-      />
-
-      <h2>Events & Rules</h2>
-
-      <Slider
-        value={gameSettings.evilLevel}
-        min={0}
-        labelMin={"kind"}
-        max={10}
-        labelMax={"evil"}
-        onChange={(v) => settingsChange(v, "evilLevel")}
-      />
-
-      <Slider
-        value={gameSettings.funkLevel}
-        min={0}
-        labelMin={"ordinary"}
-        max={10}
-        labelMax={"funky"}
-        onChange={(v) => settingsChange(v, "funkLevel")}
-      />
-
-      <Button onClick={() => {}}>Edit Deck</Button>
-
-      <Button
-        disabled={players.filter((p) => p.isActive).length < 2}
-        onClick={onClickStart}
-      >
-        Start!
-      </Button>
+          <Button
+            className={styles.StartButton}
+            disabled={players.filter((p) => p.isActive).length < 2}
+            onClick={onClickStart}
+          >
+            Play!
+          </Button>
+        </div>
+      </section>
     </div>
   );
 };

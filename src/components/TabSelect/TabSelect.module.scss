@@ -2,6 +2,8 @@
 
 .TabSelect {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
   gap: var(--gap);
 }
 
@@ -10,7 +12,7 @@
   @include box-design(var(--color-white), true);
   @include center-children;
 
-  min-width: 120px;
+  width: 100%;
   min-height: 50px;
 
   text-align: center;

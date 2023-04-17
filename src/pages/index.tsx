@@ -4,6 +4,17 @@ import GameContainer from "../components/GameContainer";
 
 import styles from "../styles/Home.module.scss";
 
+const footerLinks: { url: string; title: string }[] = [
+  {
+    title: "Suggest a new event",
+    url: "https://airtable.com/shr5RxS1iU5lIEsb9",
+  },
+  {
+    title: "Suggest a new rule",
+    url: "https://airtable.com/shr6zFkPRJvNTujNr",
+  },
+];
+
 function Home() {
   return (
     <>
@@ -20,6 +31,28 @@ function Home() {
         {/* This is the main game container, it is wrapped to allow for more 'website' stuff around it */}
         <GameContainer />
       </main>
+      <footer>
+        <span>
+          2023 &copy;{" "}
+          <a target="_blank" href="http://felixlaarmann.de/">
+            Felix Laarmann
+          </a>{" "}
+          and{" "}
+          <a target="_blank" href="https://olivierbrueckner.de/">
+            Olivier Brückner
+          </a>
+        </span>
+
+        <ul>
+          {footerLinks.map((link, i) => (
+            <li key={`footer-link-${i}`}>
+              <a target="_blank" href={link.url}>
+                {link.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </footer>
     </>
   );
 }

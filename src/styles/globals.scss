@@ -1,3 +1,5 @@
+@import "mixins.scss";
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -5,11 +7,64 @@
   position: relative;
 }
 
+a {
+  color: inherit;
+  text-underline-offset: 3px;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
 html,
 body {
   max-width: 100vw;
+  min-height: 100vh;
   overflow-x: hidden;
 
-  font-family: var(--font-family-reg);
-  font-size: 22px;
+  @include font-gamma;
+
+  background: var(--color-page-background);
+  color: var(--color-font-reg);
+}
+
+h1 {
+  width: 100%;
+  font-size: 42px;
+  text-align: center;
+  color: var(--color-white);
+  font-weight: 800;
+  -webkit-text-stroke: var(--outline-width) var(--outline-color);
+  text-shadow: 3px 3px 0px var(--color-primary);
+}
+
+h2 {
+  @include font-alpha;
+  margin-top: 0.3em;
+  margin-bottom: 0.2em;
+}
+
+h3 {
+  @include font-beta;
+}
+
+footer {
+  display: flex;
+  padding: 1em;
+  justify-content: space-between;
+
+  @include font-delta;
+
+  color: var(--color-font-dis);
+
+  a {
+    color: var(--color-font-med);
+  }
+
+  ul {
+    display: flex;
+    gap: 1em;
+    justify-content: space-between;
+    list-style: none;
+  }
 }

@@ -210,6 +210,7 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
 
   // setup the first game data
   useEffect(() => {
+    console.log("init game");
     const initGameData = startGame(cards, settings);
     setGameData(initGameData);
   }, [cards, settings]);
@@ -326,6 +327,11 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
       .forEach((evt) => setEventIsDone(evt.id));
   };
 
+  const resetGame = () => {
+    setIsPause(true);
+    setSec(0);
+  };
+
   return {
     gameData,
     isPause,
@@ -333,5 +339,6 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
     setEventIsRead,
     setEventIsDone,
     setbarbarianShipArrived,
+    resetGame,
   };
 };

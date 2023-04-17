@@ -12,6 +12,7 @@ export type GameSettings = {
   evilLevel: number;
   eventFrequency: number;
   maxPointsNeeded: number;
+  cardVariety: number;
 };
 
 export type EventType =

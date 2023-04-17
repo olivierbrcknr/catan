@@ -1,8 +1,8 @@
 @import "../../styles/mixins.scss";
 
 .GameMain {
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 
   display: grid;
   grid-template-areas:
@@ -12,7 +12,7 @@
   grid-template-rows: 1fr max-content;
   grid-template-columns: 1fr 320px;
 
-  background: url("/dot-grid.svg");
+  background: var(--color-background);
 }
 
 .Events {
@@ -28,10 +28,14 @@
 
   overflow-y: scroll;
   z-index: 1;
+
+  background: url("/dot-grid.svg");
 }
 
 .Rules {
   grid-area: rules;
+
+  background: var(--color-page-background);
 
   padding: var(--gap);
 
@@ -47,6 +51,35 @@
 
 .Controls {
   grid-area: controls;
+}
+
+.IsPauseIndicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.IsPauseIndicator_Icon {
+  height: 100px;
+  color: var(--color-primary);
+  transform-origin: center center;
+
+  animation-name: pulsate;
+  animation-duration: 2s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes pulsate {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
 }
 
 .NewEventContainer {

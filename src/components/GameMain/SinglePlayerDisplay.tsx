@@ -43,8 +43,14 @@ const SinglePlayerDisplay = ({
         </div>
       </div>
 
-      <Button onClick={removePoint}>-</Button>
-      <Button onClick={addPoint}>+</Button>
+      <div className={styles.Buttons}>
+        <Button isSmall onClick={removePoint}>
+          -
+        </Button>
+        <Button isSmall onClick={addPoint}>
+          +
+        </Button>
+      </div>
     </div>
   );
 };

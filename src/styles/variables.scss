@@ -1,6 +1,8 @@
 :root {
   --font-family-reg: "Inter", "Helvetica", sans-serif;
 
+  --color-page-background: #e7e4eb;
+
   --color-background: #fff;
 
   --color-black: #000;
@@ -8,6 +10,11 @@
   --color-gray: #e4e7eb;
 
   --color-primary: #8500ff;
+  --color-secondary: #fff500;
+
+  --color-font-reg: hsl(0, 0%, 0%);
+  --color-font-med: hsl(0, 0%, 40%);
+  --color-font-dis: hsl(0, 0%, 60%);
 
   --card-width: 150px;
   --card-height: 240px;

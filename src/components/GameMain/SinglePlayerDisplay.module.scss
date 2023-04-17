@@ -1,6 +1,8 @@
+@import "../../styles/mixins.scss";
+
 .SinglePlayerDisplay {
   display: flex;
-  gap: var(--gap);
+  gap: 10px;
   align-items: center;
 
   // padding: 4px;
@@ -49,6 +51,11 @@
   --player-color: var(--color-player-green);
 }
 
+.Name {
+  width: 10em;
+  text-align: right;
+}
+
 .PointBarContainer {
   width: 100%;
   height: 20px;
@@ -70,4 +77,10 @@
   left: calc(100% + 0.5em);
   top: 50%;
   transform: translateY(-50%);
+}
+
+.Buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }

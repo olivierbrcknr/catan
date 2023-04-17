@@ -1,7 +1,9 @@
+@import "../../styles/mixins.scss";
+
 .GameContainer {
+  @include center-children;
   width: 100vw;
-  height: 100vh;
-  background-color: var(--color-background);
+  min-height: 100vh;
 }
 
 .GameContainerNav {
@@ -19,4 +21,6 @@
   background-color: #000;
   color: #fff;
   font-size: 10px;
+
+  z-index: 100;
 }

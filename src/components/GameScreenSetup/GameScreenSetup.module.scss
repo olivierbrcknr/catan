@@ -1,20 +1,50 @@
 @import "../../styles/mixins.scss";
 
 .GameScreenSetup {
-  height: 100%;
-  width: 100%;
-
-  display: flex;
-  align-items: center;
+  @include center-children;
   flex-direction: column;
 
+  align-items: flex-start;
+
+  width: 100%;
+  max-width: 800px;
+  margin: 40px 0;
+
+  background-color: var(--color-background);
+  border: solid var(--outline-width) var(--outline-color);
+
+  padding: var(--gap);
   padding: calc(var(--gap) * 2);
 
   overflow-y: scroll;
   gap: var(--gap);
 }
 
-.PlayerSelection {
+.GameScreenSetup section {
+  width: 100%;
+
   display: flex;
+  flex-direction: column;
   gap: var(--gap);
+  margin: var(--gap) 0;
+}
+
+.Row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--gap);
+
+  & + & {
+    margin-top: 1em;
+  }
+
+  h3 {
+    min-width: 8em;
+  }
+}
+
+.StartButton {
+  background-color: var(--color-secondary);
+  font-weight: 700;
 }

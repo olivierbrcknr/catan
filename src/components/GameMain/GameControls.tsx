@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import Button from "../Button";
 import type { Player } from "../GameContainer/types";
 
-import GamePlayerDisplay from "./GamePlayerDisplay";
+import SinglePlayerDisplay from "./SinglePlayerDisplay";
 
 import styles from "./GameControls.module.scss";
 
@@ -31,27 +32,65 @@ const GameControls = ({
   hasShipExtension,
   maxPoints,
 }: GameControlsProps) => {
+  const onSinglePlayerChangePoints = (
+    player: Player,
+    index: number,
+    value: number
+  ) => {
+    let allPlayers = players;
+    allPlayers[index] = {
+      ...player,
+      points: value,
+    };
+    setPlayers([...allPlayers]);
+  };
+
   return (
     <div className={styles.GameControls}>
       <div className={styles.playpause}>
-        <button onClick={onTogglePause}>{isPause ? "Play" : "Pause"}</button>
+        <div className={styles.Button_Play}>
+          <Button onClick={onTogglePause}>
+            {isPause ? (
+              <>
+                <FontAwesomeIcon className={styles.Button_Icon} icon="play" />
+                <span className={styles.Button_Text}>Play</span>
+              </>
+            ) : (
+              <>
+                <FontAwesomeIcon className={styles.Button_Icon} icon="pause" />
+                <span className={styles.Button_Text}>Pause</span>
+              </>
+            )}
+          </Button>
+        </div>
 
         {hasShipExtension && (
-          <button onClick={onBarbarianShipArrived}>
-            {/* @ts-ignore */}
-            <FontAwesomeIcon icon="fa-sailboat" />
-          </button>
+          <Button onClick={onBarbarianShipArrived}>
+            <>
+              <FontAwesomeIcon className={styles.Button_Icon} icon="sailboat" />
+              <span className={styles.Button_Text}>Ship</span>
+            </>
+          </Button>
         )}
       </div>
       <div className={styles.players}>
-        <GamePlayerDisplay
-          setPlayers={setPlayers}
-          players={players}
-          maxPoints={maxPoints}
-        />
+        {players.map((p, i) => (
+          <SinglePlayerDisplay
+            onChangePoints={(v) => onSinglePlayerChangePoints(p, i, v)}
+            key={`Player-${p.color}`}
+            player={p}
+            maxPoints={maxPoints}
+          />
+        ))}
       </div>
       <div className={styles.settings}>
-        <button onClick={onClickCancelGame}>Exit</button>
+        <Button
+          className={styles.ExitButton}
+          isSmall
+          onClick={onClickCancelGame}
+        >
+          Exit
+        </Button>
       </div>
     </div>
   );

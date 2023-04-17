@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 
 import type { ExpansionPack } from "../GameContainer/types";
@@ -13,26 +14,31 @@ const expansions: {
   label: string;
   value: Set<ExpansionPack>;
   className: string;
+  icon: string | string[];
 }[] = [
   {
-    label: "Base Game only",
+    label: "Base Game Only",
     value: new Set([]),
     className: styles.TypeBase,
+    icon: "square",
   },
   {
     label: "Seafarers",
     value: new Set(["Cities and Knights"]),
     className: styles.TypeSeafarers,
+    icon: "anchor",
   },
   {
     label: "Cities & Knights",
     value: new Set(["Seafarers"]),
     className: styles.TypeCitiesKinghts,
+    icon: "chess-knight",
   },
   {
     label: "Seafarers and Cities & Knights",
     value: new Set(["Cities and Knights", "Seafarers"]),
     className: styles.TypeSeaAndKinights,
+    icon: ["anchor", "chess-knight"],
   },
 ];
 
@@ -40,7 +46,7 @@ const ExpansionSelect = ({ value, onChange }: ExpansionSelectProps) => {
   return (
     <div className={styles.ExpansionSelect}>
       {expansions.map((exp, i) => (
-        <button
+        <div
           key={"expansion-" + i}
           onClick={() => {
             onChange(exp.value);
@@ -52,8 +58,28 @@ const ExpansionSelect = ({ value, onChange }: ExpansionSelectProps) => {
             exp.className
           )}
         >
-          {exp.label}
-        </button>
+          <div className={styles.IconContainer}>
+            {Array.isArray(exp.icon) ? (
+              exp.icon.map((ico, i) => (
+                <FontAwesomeIcon
+                  key={"icon-" + i}
+                  className={styles.Icon}
+                  /* @ts-ignore */
+                  icon={ico}
+                />
+              ))
+            ) : (
+              <>
+                <FontAwesomeIcon
+                  className={styles.Icon}
+                  /* @ts-ignore */
+                  icon={"fa-" + exp.icon}
+                />
+              </>
+            )}
+          </div>
+          <span className={styles.Label}>{exp.label}</span>
+        </div>
       ))}
     </div>
   );

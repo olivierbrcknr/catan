@@ -1,7 +1,9 @@
 @import "../../styles/mixins.scss";
 
 .ExpansionSelect {
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   gap: var(--gap);
 }
 
@@ -14,8 +16,12 @@
   );
   @include center-children;
 
-  width: 120px;
-  height: 90px;
+  flex-direction: column;
+  gap: 10px;
+
+  flex: 1;
+  min-height: 100px;
+  padding: 1em 0.5em;
 
   text-align: center;
 
@@ -28,6 +34,18 @@
     @include box-design(var(--expansion-highlight-color), true);
     color: var(--color-white);
   }
+}
+.IconContainer {
+  @include center-children;
+  gap: 5px;
+}
+
+.Icon {
+  height: 2em;
+}
+
+.Label {
+  @include font-gamma;
 }
 
 .TypeBase {
