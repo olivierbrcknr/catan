@@ -10,6 +10,9 @@ interface ExpansionSelectProps {
   onChange: (v: Set<ExpansionPack>) => void;
 }
 
+const exp1: ExpansionPack = "Cities and Knights";
+const exp2: ExpansionPack = "Seafarers";
+
 const expansions: {
   label: string;
   value: Set<ExpansionPack>;
@@ -24,19 +27,19 @@ const expansions: {
   },
   {
     label: "Seafarers",
-    value: new Set(["Cities and Knights"]),
+    value: new Set([exp1]),
     className: styles.TypeSeafarers,
     icon: "anchor",
   },
   {
     label: "Cities & Knights",
-    value: new Set(["Seafarers"]),
+    value: new Set([exp2]),
     className: styles.TypeCitiesKinghts,
     icon: "chess-knight",
   },
   {
     label: "Seafarers and Cities & Knights",
-    value: new Set(["Cities and Knights", "Seafarers"]),
+    value: new Set([exp1, exp2]),
     className: styles.TypeSeaAndKinights,
     icon: ["anchor", "chess-knight"],
   },
