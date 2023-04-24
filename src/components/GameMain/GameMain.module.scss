@@ -54,11 +54,14 @@
 }
 
 .IsPauseIndicator {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  @include center-children;
+
+  grid-row-start: events;
+  grid-column-start: events;
+  grid-row-end: rules;
+  grid-column-end: rules;
   z-index: 2;
+  background: var(--color-primary-transparent);
 }
 
 .IsPauseIndicator_Icon {
@@ -91,7 +94,7 @@
   grid-column-end: rules;
   z-index: 2;
 
-  background: #0003;
+  background: #0008;
 }
 
 .WinnerContainer {

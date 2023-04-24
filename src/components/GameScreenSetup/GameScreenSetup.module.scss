@@ -44,6 +44,11 @@
   }
 }
 
+.DisplaySettings {
+  display: flex;
+  flex-direction: column;
+}
+
 .StartButton {
   background-color: var(--color-secondary);
   font-weight: 700;

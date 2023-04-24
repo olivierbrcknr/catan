@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from "react";
+
+import clsx from "clsx";
 import Head from "next/head";
 
 import GameContainer from "../components/GameContainer";
@@ -16,6 +19,8 @@ const footerLinks: { url: string; title: string }[] = [
 ];
 
 function Home() {
+  const [gameIsRunning, setGameIsRunning] = useState(false);
+
   return (
     <>
       <Head>
@@ -26,33 +31,43 @@ function Home() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main>
-        {/* This is the main game container, it is wrapped to allow for more 'website' stuff around it */}
-        <GameContainer />
-      </main>
-      <footer>
-        <span>
-          2023 &copy;{" "}
-          <a target="_blank" href="http://felixlaarmann.de/">
-            Felix Laarmann
-          </a>{" "}
-          and{" "}
-          <a target="_blank" href="https://olivierbrueckner.de/">
-            Olivier Brückner
-          </a>
-        </span>
 
-        <ul>
-          {footerLinks.map((link, i) => (
-            <li key={`footer-link-${i}`}>
-              <a target="_blank" href={link.url}>
-                {link.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </footer>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="application-name" content="Fate of Catan" />
+        <meta name="apple-mobile-web-app-title" content="Fate of Catan" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <link rel="apple-touch-icon" href="/AppIcon.png" />
+      </Head>
+      <div className={clsx(styles.Wrapper, gameIsRunning && styles.isGame)}>
+        <main>
+          {/* This is the main game container, it is wrapped to allow for more 'website' stuff around it */}
+          <GameContainer onChangeInGame={setGameIsRunning} />
+        </main>
+        <footer>
+          <span>
+            2023 &copy;{" "}
+            <a target="_blank" href="http://felixlaarmann.de/">
+              Felix Laarmann
+            </a>{" "}
+            and{" "}
+            <a target="_blank" href="https://olivierbrueckner.de/">
+              Olivier Brückner
+            </a>
+          </span>
+
+          <ul>
+            {footerLinks.map((link, i) => (
+              <li key={`footer-link-${i}`}>
+                <a target="_blank" href={link.url}>
+                  {link.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </footer>
+      </div>
     </>
   );
 }

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import EventCard from "../EventCard";
+import Button from "../Button";
+import Card from "../Card";
 import type {
   InGameEvent,
   InGameRule,
   InGameAction,
 } from "../GameContainer/types";
-import RuleCard from "../RuleCard";
 
 import styles from "./GameEventPopover.module.scss";
 
@@ -23,20 +23,19 @@ const GameEventPopover = ({
   newEvent,
   onClickContinue,
 }: GameEventPopoverProps) => {
-  let card: JSX.Element = null;
-
-  if (newEvent.type === "event") {
-    card = <EventCard isInit isPause event={newEvent} />;
-  }
-  if (newEvent.type === "rule") {
-    card = <RuleCard rule={newEvent} />;
-  }
+  useEffect(() => {
+    const audio = new Audio("/sound.wav");
+    audio.play();
+  }, []);
 
   return (
     <div className={styles.GameEventPopover}>
-      {card}
+      <h3>New {newEvent.type === "event" ? newEvent.timing : "Rule"}</h3>
 
-      <button onClick={onClickContinue}>Continue</button>
+      <div className={styles.CardContainer}>
+        <Card isInit isPause event={newEvent} />
+      </div>
+      <Button onClick={onClickContinue}>Continue</Button>
     </div>
   );
 };

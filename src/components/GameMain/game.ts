@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import { BASE_PROBABILITY } from "../../utils/constants";
 import type {
@@ -208,6 +208,36 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
   const [sec, setSec] = useState(0);
   const [eventInterval, setEventInterval] = useState(0);
 
+  const spawnCard = useCallback(() => {
+    console.log("spawn card");
+
+    const newEvent = getNextEvent();
+
+    if (newEvent) {
+      setGameData((gameData) => {
+        let newGameData = { ...gameData };
+
+        let newAction: InGameAction | false = false;
+
+        if (newEvent.type === "event") {
+          newAction = getEventData(newEvent.id, cards);
+        } else {
+          newAction = getRuleData(newEvent.id, cards);
+        }
+
+        // if a new action is there we want to remove it from the deck
+        removeIDFromDeck(newAction.id);
+
+        return {
+          ...newGameData,
+          newEvent: newAction,
+        };
+      });
+
+      setIsPause(true);
+    }
+  }, [cards]);
+
   // setup the first game data
   useEffect(() => {
     console.log("init game");
@@ -243,36 +273,14 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
 
   // everytime the timer counts one up, check for new events
   useEffect(() => {
+    console.log("check if event should happen");
     const eventShouldHappen = checkForEvent();
 
     if (eventShouldHappen) {
-      const newEvent = getNextEvent();
-
-      if (newEvent) {
-        setGameData((gameData) => {
-          let newGameData = { ...gameData };
-
-          let newAction: InGameAction | false = false;
-
-          if (newEvent.type === "event") {
-            newAction = getEventData(newEvent.id, cards);
-          } else {
-            newAction = getRuleData(newEvent.id, cards);
-          }
-
-          // if a new action is there we want to remove it from the deck
-          removeIDFromDeck(newAction.id);
-
-          return {
-            ...newGameData,
-            newEvent: newAction,
-          };
-        });
-
-        setIsPause(true);
-      }
+      console.log("a new event should happen!");
+      spawnCard();
     }
-  }, [cards, eventInterval]);
+  }, [cards, eventInterval, spawnCard]);
 
   useEffect(() => {
     if (sec % 60 === 0) {
@@ -340,5 +348,6 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
     setEventIsDone,
     setbarbarianShipArrived,
     resetGame,
+    spawnCard,
   };
 };

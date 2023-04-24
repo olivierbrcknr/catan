@@ -22,13 +22,15 @@ import type {
 
 import styles from "./GameContainer.module.scss";
 
-export interface GameContainerProps {}
+export interface GameContainerProps {
+  onChangeInGame: (v: boolean) => void;
+}
 
 const MAX_STEPS = 2;
 
 const isDev = process.env.NODE_ENV === "development";
 
-const GameContainer = ({}: GameContainerProps) => {
+const GameContainer = ({ onChangeInGame }: GameContainerProps) => {
   const [airTableData, setAirTableData] = useState<AirtableData>({
     events: [],
     rules: [],
@@ -99,6 +101,10 @@ const GameContainer = ({}: GameContainerProps) => {
     setFilteredData(filterData(airTableData, filter, gameSettings));
   }, [airTableData, filter, gameSettings]);
 
+  useEffect(() => {
+    onChangeInGame(gameIsRunning);
+  }, [gameIsRunning, onChangeInGame]);
+
   const handleEndGame = () => {
     setGameIsRunning(false);
 
@@ -129,6 +135,7 @@ const GameContainer = ({}: GameContainerProps) => {
           onChangeSettings={setGameSettings}
           activeFilters={filter}
           onChangeFilters={setFilter}
+          filteredData={filteredData}
         />
       )}
 

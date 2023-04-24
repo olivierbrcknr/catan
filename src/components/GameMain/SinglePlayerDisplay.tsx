@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 
 import Button from "../Button";
@@ -43,12 +44,16 @@ const SinglePlayerDisplay = ({
         </div>
       </div>
 
-      <div className={styles.Buttons}>
-        <Button isSmall onClick={removePoint}>
-          -
+      <div className={styles.PointButtonContainer}>
+        <Button className={styles.PointButton} isSmall onClick={removePoint}>
+          <>
+            <FontAwesomeIcon className={styles.Button_Icon} icon="minus" />
+          </>
         </Button>
-        <Button isSmall onClick={addPoint}>
-          +
+        <Button className={styles.PointButton} isSmall onClick={addPoint}>
+          <>
+            <FontAwesomeIcon className={styles.Button_Icon} icon="plus" />
+          </>
         </Button>
       </div>
     </div>

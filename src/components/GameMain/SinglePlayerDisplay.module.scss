@@ -79,8 +79,18 @@
   transform: translateY(-50%);
 }
 
-.Buttons {
+.PointButtonContainer {
   display: flex;
   gap: 10px;
   align-items: center;
+}
+
+.PointButton {
+  @include center-children;
+  height: 28px;
+  width: 28px;
+}
+
+.Button_Icon {
+  height: 10px;
 }

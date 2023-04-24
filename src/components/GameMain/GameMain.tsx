@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import EventCard from "../EventCard";
+import Card from "../Card";
 import type {
   Player,
   GameSettings,
@@ -14,7 +14,6 @@ import type {
   InGameRule,
   InGameAction,
 } from "../GameContainer/types";
-import RuleCard from "../RuleCard";
 
 import { useGameChange } from "./game";
 import GameControls from "./GameControls";
@@ -50,6 +49,7 @@ const GameMain = ({
     setEventIsDone,
     setbarbarianShipArrived,
     resetGame,
+    spawnCard,
   } = useGameChange(filteredData, gameSettings);
 
   const [winner, setWinner] = useState<Player | undefined>();
@@ -72,7 +72,7 @@ const GameMain = ({
     <div className={styles.GameMain}>
       <div className={styles.Events}>
         {gameData?.events.map((ev, i) => (
-          <EventCard
+          <Card
             isPause={isPause}
             key={`Event-${i}`}
             event={ev}
@@ -83,7 +83,7 @@ const GameMain = ({
 
       <div className={styles.Rules}>
         {gameData?.rules.map((rul, i) => (
-          <RuleCard key={`Rule-${i}`} rule={rul} />
+          <Card isPause={isPause} key={`Rule-${i}`} event={rul} />
         ))}
       </div>
 
@@ -99,6 +99,7 @@ const GameMain = ({
           players={players}
           setPlayers={setPlayers}
           maxPoints={gameSettings.maxPointsNeeded}
+          onClickSpawnCard={spawnCard}
         />
       </div>
 

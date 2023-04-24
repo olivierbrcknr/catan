@@ -13,9 +13,7 @@ export interface GameWinnerPopoverProps {
 const GameWinnerPopover = ({ winner, onDone }: GameWinnerPopoverProps) => {
   return (
     <div className={clsx(styles.GameWinnerPopover, `color-${winner.color}`)}>
-      {winner.name} won!
-      <br />
-      <br />
+      <div className={styles.Name}>{winner.name} won!</div>
       <Button onClick={onDone}>Done</Button>
     </div>
   );

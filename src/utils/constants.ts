@@ -3,8 +3,8 @@ export const AIRTABLE_BASE_ID = "appgLBvdqjcGSwbua";
 export const PLAYER_START_POINTS = 2;
 
 // in s
-export const EVENT_FREQUENCY_LOW = 120;
-export const EVENT_FREQUENCY_MEDIUM = 50;
+export const EVENT_FREQUENCY_LOW = 60;
+export const EVENT_FREQUENCY_MEDIUM = 30;
 export const EVENT_FREQUENCY_HIGH = 15;
 
 // in s

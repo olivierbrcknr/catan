@@ -8,6 +8,12 @@
   background: var(--player-color);
 }
 
+.Name {
+  @include font-alpha;
+  font-size: 42px;
+  margin-bottom: 0.5em;
+}
+
 .GameWinnerPopover:global(.color-red) {
   --player-color: var(--color-player-red);
 }

@@ -12,6 +12,7 @@ import {
 } from "../../utils/constants";
 import Button from "../Button";
 import type {
+  AirtableData,
   Player,
   GameSettings,
   CardFilter,
@@ -33,6 +34,7 @@ export interface GameScreenSetupProps {
   onChangeSettings: (v: GameSettings) => void;
   activeFilters: CardFilter;
   onChangeFilters: (v: CardFilter) => void;
+  filteredData: AirtableData;
 }
 
 const GameScreenSetup = ({
@@ -43,6 +45,7 @@ const GameScreenSetup = ({
   onChangeSettings,
   activeFilters,
   onChangeFilters,
+  filteredData,
 }: GameScreenSetupProps) => {
   const onSinglePlayerChange = (updatedPlayer: Player, index: number) => {
     let allPlayers = players;
@@ -109,24 +112,27 @@ const GameScreenSetup = ({
       <section>
         <h2>Gameplay</h2>
 
-        <TabSelect
-          options={[
-            {
-              label: "Low",
-              value: EVENT_FREQUENCY_LOW,
-            },
-            {
-              label: "Medium",
-              value: EVENT_FREQUENCY_MEDIUM,
-            },
-            {
-              label: "High",
-              value: EVENT_FREQUENCY_HIGH,
-            },
-          ]}
-          value={gameSettings.eventFrequency}
-          onChange={(v) => settingsChange(v, "eventFrequency")}
-        />
+        <div className={styles.Row}>
+          <h3>Frequency</h3>
+          <TabSelect
+            options={[
+              {
+                label: "Low",
+                value: EVENT_FREQUENCY_LOW,
+              },
+              {
+                label: "Medium",
+                value: EVENT_FREQUENCY_MEDIUM,
+              },
+              {
+                label: "High",
+                value: EVENT_FREQUENCY_HIGH,
+              },
+            ]}
+            value={gameSettings.eventFrequency}
+            onChange={(v) => settingsChange(v, "eventFrequency")}
+          />
+        </div>
       </section>
 
       <section>
@@ -153,7 +159,7 @@ const GameScreenSetup = ({
             onChange={(v) => settingsChange(v, "funkLevel")}
           />
         </div>
-        <div className={styles.Row}>
+        {/*<div className={styles.Row}>
           <h3>Card Variety</h3>
           <TabSelect
             options={[
@@ -173,13 +179,19 @@ const GameScreenSetup = ({
             value={gameSettings.cardVariety}
             onChange={(v) => settingsChange(v, "cardVariety")}
           />
-        </div>
+        </div>*/}
       </section>
 
       <section>
         <div className={styles.Row}>
-          <Button onClick={() => {}}>Edit Deck</Button>
-
+          {/*<Button disabled onClick={() => {}}>
+            Edit Deck
+          </Button>*/}
+          <div className={styles.DisplaySettings}>
+            <span>Events: {filteredData.events.length}</span>
+            <span>Rules: {filteredData.rules.length}</span>
+            <span>New card check every {gameSettings.eventFrequency}s</span>
+          </div>
           <Button
             className={styles.StartButton}
             disabled={players.filter((p) => p.isActive).length < 2}

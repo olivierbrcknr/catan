@@ -1,6 +1,6 @@
 @import "../../styles/mixins.scss";
 
-.EventCard {
+.Card {
   --event-card-highlight-color: #000;
 
   min-width: var(--card-width);
@@ -21,6 +21,12 @@
   gap: 0.3em;
 }
 
+.isRule {
+  --event-card-highlight-color: var(--color-rule);
+
+  min-height: initial;
+}
+
 .typeTemporary {
   --event-card-highlight-color: var(--color-event-type-temporary);
 }
@@ -31,19 +37,19 @@
   --event-card-highlight-color: var(--color-event-type-one-time);
 }
 
-.Icon {
+.CardIcon {
   color: var(--event-card-highlight-color);
-  font-size: 26px;
+  height: 26px;
 }
 
 .Title {
+  @include font-gamma;
   color: var(--event-card-highlight-color);
-  font-size: 16px;
   text-align: center;
 }
 
 .Description {
-  font-size: 12px;
+  @include font-delta;
 }
 
 .Controls {
@@ -52,10 +58,23 @@
   @include center-children;
 }
 
+.ControlsProgress {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 6px;
+
+  label {
+    @include font-delta;
+    color: var(--event-card-highlight-color);
+  }
+}
+
 .Controls progress {
   width: 100%;
   @include button-reset;
   height: 10px;
+  cursor: default;
 
   &::-webkit-progress-bar {
     background-color: transparent;
@@ -67,14 +86,9 @@
     background: var(--event-card-highlight-color);
   }
 }
-.Controls button {
-  @include button-reset;
+.DoneButton {
   color: var(--event-card-highlight-color);
-  padding: 0.2em 0.5em;
-  border-radius: 4px;
-  font-weight: bold;
-  border: solid 2px var(--event-card-highlight-color);
-  cursor: pointer;
+  border-color: var(--event-card-highlight-color);
 
   &:active {
     background: var(--event-card-highlight-color);
@@ -84,4 +98,25 @@
 
 .typeBarbarianShip .Controls {
   color: var(--event-card-highlight-color);
+
+  .BarbarianShipIcon {
+    height: 26px;
+  }
+}
+
+.isInit {
+  width: 280px;
+  min-height: 360px;
+
+  .Icon {
+    font-size: 32px;
+  }
+
+  .Title {
+    font-size: 26px;
+  }
+
+  .Description {
+    font-size: 18px;
+  }
 }

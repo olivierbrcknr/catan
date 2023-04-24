@@ -18,6 +18,7 @@ export interface GameControlsProps {
   onBarbarianShipArrived: () => void;
   hasShipExtension: boolean;
   maxPoints: number;
+  onClickSpawnCard: () => void;
 }
 
 const isDev = process.env.NODE_ENV === "development";
@@ -31,6 +32,7 @@ const GameControls = ({
   onBarbarianShipArrived,
   hasShipExtension,
   maxPoints,
+  onClickSpawnCard,
 }: GameControlsProps) => {
   const onSinglePlayerChangePoints = (
     player: Player,
@@ -65,7 +67,7 @@ const GameControls = ({
         </div>
 
         {hasShipExtension && (
-          <Button onClick={onBarbarianShipArrived}>
+          <Button disabled={isPause} onClick={onBarbarianShipArrived}>
             <>
               <FontAwesomeIcon className={styles.Button_Icon} icon="sailboat" />
               <span className={styles.Button_Text}>Ship</span>
@@ -84,6 +86,9 @@ const GameControls = ({
         ))}
       </div>
       <div className={styles.settings}>
+        <Button isSmall onClick={onClickSpawnCard} disabled={isPause}>
+          Spawn Card
+        </Button>
         <Button
           className={styles.ExitButton}
           isSmall
