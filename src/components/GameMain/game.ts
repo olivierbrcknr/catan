@@ -131,7 +131,7 @@ const controlDeck = (min: number, cards: AirtableData, gameData: GameData) => {
     const endTime = e?.["End Time"];
 
     // if in range, add to deck
-    if (!startTime || startTime <= min) {
+    if (!startTime || startTime <= min || startTime <= 1) {
       if (!endTime || endTime > min) {
         // only add if not in game already
         if (!currentEventIDs.has(e.id)) {
@@ -209,32 +209,36 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
   const [eventInterval, setEventInterval] = useState(0);
 
   const spawnCard = useCallback(() => {
-    console.log("spawn card");
+    console.log("spawn card. Cards in Deck", currentDeck.length);
 
-    const newEvent = getNextEvent();
+    if (currentDeck.length === 0) {
+      console.log("No cards in deck");
+    } else {
+      const newEvent = getNextEvent();
 
-    if (newEvent) {
-      setGameData((gameData) => {
-        let newGameData = { ...gameData };
+      if (newEvent) {
+        setGameData((gameData) => {
+          let newGameData = { ...gameData };
 
-        let newAction: InGameAction | false = false;
+          let newAction: InGameAction | false = false;
 
-        if (newEvent.type === "event") {
-          newAction = getEventData(newEvent.id, cards);
-        } else {
-          newAction = getRuleData(newEvent.id, cards);
-        }
+          if (newEvent.type === "event") {
+            newAction = getEventData(newEvent.id, cards);
+          } else {
+            newAction = getRuleData(newEvent.id, cards);
+          }
 
-        // if a new action is there we want to remove it from the deck
-        removeIDFromDeck(newAction.id);
+          // if a new action is there we want to remove it from the deck
+          removeIDFromDeck(newAction.id);
 
-        return {
-          ...newGameData,
-          newEvent: newAction,
-        };
-      });
+          return {
+            ...newGameData,
+            newEvent: newAction,
+          };
+        });
 
-      setIsPause(true);
+        setIsPause(true);
+      }
     }
   }, [cards]);
 
