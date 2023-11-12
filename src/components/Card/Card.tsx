@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 
+import { useIsMobile } from "../../utils/hooks";
 import Button from "../Button";
 import type {
   InGameAction,
@@ -27,6 +28,8 @@ const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
   const [sec, setSec] = useState(0);
 
   const [progress, setProgress] = useState(0);
+
+  const isMobile = useIsMobile();
 
   // start our card internal timer if is a temporary event
   useEffect(() => {

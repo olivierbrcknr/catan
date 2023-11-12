@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { useIsMobile } from "../../utils/hooks";
 import Card from "../Card";
 import type {
   Player,
@@ -14,6 +15,7 @@ import type {
   InGameRule,
   InGameAction,
 } from "../GameContainer/types";
+import TabSelect from "../TabSelect";
 
 import { useGameChange } from "./game";
 import GameControls from "./GameControls";
@@ -41,6 +43,12 @@ const GameMain = ({
   filteredData,
   hasShipExtension,
 }: GameMainProps) => {
+  const [mobileViewSelect, setMobileViewSelect] = useState<"events" | "rules">(
+    "events"
+  );
+
+  const isMobile = useIsMobile();
+
   const {
     gameData,
     isPause,
@@ -70,6 +78,21 @@ const GameMain = ({
 
   return (
     <div className={styles.GameMain}>
+      {/*<TabSelect
+        options={[
+          {
+            label: "Events",
+            value: "events",
+          },
+          {
+            label: "Rules",
+            value: "rules",
+          },
+        ]}
+        value={mobileViewSelect}
+        onChange={(v) => setMobileViewSelect(v as "events" | "rules")}
+      />*/}
+
       <div className={styles.Events}>
         {gameData?.events.map((ev, i) => (
           <Card
@@ -82,6 +105,7 @@ const GameMain = ({
       </div>
 
       <div className={styles.Rules}>
+        <h4>Rules</h4>
         {gameData?.rules.map((rul, i) => (
           <Card isPause={isPause} key={`Rule-${i}`} event={rul} />
         ))}

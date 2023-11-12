@@ -1,3 +1,5 @@
+$mobile-width: 720px;
+
 @mixin button-reset {
   appearance: none;
 
@@ -70,4 +72,13 @@
   font-family: var(--font-family-reg);
   font-weight: 600;
   letter-spacing: 0.03em;
+}
+
+// small text
+@mixin font-epsilon {
+  font-size: 13px;
+  font-family: var(--font-family-reg);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }

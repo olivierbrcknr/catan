@@ -48,6 +48,11 @@ h3 {
   @include font-beta;
 }
 
+h4 {
+  @include font-epsilon;
+  opacity: 0.5;
+}
+
 footer {
   display: flex;
   padding: 1em;
@@ -66,5 +71,20 @@ footer {
     gap: 1em;
     justify-content: space-between;
     list-style: none;
+  }
+}
+
+@media only screen and (max-width: $mobile-width) {
+  body {
+    background: var(--color-background);
+  }
+
+  footer {
+    flex-direction: column-reverse;
+    gap: 1em;
+
+    ul {
+      justify-content: flex-start;
+    }
   }
 }

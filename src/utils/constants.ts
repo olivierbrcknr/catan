@@ -14,3 +14,5 @@ export const CARD_VARIETY_HIGH = 15;
 
 // number between 0-1; probability of an event to trigger
 export const BASE_PROBABILITY = 0.1;
+
+export const MOBILE_WIDTH = 720;

@@ -56,3 +56,11 @@
   background: var(--color-player-red);
   color: var(--color-white);
 }
+
+@media only screen and (max-width: $mobile-width) {
+  .GameControls {
+    display: grid;
+    grid-template-areas: "players players" "play_pause settings";
+    grid-template-columns: 1fr 1fr;
+  }
+}

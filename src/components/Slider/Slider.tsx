@@ -29,13 +29,17 @@ const Slider = ({
     <div className={styles.Slider}>
       {labelMin && <div className={styles.Label}>{labelMin}</div>}
 
-      <input
-        type="range"
-        value={value}
-        onChange={handleChange}
-        min={min}
-        max={max}
-      />
+      <div className={styles.SliderContainer}>
+        <div className={styles.Track} />
+
+        <input
+          type="range"
+          value={value}
+          onChange={handleChange}
+          min={min}
+          max={max}
+        />
+      </div>
 
       {labelMax && <div className={styles.Label}>{labelMax}</div>}
     </div>

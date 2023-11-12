@@ -8,12 +8,11 @@
 
   width: 100%;
   max-width: 800px;
-  margin: 40px 0;
+  margin: 40px 16px;
 
   background-color: var(--color-background);
   border: solid var(--outline-width) var(--outline-color);
 
-  padding: var(--gap);
   padding: calc(var(--gap) * 2);
 
   overflow-y: scroll;
@@ -52,4 +51,21 @@
 .StartButton {
   background-color: var(--color-secondary);
   font-weight: 700;
+}
+
+@media only screen and (max-width: $mobile-width) {
+  .GameScreenSetup {
+    border: none;
+    margin: 0;
+    padding: var(--gap);
+  }
+
+  .Row {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .GameScreenSetup section {
+    margin: 0.5em 0;
+  }
 }

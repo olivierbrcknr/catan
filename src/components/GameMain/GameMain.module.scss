@@ -106,3 +106,25 @@
   grid-column-end: controls;
   z-index: 3;
 }
+
+@media only screen and (max-width: $mobile-width) {
+  .GameMain {
+    display: grid;
+    grid-template-areas:
+      "events"
+      "rules"
+      "controls";
+
+    grid-template-rows: 2fr 1fr max-content;
+    grid-template-columns: 1fr;
+  }
+
+  .Rules {
+    border-left: none;
+    border-top: solid 2px var(--color-black);
+  }
+
+  .Events {
+    grid-template-columns: repeat(auto-fill, minmax(1fr, var(--card-width)));
+  }
+}
