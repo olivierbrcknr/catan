@@ -54,12 +54,10 @@ const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
   }, [event, isPause]);
 
   useEffect(() => {
-    if (event.type === "event") {
+    if (event.type === "event" && event.timing === "Temporary Event") {
       // total time in sec
       const totalTime = event.timingDetails * 60;
-
       let value = (sec / totalTime) * 100;
-
       setProgress(value);
     }
   }, [sec, event]);

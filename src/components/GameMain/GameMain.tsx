@@ -97,7 +97,7 @@ const GameMain = ({
         {gameData?.events.map((ev, i) => (
           <Card
             isPause={isPause}
-            key={`Event-${i}`}
+            key={`Event-${ev.id}`}
             event={ev}
             onIsDone={setEventIsDone}
           />
@@ -107,7 +107,7 @@ const GameMain = ({
       <div className={styles.Rules}>
         <h4>Rules</h4>
         {gameData?.rules.map((rul, i) => (
-          <Card isPause={isPause} key={`Rule-${i}`} event={rul} />
+          <Card isPause={isPause} key={`Rule-${rul.id}`} event={rul} />
         ))}
       </div>
 
