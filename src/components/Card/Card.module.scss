@@ -65,6 +65,10 @@
   gap: 6px;
 
   label {
+    text-align: right;
+    min-width: 44px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
     @include font-delta;
     color: var(--event-card-highlight-color);
   }

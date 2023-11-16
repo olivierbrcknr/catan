@@ -70,6 +70,23 @@ const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
     }
   }, [event, progress, onIsDone]);
 
+  let timeRemaining: number;
+  let timeRemainingLabel: string;
+
+  if (
+    !isInit &&
+    event.type === "event" &&
+    event?.timing === "Temporary Event"
+  ) {
+    timeRemaining = (1 - progress / 100) * event.timingDetails;
+
+    if (timeRemaining < 1) {
+      timeRemainingLabel = Math.round(timeRemaining * 60) + "\u2009sec";
+    } else {
+      timeRemainingLabel = Math.round(timeRemaining) + "\u2009min";
+    }
+  }
+
   return (
     <div
       className={clsx(
@@ -118,9 +135,7 @@ const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
           {event.timing === "Temporary Event" && (
             <div className={styles.ControlsProgress}>
               <progress value={progress} max={100} />
-              <label>
-                {Math.round((1 - progress / 100) * event.timingDetails)}min
-              </label>
+              <label>{timeRemainingLabel}</label>
             </div>
           )}
         </div>
