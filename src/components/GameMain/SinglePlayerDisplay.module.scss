@@ -79,6 +79,14 @@
   transform: translateY(-50%);
 }
 
+.MaxPoints {
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.3;
+}
+
 .PointButtonContainer {
   display: flex;
   gap: 10px;

@@ -110,8 +110,21 @@ const GameScreenSetup = ({
       </section>
 
       <section>
-        <h2>Gameplay</h2>
+        <h2>Rules</h2>
 
+        <div className={styles.Row}>
+          <h3>Victory Points ({gameSettings.maxPointsNeeded})</h3>
+          <Slider
+            value={gameSettings.maxPointsNeeded}
+            min={0}
+            max={30}
+            onChange={(v) => settingsChange(v, "maxPointsNeeded")}
+          />
+        </div>
+      </section>
+
+      <section>
+        <h2>Events</h2>
         <div className={styles.Row}>
           <h3>Frequency</h3>
           <TabSelect
@@ -133,10 +146,6 @@ const GameScreenSetup = ({
             onChange={(v) => settingsChange(v, "eventFrequency")}
           />
         </div>
-      </section>
-
-      <section>
-        <h2>Events & Rules</h2>
         <div className={styles.Row}>
           <h3>Evilness</h3>
           <Slider

@@ -27,7 +27,7 @@ const Slider = ({
 
   return (
     <div className={styles.Slider}>
-      {labelMin && <div className={styles.Label}>{labelMin}</div>}
+      <div className={styles.Label}>{labelMin ?? min}</div>
 
       <div className={styles.SliderContainer}>
         <div className={styles.Track} />
@@ -41,7 +41,7 @@ const Slider = ({
         />
       </div>
 
-      {labelMax && <div className={styles.Label}>{labelMax}</div>}
+      <div className={styles.Label}>{labelMax ?? max}</div>
     </div>
   );
 };

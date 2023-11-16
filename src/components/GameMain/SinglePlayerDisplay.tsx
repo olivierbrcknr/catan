@@ -42,6 +42,7 @@ const SinglePlayerDisplay = ({
         >
           <div className={styles.PointCount}>{player.points}</div>
         </div>
+        <div className={styles.MaxPoints}>{maxPoints}</div>
       </div>
 
       <div className={styles.PointButtonContainer}>
