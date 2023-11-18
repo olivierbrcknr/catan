@@ -2,21 +2,19 @@
 
 .GameScreenSetup {
   @include center-children;
+  @include floating-ui;
+
+  padding: 2rem;
+  gap: 1rem;
+
   flex-direction: column;
 
   align-items: flex-start;
 
   width: 100%;
   max-width: 800px;
-  margin: 40px 16px;
-
-  background-color: var(--color-background);
-  border: solid var(--outline-width) var(--outline-color);
-
-  padding: calc(var(--gap) * 2);
-
+  margin: 4rem 2rem;
   overflow-y: scroll;
-  gap: var(--gap);
 }
 
 .GameScreenSetup section {
@@ -24,15 +22,15 @@
 
   display: flex;
   flex-direction: column;
-  gap: var(--gap);
-  margin: var(--gap) 0;
+  gap: 1rem;
+  margin: 1rem 0;
 }
 
 .Row {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  gap: var(--gap);
+  gap: 1rem;
 
   & + & {
     margin-top: 1em;
@@ -57,7 +55,7 @@
   .GameScreenSetup {
     border: none;
     margin: 0;
-    padding: var(--gap);
+    padding: 1rem;
   }
 
   .Row {

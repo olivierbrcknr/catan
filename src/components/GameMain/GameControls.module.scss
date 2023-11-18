@@ -1,15 +1,12 @@
 @import "../../styles/mixins.scss";
 
 .GameControls {
+  @include floating-ui;
+
   display: grid;
   grid-template-areas: "play_pause players settings";
   grid-template-columns: 160px 1fr 160px;
   grid-gap: calc(var(--gap) * 2);
-  padding: var(--gap);
-
-  background: var(--color-background);
-  border-top: solid 2px var(--color-black);
-
   user-select: none;
 }
 
@@ -48,7 +45,7 @@
 }
 
 .Button_Icon {
-  height: 2em;
+  height: 1.4em;
   margin-right: 0.5em;
 }
 

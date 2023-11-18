@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import clsx from "clsx";
 
 import { useIsMobile } from "../../utils/hooks";
 import Card from "../Card";
@@ -58,6 +59,7 @@ const GameMain = ({
     setbarbarianShipArrived,
     resetGame,
     spawnCard,
+    sec,
   } = useGameChange(filteredData, gameSettings);
 
   const [winner, setWinner] = useState<Player | undefined>();
@@ -76,24 +78,24 @@ const GameMain = ({
     onClickCancelGame();
   };
 
+  const minutes = Math.floor(sec / 60);
+  const hours = Math.floor(minutes / 60);
+  const minutesRemaining = minutes - hours * 60;
+
   return (
     <div className={styles.GameMain}>
-      {/*<TabSelect
-        options={[
-          {
-            label: "Events",
-            value: "events",
-          },
-          {
-            label: "Rules",
-            value: "rules",
-          },
-        ]}
-        value={mobileViewSelect}
-        onChange={(v) => setMobileViewSelect(v as "events" | "rules")}
-      />*/}
+      <div className={styles.Header}>
+        <div className={clsx(styles.Stats)}>
+          <label>Time Running</label>
+          {hours}:{minutesRemaining < 10 && "0"}
+          {minutesRemaining}
+        </div>
+      </div>
 
       <div className={styles.Events}>
+        {gameData?.rules.map((rul, i) => (
+          <Card isPause={isPause} key={`Rule-${rul.id}`} event={rul} />
+        ))}
         {gameData?.events.map((ev, i) => (
           <Card
             isPause={isPause}
@@ -104,12 +106,38 @@ const GameMain = ({
         ))}
       </div>
 
-      <div className={styles.Rules}>
-        <h4>Rules</h4>
-        {gameData?.rules.map((rul, i) => (
-          <Card isPause={isPause} key={`Rule-${rul.id}`} event={rul} />
-        ))}
-      </div>
+      {isPause && !gameData.newEvent && (
+        <div className={clsx(styles.Overlay, styles.IsPauseIndicator)}>
+          <FontAwesomeIcon
+            className={styles.IsPauseIndicator_Icon}
+            icon="pause"
+          />
+        </div>
+      )}
+
+      {gameData.newEvent && (
+        <div
+          className={clsx(
+            styles.NewEventContainer,
+            styles.Overlay,
+            gameData.newEvent.type === "rule" && styles.typeRule,
+            gameData.newEvent.type === "event" &&
+              gameData.newEvent.timing === "Temporary Event" &&
+              styles.typeTemporary,
+            gameData.newEvent.type === "event" &&
+              gameData.newEvent.timing === "Until barbarian ship" &&
+              styles.typeBarbarianShip,
+            gameData.newEvent.type === "event" &&
+              gameData.newEvent.timing === "One time event" &&
+              styles.typeOneTime
+          )}
+        >
+          <GameEventPopover
+            onClickContinue={setEventIsRead}
+            newEvent={gameData.newEvent}
+          />
+        </div>
+      )}
 
       <div className={styles.Controls}>
         <GameControls
@@ -124,26 +152,9 @@ const GameMain = ({
           setPlayers={setPlayers}
           maxPoints={gameSettings.maxPointsNeeded}
           onClickSpawnCard={spawnCard}
+          isNewEvent={gameData.newEvent ? true : false}
         />
       </div>
-
-      {isPause && !gameData.newEvent && (
-        <div className={styles.IsPauseIndicator}>
-          <FontAwesomeIcon
-            className={styles.IsPauseIndicator_Icon}
-            icon="pause"
-          />
-        </div>
-      )}
-
-      {gameData.newEvent && (
-        <div className={styles.NewEventContainer}>
-          <GameEventPopover
-            onClickContinue={setEventIsRead}
-            newEvent={gameData.newEvent}
-          />
-        </div>
-      )}
 
       {winner && (
         <div className={styles.WinnerContainer}>
@@ -154,4 +165,4 @@ const GameMain = ({
   );
 };
 
-export default GameMain;
+export default React.memo(GameMain);

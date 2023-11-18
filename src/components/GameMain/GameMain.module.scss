@@ -4,68 +4,84 @@
   height: 100vh;
   width: 100vw;
 
-  display: grid;
-  grid-template-areas:
-    "events rules"
-    "controls controls";
+  background-image: url("/dot.svg");
 
-  grid-template-rows: 1fr max-content;
-  grid-template-columns: 1fr 320px;
+  // used for padding
+  --game-control-height: 14rem;
 
+  overflow-y: scroll;
+
+  padding-bottom: var(--game-control-height);
+}
+
+.Header {
+  padding: 2rem;
+  padding-bottom: 0;
+  display: flex;
+}
+.Stats {
+  @include font-epsilon;
+  height: 2rem;
+  padding: 0.8rem;
   background: var(--color-background);
+
+  label {
+    color: var(--color-font-med);
+    margin-right: 0.5em;
+  }
 }
 
 .Events {
-  padding: var(--gap);
+  padding: 2rem;
 
-  grid-area: events;
+  grid-gap: 2rem;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
-  grid-template-rows: repeat(auto-fill, minmax(var(--card-height), 1fr));
-
-  grid-gap: var(--gap);
-
-  overflow-y: scroll;
-  z-index: 1;
-
-  background: url("/dot-grid.svg");
-}
-
-.Rules {
-  grid-area: rules;
-
-  background: var(--color-page-background);
-
-  padding: var(--gap);
-
-  overflow-y: scroll;
-
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap);
-
-  border-left: solid 2px var(--color-black);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-rows: masonry;
   z-index: 1;
 }
 
 .Controls {
-  grid-area: controls;
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  right: 2rem;
+  z-index: 3;
+}
+
+.Overlay {
+  @include center-children;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+
+  padding-bottom: var(--game-control-height);
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.3;
+  }
 }
 
 .IsPauseIndicator {
-  @include center-children;
-
-  grid-row-start: events;
-  grid-column-start: events;
-  grid-row-end: rules;
-  grid-column-end: rules;
-  z-index: 2;
-  background: var(--color-primary-transparent);
+  color: var(--color-highlight);
+  &:before {
+    background: currentColor;
+  }
 }
 
 .IsPauseIndicator_Icon {
-  height: 100px;
+  height: 10rem;
   color: var(--color-primary);
   transform-origin: center center;
 
@@ -86,45 +102,31 @@
 }
 
 .NewEventContainer {
-  @include center-children;
+  &.typeRule {
+    --event-card-highlight-color: var(--color-event-type-rule);
+  }
+  &.typeTemporary {
+    --event-card-highlight-color: var(--color-event-type-temporary);
+  }
+  &.typeBarbarianShip {
+    --event-card-highlight-color: var(--color-event-type-barbarian-ship);
+  }
+  &.typeOneTime {
+    --event-card-highlight-color: var(--color-event-type-one-time);
+  }
 
-  grid-row-start: events;
-  grid-column-start: events;
-  grid-row-end: rules;
-  grid-column-end: rules;
-  z-index: 2;
-
-  background: #0008;
+  &:before {
+    background: var(--event-card-highlight-color);
+  }
 }
 
 .WinnerContainer {
   @include center-children;
 
-  grid-row-start: events;
-  grid-column-start: events;
-  grid-row-end: controls;
-  grid-column-end: controls;
-  z-index: 3;
-}
-
-@media only screen and (max-width: $mobile-width) {
-  .GameMain {
-    display: grid;
-    grid-template-areas:
-      "events"
-      "rules"
-      "controls";
-
-    grid-template-rows: 2fr 1fr max-content;
-    grid-template-columns: 1fr;
-  }
-
-  .Rules {
-    border-left: none;
-    border-top: solid 2px var(--color-black);
-  }
-
-  .Events {
-    grid-template-columns: repeat(auto-fill, minmax(1fr, var(--card-width)));
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
 }

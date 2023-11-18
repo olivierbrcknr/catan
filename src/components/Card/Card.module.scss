@@ -3,30 +3,28 @@
 .Card {
   --event-card-highlight-color: #000;
 
-  min-width: var(--card-width);
-  min-height: var(--card-height);
+  width: 100%;
   height: min-content;
 
-  border-radius: 5px;
-  border: solid 3px var(--card-color-outline);
-  box-shadow: 4px 4px 0px var(--card-color-outline);
+  border-radius: var(--border-radius-card);
+  border: solid var(--stroke-width) var(--color-border);
+  background: var(--color-card-bg);
 
-  background: var(--card-color-bg);
-
-  padding: 0.5em;
+  padding: 1.6rem;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.3em;
+  align-items: flex-start;
+  gap: 1.2rem;
 }
 
-.isRule {
-  --event-card-highlight-color: var(--color-rule);
-
-  min-height: initial;
+.isInit {
 }
 
+// Themes
+.typeRule {
+  --event-card-highlight-color: var(--color-event-type-rule);
+}
 .typeTemporary {
   --event-card-highlight-color: var(--color-event-type-temporary);
 }
@@ -37,90 +35,97 @@
   --event-card-highlight-color: var(--color-event-type-one-time);
 }
 
+// Style
+.Header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.8rem;
+}
+
 .CardIcon {
   color: var(--event-card-highlight-color);
-  height: 26px;
+  height: 2rem;
 }
 
 .Title {
-  @include font-gamma;
+  @include font-beta;
   color: var(--event-card-highlight-color);
-  text-align: center;
 }
 
 .Description {
-  @include font-delta;
+  @include font-gamma;
+  max-width: 26em;
 }
 
-.Controls {
-  margin-top: auto;
+.Footer {
   width: 100%;
-  @include center-children;
-}
-
-.ControlsProgress {
   display: flex;
-  width: 100%;
+  height: 1.6rem;
   align-items: center;
-  gap: 6px;
+  gap: 0.4rem;
+}
+
+.FooterLabel {
+  @include font-epsilon;
+  color: var(--event-card-highlight-color);
+}
+
+// Timed Event
+.typeTemporary {
+  progress {
+    width: 100%;
+    @include button-reset;
+    height: 0.9rem;
+    cursor: default;
+
+    &::-webkit-progress-bar {
+      background-color: var(--color-background);
+      border-radius: 100px;
+      border: solid var(--stroke-width) var(--color-border);
+      overflow: hidden;
+    }
+
+    &::-webkit-progress-value {
+      background: var(--event-card-highlight-color);
+      border-right: solid var(--stroke-width) var(--color-border);
+    }
+  }
 
   label {
     text-align: right;
     min-width: 44px;
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
-    @include font-delta;
+    @include font-gamma;
     color: var(--event-card-highlight-color);
   }
 }
 
-.Controls progress {
-  width: 100%;
-  @include button-reset;
-  height: 10px;
-  cursor: default;
-
-  &::-webkit-progress-bar {
-    background-color: transparent;
-    border-radius: 100px;
-    border: solid 2px var(--event-card-highlight-color);
-  }
-
-  &::-webkit-progress-value {
-    background: var(--event-card-highlight-color);
-  }
-}
-.DoneButton {
-  color: var(--event-card-highlight-color);
-  border-color: var(--event-card-highlight-color);
-
-  &:active {
-    background: var(--event-card-highlight-color);
-    color: var(--color-white);
+// Barbarian Ship
+.typeBarbarianShip {
+  // TODO: Fix Line
+  .FooterLine {
+    width: 100%;
+    height: 0.8rem;
+    background: url("/wave-line.svg");
+    background-size: auto 100%;
+    background-repeat: repeat-x;
   }
 }
 
-.typeBarbarianShip .Controls {
-  color: var(--event-card-highlight-color);
-
-  .BarbarianShipIcon {
-    height: 26px;
+// One Time Event
+.typeOneTime {
+  .FooterLine {
+    width: 100%;
+    border-bottom: dashed 0.2rem var(--event-card-highlight-color);
   }
 }
 
-.isInit {
-  width: 280px;
-  min-height: 360px;
-
-  .Icon {
-    font-size: 32px;
-  }
-
-  .Title {
-    font-size: 26px;
-  }
-
-  .Description {
-    font-size: 18px;
+// Rule
+.typeRule {
+  .FooterLine {
+    width: 100%;
+    border-bottom: solid 0.2rem var(--event-card-highlight-color);
   }
 }

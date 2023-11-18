@@ -46,7 +46,7 @@ function Home() {
           <GameContainer onChangeInGame={setGameIsRunning} />
         </main>
         <footer>
-          <span>
+          <span className="footer_bg">
             2023 &copy;{" "}
             <a target="_blank" href="http://felixlaarmann.de/">
               Felix Laarmann
@@ -57,7 +57,7 @@ function Home() {
             </a>
           </span>
 
-          <ul>
+          <ul className="footer_bg">
             {footerLinks.map((link, i) => (
               <li key={`footer-link-${i}`}>
                 <a target="_blank" href={link.url}>

@@ -30,8 +30,6 @@ const GameEventPopover = ({
 
   return (
     <div className={styles.GameEventPopover}>
-      <h3>New {newEvent.type === "event" ? newEvent.timing : "Rule"}</h3>
-
       <div className={styles.CardContainer}>
         <Card isInit isPause event={newEvent} />
       </div>

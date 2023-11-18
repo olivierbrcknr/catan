@@ -9,10 +9,11 @@
 
 a {
   color: inherit;
-  text-underline-offset: 3px;
+  text-underline-offset: 0.3em;
+  text-decoration-color: var(--color-font-med);
 
   &:hover {
-    color: var(--color-primary);
+    text-decoration-color: currentColor;
   }
 }
 
@@ -24,28 +25,26 @@ body {
 
   @include font-gamma;
 
-  background: var(--color-page-background);
+  background: var(--color-background);
   color: var(--color-font-reg);
+
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
 }
 
 h1 {
-  width: 100%;
-  font-size: 42px;
-  text-align: center;
-  color: var(--color-white);
-  font-weight: 800;
-  -webkit-text-stroke: var(--outline-width) var(--outline-color);
-  text-shadow: 3px 3px 0px var(--color-primary);
+  @include font-alpha;
+  color: var(--color-highlight);
 }
 
 h2 {
-  @include font-alpha;
+  @include font-beta;
   margin-top: 0.3em;
   margin-bottom: 0.2em;
 }
 
 h3 {
-  @include font-beta;
+  @include font-gamma;
 }
 
 h4 {
@@ -54,16 +53,14 @@ h4 {
 }
 
 footer {
+  @include font-gamma;
+  padding: 2rem;
   display: flex;
-  padding: 1em;
   justify-content: space-between;
-
-  @include font-delta;
-
-  color: var(--color-font-dis);
+  color: var(--color-font-med);
 
   a {
-    color: var(--color-font-med);
+    color: var(--color-font-reg);
   }
 
   ul {
@@ -72,6 +69,11 @@ footer {
     justify-content: space-between;
     list-style: none;
   }
+}
+
+.footer_bg {
+  padding: 0.2rem 0.8rem;
+  background: var(--color-background);
 }
 
 @media only screen and (max-width: $mobile-width) {

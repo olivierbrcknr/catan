@@ -2,8 +2,8 @@
 
 .SinglePlayerSelect {
   @include box-design(var(--player-color));
-  padding: 10px;
-  padding-right: 40px;
+  padding: 1rem;
+  padding-right: 4rem;
   overflow: hidden;
 
   display: flex;
@@ -63,13 +63,14 @@
 
 .RemoveButton {
   @include center-children;
-  padding-bottom: 4px;
+  padding-bottom: 0.4rem;
+  font-size: 1.6rem;
 
   position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
-  width: 40px;
+  width: 4rem;
 
   cursor: pointer;
   opacity: 0.3;

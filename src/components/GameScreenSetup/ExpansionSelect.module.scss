@@ -4,7 +4,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  gap: var(--gap);
+  gap: 1rem;
 }
 
 .Expansion {
@@ -17,16 +17,16 @@
   @include center-children;
 
   flex-direction: column;
-  gap: 10px;
+  gap: 1rem;
 
   flex: 1;
-  min-height: 100px;
+  min-height: 10rem;
   padding: 1em 0.5em;
 
   text-align: center;
 
   &:active {
-    transform: translate(4px, 4px);
+    transform: translate(var(--shadow-offset), var(--shadow-offset));
     box-shadow: none !important;
   }
 
@@ -37,7 +37,7 @@
 }
 .IconContainer {
   @include center-children;
-  gap: 5px;
+  gap: 0.5rem;
 }
 
 .Icon {
@@ -70,6 +70,6 @@
 
   .Expansion {
     flex-direction: row;
-    min-height: 60px;
+    min-height: 6rem;
   }
 }

@@ -35,4 +35,4 @@ const Button = ({
     </button>
   );
 };
-export default Button;
+export default React.memo(Button);
