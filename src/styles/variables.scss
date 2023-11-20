@@ -37,3 +37,17 @@
   --color-event-type-one-time: var(--color-highlight);
   --color-event-type-rule: #00b2ff;
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    // Colors Font
+    --color-font-reg: #cccccc; // hsl(240, 100%, 8%);
+    --color-font-med: #cccccc4d; // 30% opacity
+
+    --color-white: #333;
+
+    // Colors
+    --color-highlight: #8500ff;
+    --color-background: #222;
+  }
+}
