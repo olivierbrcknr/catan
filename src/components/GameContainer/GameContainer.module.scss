@@ -3,7 +3,7 @@
 .GameContainer {
   @include center-children;
   width: 100vw;
-  min-height: 100vh;
+  // height: 100vh;
 }
 
 .GameContainerNav {

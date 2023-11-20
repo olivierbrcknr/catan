@@ -1,6 +1,11 @@
 .Wrapper {
   height: 100%;
+
   background-image: url("/dot.svg");
+
+  &.isGame {
+    background-image: none;
+  }
 }
 
 .isGame {

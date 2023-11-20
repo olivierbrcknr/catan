@@ -84,60 +84,62 @@ const GameMain = ({
 
   return (
     <div className={styles.GameMain}>
-      <div className={styles.Header}>
-        <div className={clsx(styles.Stats)}>
-          <label>Time Running</label>
-          {hours}:{minutesRemaining < 10 && "0"}
-          {minutesRemaining}
+      <div className={styles.Wrapper}>
+        <div className={styles.Header}>
+          <div className={clsx(styles.Stats)}>
+            <label>Time Running</label>
+            {hours}:{minutesRemaining < 10 && "0"}
+            {minutesRemaining}
+          </div>
         </div>
+
+        <div className={styles.Events}>
+          {gameData?.rules.map((rul, i) => (
+            <Card isPause={isPause} key={`Rule-${rul.id}`} event={rul} />
+          ))}
+          {gameData?.events.map((ev, i) => (
+            <Card
+              isPause={isPause}
+              key={`Event-${ev.id}`}
+              event={ev}
+              onIsDone={setEventIsDone}
+            />
+          ))}
+        </div>
+
+        {isPause && !gameData.newEvent && (
+          <div className={clsx(styles.Overlay, styles.IsPauseIndicator)}>
+            <FontAwesomeIcon
+              className={styles.IsPauseIndicator_Icon}
+              icon="pause"
+            />
+          </div>
+        )}
+
+        {gameData.newEvent && (
+          <div
+            className={clsx(
+              styles.NewEventContainer,
+              styles.Overlay,
+              gameData.newEvent.type === "rule" && styles.typeRule,
+              gameData.newEvent.type === "event" &&
+                gameData.newEvent.timing === "Temporary Event" &&
+                styles.typeTemporary,
+              gameData.newEvent.type === "event" &&
+                gameData.newEvent.timing === "Until barbarian ship" &&
+                styles.typeBarbarianShip,
+              gameData.newEvent.type === "event" &&
+                gameData.newEvent.timing === "One time event" &&
+                styles.typeOneTime
+            )}
+          >
+            <GameEventPopover
+              onClickContinue={setEventIsRead}
+              newEvent={gameData.newEvent}
+            />
+          </div>
+        )}
       </div>
-
-      <div className={styles.Events}>
-        {gameData?.rules.map((rul, i) => (
-          <Card isPause={isPause} key={`Rule-${rul.id}`} event={rul} />
-        ))}
-        {gameData?.events.map((ev, i) => (
-          <Card
-            isPause={isPause}
-            key={`Event-${ev.id}`}
-            event={ev}
-            onIsDone={setEventIsDone}
-          />
-        ))}
-      </div>
-
-      {isPause && !gameData.newEvent && (
-        <div className={clsx(styles.Overlay, styles.IsPauseIndicator)}>
-          <FontAwesomeIcon
-            className={styles.IsPauseIndicator_Icon}
-            icon="pause"
-          />
-        </div>
-      )}
-
-      {gameData.newEvent && (
-        <div
-          className={clsx(
-            styles.NewEventContainer,
-            styles.Overlay,
-            gameData.newEvent.type === "rule" && styles.typeRule,
-            gameData.newEvent.type === "event" &&
-              gameData.newEvent.timing === "Temporary Event" &&
-              styles.typeTemporary,
-            gameData.newEvent.type === "event" &&
-              gameData.newEvent.timing === "Until barbarian ship" &&
-              styles.typeBarbarianShip,
-            gameData.newEvent.type === "event" &&
-              gameData.newEvent.timing === "One time event" &&
-              styles.typeOneTime
-          )}
-        >
-          <GameEventPopover
-            onClickContinue={setEventIsRead}
-            newEvent={gameData.newEvent}
-          />
-        </div>
-      )}
 
       <div className={styles.Controls}>
         <GameControls
