@@ -4,6 +4,7 @@ import clsx from "clsx";
 import Head from "next/head";
 
 import GameContainer from "../components/GameContainer";
+import ZoomUI from "../components/ZoomUI";
 
 import styles from "../styles/Home.module.scss";
 
@@ -67,6 +68,7 @@ function Home() {
             ))}
           </ul>
         </footer>
+        <ZoomUI />
       </div>
     </>
   );
