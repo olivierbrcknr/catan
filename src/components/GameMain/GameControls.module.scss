@@ -6,7 +6,7 @@
   display: grid;
   grid-template-areas: "play_pause players settings";
   grid-template-columns: 16rem 1fr 16rem;
-  grid-gap: calc(var(--gap) * 2);
+  grid-gap: 2rem;
   user-select: none;
 }
 
@@ -56,7 +56,6 @@
 
 @media only screen and (max-width: $mobile-width) {
   .GameControls {
-    display: grid;
     grid-template-areas: "players players" "play_pause settings";
     grid-template-columns: 1fr 1fr;
   }
