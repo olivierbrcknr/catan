@@ -52,21 +52,19 @@ const GameControls = ({
   return (
     <div className={styles.GameControls}>
       <div className={styles.playpause}>
-        <div className={styles.Button_Play}>
-          <Button disabled={isNewEvent} onClick={onTogglePause}>
-            {isPause || isNewEvent ? (
-              <>
-                <FontAwesomeIcon className={styles.Button_Icon} icon="play" />
-                <span className={styles.Button_Text}>Play</span>
-              </>
-            ) : (
-              <>
-                <FontAwesomeIcon className={styles.Button_Icon} icon="pause" />
-                <span className={styles.Button_Text}>Pause</span>
-              </>
-            )}
-          </Button>
-        </div>
+        <Button disabled={isNewEvent} onClick={onTogglePause}>
+          {isPause || isNewEvent ? (
+            <>
+              <FontAwesomeIcon className={styles.Button_Icon} icon="play" />
+              <span className={styles.Button_Text}>Play</span>
+            </>
+          ) : (
+            <>
+              <FontAwesomeIcon className={styles.Button_Icon} icon="pause" />
+              <span className={styles.Button_Text}>Pause</span>
+            </>
+          )}
+        </Button>
 
         {hasShipExtension && (
           <Button disabled={isPause} onClick={onBarbarianShipArrived}>

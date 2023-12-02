@@ -33,7 +33,11 @@ const GameEventPopover = ({
       <div className={styles.CardContainer}>
         <Card isInit isPause event={newEvent} />
       </div>
-      <Button onClick={onClickContinue}>Continue</Button>
+      <div className={styles.ButtonWrapper}>
+        <Button defaultFocus onClick={onClickContinue}>
+          Continue
+        </Button>
+      </div>
     </div>
   );
 };

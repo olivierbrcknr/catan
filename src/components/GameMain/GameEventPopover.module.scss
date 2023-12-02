@@ -1,3 +1,5 @@
+@import "../../styles/mixins.scss";
+
 .GameEventPopover {
   display: flex;
   flex-direction: column;
@@ -7,4 +9,12 @@
 
 .CardContainer {
   zoom: 1.4;
+}
+
+.ButtonWrapper {
+  border-radius: var(--border-radius-button);
+
+  &:focus-within {
+    @include keyboard-focus;
+  }
 }

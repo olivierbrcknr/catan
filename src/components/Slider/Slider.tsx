@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import * as RadixSlider from "@radix-ui/react-slider";
 import clsx from "clsx";
 
 import styles from "./Slider.module.scss";
@@ -11,6 +12,7 @@ interface SliderProps {
   max: number;
   labelMin?: string;
   labelMax?: string;
+  name?: string;
 }
 
 const Slider = ({
@@ -20,26 +22,28 @@ const Slider = ({
   max,
   labelMin,
   labelMax,
+  name = "Slider",
 }: SliderProps) => {
-  const handleChange = (evt) => {
-    onChange(parseInt(evt.target.value));
+  const handleChange = (val: number[]) => {
+    onChange(val[0]);
   };
 
   return (
     <div className={styles.Slider}>
       <div className={styles.Label}>{labelMin ?? min}</div>
 
-      <div className={styles.SliderContainer}>
-        <div className={styles.Track} />
-
-        <input
-          type="range"
-          value={value}
-          onChange={handleChange}
-          min={min}
-          max={max}
-        />
-      </div>
+      <RadixSlider.Root
+        className={styles.SliderContainer}
+        value={[value]}
+        onValueChange={handleChange}
+        min={min}
+        max={max}
+      >
+        <RadixSlider.Track className={styles.Track}>
+          <RadixSlider.Range className={styles.Range} />
+        </RadixSlider.Track>
+        <RadixSlider.Thumb className={styles.Thumb} aria-label={name} />
+      </RadixSlider.Root>
 
       <div className={styles.Label}>{labelMax ?? max}</div>
     </div>

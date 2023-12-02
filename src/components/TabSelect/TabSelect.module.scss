@@ -27,6 +27,10 @@
     @include box-design(var(--color-highlight), true);
     color: var(--color-white);
   }
+
+  :global(.keyboard-focus) &:focus {
+    @include keyboard-focus();
+  }
 }
 
 .isDisabled {

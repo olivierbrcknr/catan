@@ -65,6 +65,20 @@ const GameMain = ({
   const [winner, setWinner] = useState<Player | undefined>();
 
   useEffect(() => {
+    const togglePause = (evt) => {
+      if (evt.keyCode === 32) {
+        setIsPause(!isPause);
+      }
+    };
+
+    document.addEventListener("keydown", togglePause);
+
+    return () => {
+      document.removeEventListener("keydown", togglePause);
+    };
+  }, [isPause, setIsPause]);
+
+  useEffect(() => {
     players.forEach((p) => {
       if (p.points >= gameSettings.maxPointsNeeded) {
         setIsPause(true);

@@ -2,8 +2,8 @@
 
 .ZoomUI {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
+  top: 1.2rem;
+  right: 2rem;
   z-index: 100;
 }
 
@@ -13,6 +13,8 @@
 
   display: flex;
   gap: 0.1rem;
+
+  border-radius: 0.4rem;
 }
 
 .Button {
@@ -21,6 +23,8 @@
 
   width: 3rem;
   height: 3rem;
+
+  border-radius: 0.4rem;
 
   &:hover {
     opacity: 0.9;
@@ -32,6 +36,10 @@
     & .Icon {
       height: 1.5rem;
     }
+  }
+
+  :global(.keyboard-focus) &:focus {
+    @include keyboard-focus();
   }
 }
 

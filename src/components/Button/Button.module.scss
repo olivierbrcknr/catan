@@ -16,6 +16,10 @@
     transform: translate(var(--shadow-offset), var(--shadow-offset));
     box-shadow: none !important;
   }
+
+  :global(.keyboard-focus) &:focus {
+    @include keyboard-focus();
+  }
 }
 
 .isDisabled {

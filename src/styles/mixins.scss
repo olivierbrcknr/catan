@@ -50,6 +50,21 @@ $mobile-width: 720px;
   }
 }
 
+@mixin keyboard-focus($position: "outside") {
+  --focus-color: var(--color-highlight-alpha);
+  z-index: 2;
+
+  @if $position == "outside" {
+    // box-shadow: 0 0 0 2px var(--focus-color), 0 0 6px 0 var(--focus-color);
+    outline: 0.4rem solid var(--focus-color);
+  }
+
+  @if $position == "inside" {
+    // box-shadow: inset 0 0 0 2px var(--focus-color),
+    // inset 0 0 6px 0 var(--focus-color);
+  }
+}
+
 // Fonts -------------------------------------------------
 
 // big headline
@@ -73,7 +88,7 @@ $mobile-width: 720px;
   font-size: 1.3rem;
   line-height: 1.4;
   font-family: var(--font-family-reg);
-  font-weight: 400;
+  font-weight: 450;
 }
 
 // tiny text

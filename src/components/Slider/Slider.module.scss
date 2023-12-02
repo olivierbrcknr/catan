@@ -19,17 +19,51 @@
 
 .SliderContainer {
   flex-grow: 1;
+
+  height: 4rem;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  user-select: none;
+  touch-action: none;
 }
 
 .Track {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: var(--stroke-width);
-  margin-top: calc(var(--stroke-width) * -1);
+  position: relative;
+  flex-grow: 1;
   background-color: var(--color-border);
+  height: calc(var(--stroke-width) * 2);
+}
+
+.Range {
+  position: absolute;
+  background-color: var(--color-highlight);
+  height: 100%;
+}
+
+.Thumb {
+  display: block;
+  width: 2rem;
+  height: 4rem;
+
+  margin-top: calc(var(--shadow-offset) * -1);
+  margin-left: calc(var(--shadow-offset) * -1);
+
+  @include box-design(var(--color-white), true);
+
+  &:active {
+    transform: translate(var(--shadow-offset), var(--shadow-offset));
+    box-shadow: none !important;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  :global(.keyboard-focus) &:focus {
+    @include keyboard-focus();
+  }
 }
 
 .Slider input[type="range"] {

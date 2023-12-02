@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { getCookies, setCookie, deleteCookie, getCookie } from "cookies-next";
 
-import Button from "../Button";
+import TooltipLabel from "../TooltipLabel";
 
 import styles from "./ZoomUI.module.scss";
 
@@ -42,28 +42,35 @@ const ZoomUI = ({}: ZoomUIProps) => {
   return (
     <div className={styles.ZoomUI}>
       <div className={styles.BG}>
-        <button
-          className={styles.Button}
-          onClick={() => adjustZoomLevel(zoomLevel - ZOOM_SCALE)}
-        >
-          <FontAwesomeIcon
-            className={styles.Icon}
-            icon="magnifying-glass-minus"
-          />
-        </button>
-        <button
-          className={styles.Button}
-          onClick={() => adjustZoomLevel(zoomLevel + ZOOM_SCALE)}
-        >
-          <FontAwesomeIcon
-            className={styles.Icon}
-            icon="magnifying-glass-plus"
-          />
-        </button>
+        <TooltipLabel label="Zoom Out">
+          <button
+            className={styles.Button}
+            onClick={() => adjustZoomLevel(zoomLevel - ZOOM_SCALE)}
+          >
+            <FontAwesomeIcon
+              className={styles.Icon}
+              icon="magnifying-glass-minus"
+            />
+          </button>
+        </TooltipLabel>
 
-        <button className={styles.Button} onClick={() => adjustZoomLevel(1)}>
-          <FontAwesomeIcon className={styles.Icon} icon="rotate-left" />
-        </button>
+        <TooltipLabel label="Zoom In">
+          <button
+            className={styles.Button}
+            onClick={() => adjustZoomLevel(zoomLevel + ZOOM_SCALE)}
+          >
+            <FontAwesomeIcon
+              className={styles.Icon}
+              icon="magnifying-glass-plus"
+            />
+          </button>
+        </TooltipLabel>
+
+        <TooltipLabel label="Reset Zoom Level">
+          <button className={styles.Button} onClick={() => adjustZoomLevel(1)}>
+            <FontAwesomeIcon className={styles.Icon} icon="rotate-left" />
+          </button>
+        </TooltipLabel>
       </div>
     </div>
   );

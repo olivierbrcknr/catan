@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as RadixProgress from "@radix-ui/react-progress";
 import clsx from "clsx";
 
 import { useIsMobile } from "../../utils/hooks";
@@ -134,7 +135,16 @@ const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
       )}
       {event.type === "event" && event.timing === "Temporary Event" && (
         <div className={styles.Footer}>
-          <progress value={progress} max={100} />
+          <RadixProgress.Root
+            className={styles.Progress}
+            value={progress}
+            max={100}
+          >
+            <RadixProgress.Indicator
+              className={styles.ProgressIndicator}
+              style={{ transform: `translateX(-${100 - progress}%)` }}
+            />
+          </RadixProgress.Root>
           <label>{timeRemainingLabel}</label>
         </div>
       )}

@@ -11,14 +11,16 @@
   --border-radius-big: 1.6rem;
 
   // Colors Font
-  --color-font-reg: #000028; // hsl(240, 100%, 8%);
-  --color-font-med: #0000284d; // 30% opacity
+  --color-font-reg: #000000; // hsl(240, 100%, 8%);
+  --color-font-med: #0000004d; // 30% opacity
 
   --color-white: #ffffff;
   --color-black: var(--color-font-reg);
+  --color-black--STAY: #000000;
 
   // Colors
   --color-highlight: #8500ff;
+  --color-highlight-alpha: #8500ffbb;
   --color-border: var(--color-font-reg);
   --color-background: #f7f7f7;
   --color-card-bg: var(--color-white);
@@ -48,6 +50,7 @@
 
     // Colors
     --color-highlight: #a645ff;
+    --color-highlight-alpha: #a645ffbb;
     --color-background: #222;
   }
 }

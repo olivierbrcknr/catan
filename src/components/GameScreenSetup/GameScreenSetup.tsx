@@ -115,8 +115,9 @@ const GameScreenSetup = ({
         <div className={styles.Row}>
           <h3>Victory Points ({gameSettings.maxPointsNeeded})</h3>
           <Slider
+            name="Victory Points"
             value={gameSettings.maxPointsNeeded}
-            min={0}
+            min={3}
             max={30}
             onChange={(v) => settingsChange(v, "maxPointsNeeded")}
           />
@@ -128,6 +129,7 @@ const GameScreenSetup = ({
         <div className={styles.Row}>
           <h3>Frequency</h3>
           <TabSelect
+            name="Frequency"
             options={[
               {
                 label: "Low",
@@ -149,6 +151,7 @@ const GameScreenSetup = ({
         <div className={styles.Row}>
           <h3>Evilness</h3>
           <Slider
+            name="Evilness Level"
             value={gameSettings.evilLevel}
             min={0}
             labelMin={"kind"}
@@ -160,6 +163,7 @@ const GameScreenSetup = ({
         <div className={styles.Row}>
           <h3>Funkiness</h3>
           <Slider
+            name="Funkiness Level"
             value={gameSettings.funkLevel}
             min={0}
             labelMin={"ordinary"}

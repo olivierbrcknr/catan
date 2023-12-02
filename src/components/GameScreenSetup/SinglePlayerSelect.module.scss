@@ -9,6 +9,8 @@
   display: flex;
   flex: 1;
 
+  color: var(--color-black--STAY);
+
   &:before {
     content: "";
     display: block;
@@ -19,6 +21,10 @@
     bottom: 0;
     background-color: var(--player-color);
     opacity: var(--player-background-opacity);
+  }
+
+  :global(.keyboard-focus) &:focus-within {
+    @include keyboard-focus();
   }
 }
 

@@ -34,6 +34,10 @@
     @include box-design(var(--expansion-highlight-color), true);
     color: var(--color-white);
   }
+
+  :global(.keyboard-focus) &:focus {
+    @include keyboard-focus();
+  }
 }
 .IconContainer {
   @include center-children;

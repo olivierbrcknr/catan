@@ -5,6 +5,14 @@
   padding: 0;
   margin: 0;
   position: relative;
+
+  &:focus {
+    outline-color: var(--color-highlight);
+  }
+}
+
+::selection {
+  background: var(--color-highlight-alpha);
 }
 
 a {
