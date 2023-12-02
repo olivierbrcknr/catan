@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { getCookies, setCookie, deleteCookie, getCookie } from "cookies-next";
 
@@ -40,13 +41,30 @@ const ZoomUI = ({}: ZoomUIProps) => {
 
   return (
     <div className={styles.ZoomUI}>
-      <Button onClick={() => adjustZoomLevel(zoomLevel + ZOOM_SCALE)}>
-        Zoom In
-      </Button>
-      <Button onClick={() => adjustZoomLevel(zoomLevel - ZOOM_SCALE)}>
-        Zoom Out
-      </Button>
-      <Button onClick={() => adjustZoomLevel(1)}>Reset Zoom</Button>
+      <div className={styles.BG}>
+        <button
+          className={styles.Button}
+          onClick={() => adjustZoomLevel(zoomLevel - ZOOM_SCALE)}
+        >
+          <FontAwesomeIcon
+            className={styles.Icon}
+            icon="magnifying-glass-minus"
+          />
+        </button>
+        <button
+          className={styles.Button}
+          onClick={() => adjustZoomLevel(zoomLevel + ZOOM_SCALE)}
+        >
+          <FontAwesomeIcon
+            className={styles.Icon}
+            icon="magnifying-glass-plus"
+          />
+        </button>
+
+        <button className={styles.Button} onClick={() => adjustZoomLevel(1)}>
+          <FontAwesomeIcon className={styles.Icon} icon="rotate-left" />
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,10 +1,17 @@
 .Wrapper {
-  height: 100%;
+  min-height: 100vh;
 
   background-image: url("/dot.svg");
 
+  display: flex;
+  flex-direction: column;
+
+  &:global(.is-dark-mode) {
+    background-image: url("/dot-dark.svg");
+  }
+
   &.isGame {
-    background-image: none;
+    background-image: none !important;
   }
 }
 
@@ -13,4 +20,12 @@
   width: 100vw;
 
   overflow: hidden;
+}
+
+.Wrapper main {
+  margin-top: auto;
+}
+
+.Wrapper footer {
+  margin-top: auto;
 }

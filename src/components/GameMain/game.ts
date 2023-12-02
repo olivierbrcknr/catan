@@ -247,6 +247,7 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
     console.log("init game");
     const initGameData = startGame(cards, settings);
     setGameData(initGameData);
+    setIsPause(true);
   }, [cards, settings]);
 
   // setup our interval checker

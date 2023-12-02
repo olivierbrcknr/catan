@@ -5,6 +5,7 @@ import Head from "next/head";
 
 import GameContainer from "../components/GameContainer";
 import ZoomUI from "../components/ZoomUI";
+import { useIsDarkmode } from "../utils/hooks";
 
 import styles from "../styles/Home.module.scss";
 
@@ -21,6 +22,9 @@ const footerLinks: { url: string; title: string }[] = [
 
 function Home() {
   const [gameIsRunning, setGameIsRunning] = useState(false);
+
+  const isDark = useIsDarkmode();
+  console.log(isDark);
 
   return (
     <>
@@ -41,7 +45,13 @@ function Home() {
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <link rel="apple-touch-icon" href="/AppIcon.png" />
       </Head>
-      <div className={clsx(styles.Wrapper, gameIsRunning && styles.isGame)}>
+      <div
+        className={clsx(
+          styles.Wrapper,
+          gameIsRunning && styles.isGame,
+          isDark && "is-dark-mode"
+        )}
+      >
         <main>
           {/* This is the main game container, it is wrapped to allow for more 'website' stuff around it */}
           <GameContainer onChangeInGame={setGameIsRunning} />
