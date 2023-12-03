@@ -1,23 +1,15 @@
-import React, { useState, useEffect } from "react";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect } from "react";
 
 import Button from "../Button";
 import Card from "../Card";
-import type {
-  InGameEvent,
-  InGameRule,
-  InGameAction,
-} from "../GameContainer/types";
+import type { InGameCard } from "../GameContainer/types";
 
 import styles from "./GameEventPopover.module.scss";
 
 export interface GameEventPopoverProps {
-  newEvent: InGameAction;
+  newEvent: InGameCard;
   onClickContinue: () => void;
 }
-
-const isDev = process.env.NODE_ENV === "development";
 
 const GameEventPopover = ({
   newEvent,
