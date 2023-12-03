@@ -7,28 +7,16 @@ const fetchAirTableData = async () => {
     AIRTABLE_BASE_ID
   );
 
-  let allData = {
-    events: [],
-    rules: [],
-  };
+  const cards = [];
 
-  let doneCounter = 0;
-
-  const callDone = () => {
-    doneCounter++;
-    if (doneCounter >= 2) {
-      return allData;
-    }
-  };
-
-  const getEvents = () =>
-    new Promise((resolve, reject) =>
-      base("Events")
+  const getCards = () =>
+    new Promise((resolve) =>
+      base("Cards")
         .select()
         .eachPage(
           function page(records, fetchNextPage) {
             records.forEach(function (record) {
-              allData.events.push({
+              cards.push({
                 ...record.fields,
                 id: record.id,
               });
@@ -37,7 +25,7 @@ const fetchAirTableData = async () => {
             fetchNextPage();
           },
           function done(err) {
-            callDone();
+            // callDone();
             resolve(true);
             if (err) {
               console.error(err);
@@ -47,35 +35,9 @@ const fetchAirTableData = async () => {
         )
     );
 
-  const getRules = () =>
-    new Promise((resolve, reject) =>
-      base("Rules")
-        .select()
-        .eachPage(
-          function page(records, fetchNextPage) {
-            records.forEach(function (record) {
-              allData.rules.push({
-                ...record.fields,
-                id: record.id,
-              });
-            });
-
-            fetchNextPage();
-          },
-          function done(err) {
-            callDone();
-            resolve(true);
-            if (err) {
-              console.error(err);
-              return;
-            }
-          }
-        )
-    );
-
-  return await Promise.all([getRules(), getEvents()])
+  return await Promise.all([getCards()])
     .then(() => {
-      return allData;
+      return cards;
     })
     .catch(console.error);
 };

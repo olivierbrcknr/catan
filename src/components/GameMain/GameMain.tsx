@@ -3,20 +3,12 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 
-import { useIsMobile } from "../../utils/hooks";
 import Card from "../Card";
 import type {
   Player,
   GameSettings,
-  CardFilter,
-  ExpansionPack,
   AirtableData,
-  GameData,
-  InGameEvent,
-  InGameRule,
-  InGameAction,
 } from "../GameContainer/types";
-import TabSelect from "../TabSelect";
 
 import { useGameChange } from "./game";
 import GameControls from "./GameControls";
@@ -34,8 +26,6 @@ export interface GameMainProps {
   hasShipExtension: boolean;
 }
 
-const isDev = process.env.NODE_ENV === "development";
-
 const GameMain = ({
   onClickCancelGame,
   players,
@@ -44,12 +34,6 @@ const GameMain = ({
   filteredData,
   hasShipExtension,
 }: GameMainProps) => {
-  const [mobileViewSelect, setMobileViewSelect] = useState<"events" | "rules">(
-    "events"
-  );
-
-  const isMobile = useIsMobile();
-
   const {
     gameData,
     isPause,
@@ -108,14 +92,11 @@ const GameMain = ({
         </div>
 
         <div className={styles.Events}>
-          {gameData?.rules.map((rul, i) => (
-            <Card isPause={isPause} key={`Rule-${rul.id}`} event={rul} />
-          ))}
-          {gameData?.events.map((ev, i) => (
+          {gameData?.cards.map((card, i) => (
             <Card
               isPause={isPause}
-              key={`Event-${ev.id}`}
-              event={ev}
+              key={`Card-${card.id}`}
+              event={card}
               onIsDone={setEventIsDone}
             />
           ))}
@@ -135,15 +116,12 @@ const GameMain = ({
             className={clsx(
               styles.NewEventContainer,
               styles.Overlay,
-              gameData.newEvent.type === "rule" && styles.typeRule,
-              gameData.newEvent.type === "event" &&
-                gameData.newEvent.timing === "Temporary Event" &&
+              gameData.newEvent.timing === "Permanent Rule" && styles.typeRule,
+              gameData.newEvent.timing === "Temporary Event" &&
                 styles.typeTemporary,
-              gameData.newEvent.type === "event" &&
-                gameData.newEvent.timing === "Until barbarian ship" &&
+              gameData.newEvent.timing === "Until barbarian ship" &&
                 styles.typeBarbarianShip,
-              gameData.newEvent.type === "event" &&
-                gameData.newEvent.timing === "One time event" &&
+              gameData.newEvent.timing === "One time event" &&
                 styles.typeOneTime
             )}
           >

@@ -4,48 +4,36 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as RadixProgress from "@radix-ui/react-progress";
 import clsx from "clsx";
 
-import { useIsMobile } from "../../utils/hooks";
-import Button from "../Button";
-import type {
-  InGameAction,
-  InGameEvent,
-  InGameRule,
-  CardID,
-} from "../GameContainer/types";
+// import { useIsMobile } from "../../utils/hooks";
+import type { InGameCard, CardID } from "../GameContainer/types";
 
 import styles from "./Card.module.scss";
 
 export interface CardProps {
   isPause: boolean;
-  event: InGameAction;
+  event: InGameCard;
   onIsDone?: (id: CardID) => void;
   isInit?: boolean;
   isPopOver?: boolean;
 }
-
-const isDev = process.env.NODE_ENV === "development";
 
 const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
   const [sec, setSec] = useState(0);
 
   const [progress, setProgress] = useState(0);
 
-  const isMobile = useIsMobile();
+  // const isMobile = useIsMobile();
 
   // start our card internal timer if is a temporary event
   useEffect(() => {
     let interval: ReturnType<typeof setInterval> | false = false;
 
     // if we are in pause, we do not want the interval to work
-    if (
-      !isPause &&
-      event.type === "event" &&
-      event.timing === "Temporary Event"
-    ) {
+    if (!isPause && event.timing === "Temporary Event") {
       interval = setInterval(
         () =>
           setSec((sec) => {
-            let next = sec + 1;
+            const next = sec + 1;
             return next;
           }),
         1000
@@ -55,16 +43,16 @@ const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
   }, [event, isPause]);
 
   useEffect(() => {
-    if (event.type === "event" && event.timing === "Temporary Event") {
+    if (event.timing === "Temporary Event") {
       // total time in sec
       const totalTime = event.timingDetails * 60;
-      let value = (sec / totalTime) * 100;
+      const value = (sec / totalTime) * 100;
       setProgress(value);
     }
   }, [sec, event]);
 
   useEffect(() => {
-    if (event.type === "event" && event.timing === "Temporary Event") {
+    if (event.timing === "Temporary Event") {
       if (progress >= 100) {
         onIsDone(event.id);
       }
@@ -74,7 +62,7 @@ const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
   let timeRemaining: number;
   let timeRemainingLabel: string;
 
-  if (event.type === "event" && event?.timing === "Temporary Event") {
+  if (event?.timing === "Temporary Event") {
     timeRemaining = (1 - progress / 100) * event.timingDetails;
 
     if (timeRemaining < 1) {
@@ -88,18 +76,10 @@ const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
     <div
       className={clsx(
         styles.Card,
-        event.type === "event" && styles.isEvent,
-        event.type === "rule" && styles.isRule,
-        event.type === "rule" && styles.typeRule,
-        event.type === "event" &&
-          event.timing === "Temporary Event" &&
-          styles.typeTemporary,
-        event.type === "event" &&
-          event.timing === "Until barbarian ship" &&
-          styles.typeBarbarianShip,
-        event.type === "event" &&
-          event.timing === "One time event" &&
-          styles.typeOneTime,
+        event.timing === "Permanent Rule" && styles.typeRule,
+        event.timing === "Temporary Event" && styles.typeTemporary,
+        event.timing === "Until barbarian ship" && styles.typeBarbarianShip,
+        event.timing === "One time event" && styles.typeOneTime,
         isInit && styles.isInit
       )}
     >
@@ -112,28 +92,28 @@ const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
       </div>
       <div className={styles.Description}>{event.description}</div>
 
-      {event.type === "rule" && (
+      {event.timing === "Permanent Rule" && (
         <div className={styles.Footer}>
           <div className={styles.FooterLine} />
           <div className={styles.FooterLabel}>Rule</div>
           <div className={styles.FooterLine} />
         </div>
       )}
-      {event.type === "event" && event.timing === "One time event" && (
+      {event.timing === "One time event" && (
         <div className={styles.Footer}>
           <div className={styles.FooterLine} />
           <div className={styles.FooterLabel}>Event</div>
           <div className={styles.FooterLine} />
         </div>
       )}
-      {event.type === "event" && event.timing === "Until barbarian ship" && (
+      {event.timing === "Until barbarian ship" && (
         <div className={styles.Footer}>
           <div className={styles.FooterLine} />
           <div className={styles.FooterLabel}>Barbarian Ship</div>
           <div className={styles.FooterLine} />
         </div>
       )}
-      {event.type === "event" && event.timing === "Temporary Event" && (
+      {event.timing === "Temporary Event" && (
         <div className={styles.Footer}>
           <RadixProgress.Root
             className={styles.Progress}

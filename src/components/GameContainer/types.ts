@@ -18,7 +18,8 @@ export type GameSettings = {
 export type EventType =
   | "Until barbarian ship"
   | "Temporary Event"
-  | "One time event";
+  | "One time event"
+  | "Permanent Rule";
 
 export type ExpansionPack = "Cities and Knights" | "Seafarers";
 
@@ -28,12 +29,13 @@ export type CardFilter = {
 
 export type CardID = string;
 
-export type Event = {
+export type Card = {
   Name: string;
   Evil: number;
   "Expansion Packs"?: ExpansionPack[];
   "Enabled (Moderated)"?: boolean;
-  "Timing Details"?: string;
+  "Timing Details"?: number;
+  "Active at the beginning"?: boolean;
   Funk: number;
   Description: string;
   Type: EventType;
@@ -46,50 +48,19 @@ export type Event = {
   Probability: number;
 };
 
-export type Rule = {
-  "Enabled [moderated]"?: boolean;
-  "Expansion Packs"?: ExpansionPack[];
-  Funk: number;
-  Evil: number;
-  Name: string;
-  Set?: string[];
-  Description: string;
-  "Start Time"?: number;
-  "End Time"?: number;
-  Icon: string;
-  id: string;
-  Permanent: boolean;
-  /** number between 1 - 10 */
-  Probability: number;
-};
+export type AirtableData = Card[];
 
-export type AirtableData = {
-  events: Event[];
-  rules: Rule[];
-};
-
-interface InGameActionBase {
+export type InGameCard = {
   name: string;
   description: string;
   icon: string;
   isNew?: boolean;
   id: CardID;
-}
-
-export interface InGameEvent extends InGameActionBase {
-  type: "event";
   timing: EventType;
   timingDetails?: number;
-}
-
-export interface InGameRule extends InGameActionBase {
-  type: "rule";
-}
-
-export type InGameAction = InGameEvent | InGameRule;
+};
 
 export type GameData = {
-  events: InGameEvent[];
-  rules: InGameRule[];
-  newEvent?: InGameAction;
+  cards: InGameCard[];
+  newEvent?: InGameCard;
 };

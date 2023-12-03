@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import clsx from "clsx";
-
 import { fetchAirTableData } from "../../utils/airtable";
 import {
   CARD_VARIETY_MEDIUM,
@@ -12,13 +10,7 @@ import GameMain from "../GameMain";
 import GameScreenSetup from "../GameScreenSetup";
 
 import filterData from "./filter";
-import type {
-  Player,
-  GameSettings,
-  CardID,
-  CardFilter,
-  AirtableData,
-} from "./types";
+import type { Player, GameSettings, CardFilter, AirtableData } from "./types";
 
 import styles from "./GameContainer.module.scss";
 
@@ -26,19 +18,13 @@ export interface GameContainerProps {
   onChangeInGame: (v: boolean) => void;
 }
 
-const MAX_STEPS = 2;
+// const MAX_STEPS = 2;
 
 const isDev = process.env.NODE_ENV === "development";
 
 const GameContainer = ({ onChangeInGame }: GameContainerProps) => {
-  const [airTableData, setAirTableData] = useState<AirtableData>({
-    events: [],
-    rules: [],
-  });
-  const [filteredData, setFilteredData] = useState<AirtableData>({
-    events: [],
-    rules: [],
-  });
+  const [airTableData, setAirTableData] = useState<AirtableData>([]);
+  const [filteredData, setFilteredData] = useState<AirtableData>([]);
 
   const [gameIsRunning, setGameIsRunning] = useState(false);
 
@@ -87,7 +73,7 @@ const GameContainer = ({ onChangeInGame }: GameContainerProps) => {
     expansionPacks: new Set([]),
   });
 
-  const [cards, setCards] = useState<Set<CardID>>();
+  // const [cards, setCards] = useState<Set<CardID>>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -108,7 +94,7 @@ const GameContainer = ({ onChangeInGame }: GameContainerProps) => {
   const handleEndGame = () => {
     setGameIsRunning(false);
 
-    let allPlayers = currentPlayers.map((p) => ({
+    const allPlayers = currentPlayers.map((p) => ({
       ...p,
       points: PLAYER_START_POINTS,
     }));
@@ -141,9 +127,7 @@ const GameContainer = ({ onChangeInGame }: GameContainerProps) => {
 
       {isDev && (
         <div className={styles.info}>
-          Events: {filteredData.events.length}
-          <br />
-          Rules: {filteredData.rules.length}
+          Cards: {filteredData.length}
           <br />
           <br />
           Funk: {gameSettings.funkLevel}

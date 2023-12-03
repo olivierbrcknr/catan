@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
-
-import clsx from "clsx";
+import React from "react";
 
 import {
-  CARD_VARIETY_LOW,
-  CARD_VARIETY_MEDIUM,
-  CARD_VARIETY_HIGH,
+  // CARD_VARIETY_LOW,
+  // CARD_VARIETY_MEDIUM,
+  // CARD_VARIETY_HIGH,
   EVENT_FREQUENCY_LOW,
   EVENT_FREQUENCY_MEDIUM,
   EVENT_FREQUENCY_HIGH,
@@ -48,7 +46,7 @@ const GameScreenSetup = ({
   filteredData,
 }: GameScreenSetupProps) => {
   const onSinglePlayerChange = (updatedPlayer: Player, index: number) => {
-    let allPlayers = players;
+    const allPlayers = players;
     allPlayers[index] = {
       ...updatedPlayer,
     };
@@ -63,7 +61,7 @@ const GameScreenSetup = ({
   };
 
   const settingsChange = (value: any, setting: string) => {
-    let newSettings = { ...gameSettings };
+    const newSettings = { ...gameSettings };
     newSettings[setting] = value;
     onChangeSettings({ ...newSettings });
   };
@@ -201,8 +199,7 @@ const GameScreenSetup = ({
             Edit Deck
           </Button>*/}
           <div className={styles.DisplaySettings}>
-            <span>Events: {filteredData.events.length}</span>
-            <span>Rules: {filteredData.rules.length}</span>
+            <span>Cards: {filteredData.length}</span>
             <span>New card check every {gameSettings.eventFrequency}s</span>
           </div>
           <Button

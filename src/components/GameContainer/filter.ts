@@ -1,23 +1,13 @@
-import type {
-  GameSettings,
-  CardID,
-  CardFilter,
-  AirtableData,
-  Event,
-  Rule,
-} from "./types";
+import type { GameSettings, CardFilter, AirtableData, Card } from "./types";
 
 const filterData = (
   airTableData: AirtableData,
   filter: CardFilter,
   settings: GameSettings
 ) => {
-  let filteredData: AirtableData = {
-    events: [],
-    rules: [],
-  };
+  let filteredData: Card[] = [];
 
-  const filterFn = (v: Event | Rule) => {
+  const filterFn = (v: Card) => {
     let shouldUse = true;
 
     // filter by expansion packs
@@ -42,9 +32,7 @@ const filterData = (
     return shouldUse;
   };
 
-  filteredData.events = airTableData.events.filter(filterFn);
-
-  filteredData.rules = airTableData.rules.filter(filterFn);
+  filteredData = airTableData.filter(filterFn);
 
   return filteredData;
 };

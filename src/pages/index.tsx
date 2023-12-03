@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import clsx from "clsx";
 import Head from "next/head";
@@ -10,12 +10,8 @@ import styles from "../styles/Home.module.scss";
 
 const footerLinks: { url: string; title: string }[] = [
   {
-    title: "Suggest a new event",
+    title: "Suggest a new card",
     url: "https://airtable.com/shr5RxS1iU5lIEsb9",
-  },
-  {
-    title: "Suggest a new rule",
-    url: "https://airtable.com/shr6zFkPRJvNTujNr",
   },
 ];
 

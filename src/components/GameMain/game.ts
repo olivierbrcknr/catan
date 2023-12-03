@@ -5,69 +5,46 @@ import type {
   AirtableData,
   GameData,
   GameSettings,
-  Event,
-  Rule,
-  InGameEvent,
-  InGameRule,
-  InGameAction,
+  Card,
+  InGameCard,
   CardID,
 } from "../GameContainer/types";
 
 type DeckCard = {
   id: CardID;
-  type: "event" | "rule";
 };
 
 let currentDeck: DeckCard[] = [];
 
 const startGame = (cards: AirtableData, settings: GameSettings) => {
   // generate initial setup
-  cards.events.forEach((e) => {
+  cards.forEach((e) => {
     // add card id in amount of probability to deck
     for (let i = 0; i < e.Probability; i++) {
-      currentDeck.push({ id: e.id, type: "event" });
+      currentDeck.push({ id: e.id });
     }
-
-    // no events at the beginning
-
-    // return simplified version of event
-    // return {
-    //   name: e.Name,
-    //   description: e.Description,
-    //   icon: e.Icon,
-    //   type: "event",
-    // };
   });
 
-  // select initial setup
-  let inGameRules: InGameRule[] = cards.rules
-    .filter((r) => r.Permanent)
+  const startCards = cards
+    .filter((c) => c["Active at the beginning"] === true)
     .map((r) => {
       // return simplified version of event
-      return {
+      const transformedCard: InGameCard = {
         id: r.id,
         name: r.Name,
         description: r.Description,
         icon: r.Icon,
-        type: "rule",
+        timing: r.Type,
+        timingDetails: r?.["Timing Details"],
       };
-    });
 
-  cards.rules
-    .filter((r) => !r.Permanent)
-    .forEach((r) => {
-      // add card id in amount of probability to deck
-      for (let i = 0; i < r.Probability; i++) {
-        currentDeck.push({
-          id: r.id,
-          type: "rule",
-        });
-      }
+      return transformedCard;
     });
 
   const initGameData: GameData = {
-    events: [],
-    rules: inGameRules,
+    // events: [],
+    // rules: inGameRules,
+    cards: startCards,
   };
 
   return initGameData;
@@ -101,18 +78,11 @@ const removeIDFromDeck = (id: CardID) => {
 const addIdToDeck = (id: CardID, cards: AirtableData) => {
   // generate initial setup
 
-  let action: Rule | Event = cards.events.find((e) => e.id === id);
-  let type: "event" | "rule" = "event";
-  // if there is no event with that id, it has to be a rule
-  if (!action) {
-    action = cards.rules.find((r) => r.id === id);
-    type = "rule";
-  }
+  const action: Card = cards.find((e) => e.id === id);
 
   for (let i = 0; i < action.Probability; i++) {
     currentDeck.push({
       id: id,
-      type: type,
     });
   }
 
@@ -121,12 +91,11 @@ const addIdToDeck = (id: CardID, cards: AirtableData) => {
 
 const controlDeck = (min: number, cards: AirtableData, gameData: GameData) => {
   // somtimes we want to add new cards depending on the timing
-  const currentEventIDs = new Set(gameData.events.map((e) => e.id));
-  const currentRuleIDs = new Set(gameData.rules.map((e) => e.id));
+  const currentCardIDs = new Set(gameData.cards.map((e) => e.id));
 
   currentDeck = [];
 
-  cards.events.forEach((e) => {
+  cards.forEach((e) => {
     const startTime = e?.["Start Time"];
     const endTime = e?.["End Time"];
 
@@ -134,23 +103,8 @@ const controlDeck = (min: number, cards: AirtableData, gameData: GameData) => {
     if (!startTime || startTime <= min || startTime <= 1) {
       if (!endTime || endTime > min) {
         // only add if not in game already
-        if (!currentEventIDs.has(e.id)) {
+        if (!currentCardIDs.has(e.id)) {
           addIdToDeck(e.id, cards);
-        }
-      }
-    }
-  });
-
-  cards.rules.forEach((r) => {
-    const startTime = r?.["Start Time"];
-    const endTime = r?.["End Time"];
-
-    // if in range, add to deck
-    if (!startTime || startTime <= min) {
-      if (!endTime || endTime > min) {
-        // only add if not in game already
-        if (!currentRuleIDs.has(r.id)) {
-          addIdToDeck(r.id, cards);
         }
       }
     }
@@ -163,36 +117,20 @@ const getNextEvent = () => {
   return currentDeck[0];
 };
 
-const getEventData = (id: CardID, cards: AirtableData) => {
-  const event = cards.events.find((e) => e.id === id);
+const getCardData = (id: CardID, cards: AirtableData) => {
+  const event = cards.find((e) => e.id === id);
 
-  const eventData: InGameEvent = {
+  const eventData: InGameCard = {
     id: id,
-    type: "event",
     name: event.Name,
     description: event.Description,
     icon: event.Icon,
     isNew: true,
     timing: event.Type,
-    timingDetails: parseInt(event?.["Timing Details"]),
+    timingDetails: event?.["Timing Details"],
   };
 
   return eventData;
-};
-
-const getRuleData = (id: CardID, cards: AirtableData) => {
-  const rule = cards.rules.find((e) => e.id === id);
-
-  const ruleData: InGameRule = {
-    id: id,
-    name: rule.Name,
-    description: rule.Description,
-    icon: rule.Icon,
-    isNew: true,
-    type: "rule",
-  };
-
-  return ruleData;
 };
 
 const checkForEvent = () => {
@@ -201,8 +139,7 @@ const checkForEvent = () => {
 
 export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
   const [gameData, setGameData] = useState<GameData>({
-    events: [],
-    rules: [],
+    cards: [],
   });
   const [isPause, setIsPause] = useState(false);
   const [sec, setSec] = useState(0);
@@ -218,22 +155,16 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
 
       if (newEvent) {
         setGameData((gameData) => {
-          let newGameData = { ...gameData };
+          const newGameData = { ...gameData };
 
-          let newAction: InGameAction | false = false;
-
-          if (newEvent.type === "event") {
-            newAction = getEventData(newEvent.id, cards);
-          } else {
-            newAction = getRuleData(newEvent.id, cards);
-          }
+          const newCard = getCardData(newEvent.id, cards);
 
           // if a new action is there we want to remove it from the deck
-          removeIDFromDeck(newAction.id);
+          removeIDFromDeck(newCard.id);
 
           return {
             ...newGameData,
-            newEvent: newAction,
+            newEvent: newCard,
           };
         });
 
@@ -259,7 +190,7 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
       interval = setInterval(
         () =>
           setSec((sec) => {
-            let next = sec + 1;
+            const next = sec + 1;
             return next;
           }),
         1000
@@ -299,19 +230,12 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
 
   const setEventIsRead = () => {
     if (gameData?.newEvent) {
-      let currentData = { ...gameData };
+      const currentData = { ...gameData };
 
-      switch (gameData.newEvent.type) {
-        case "event":
-          // one time events get deleted immedately
-          if (gameData.newEvent.timing !== "One time event") {
-            currentData.events.push({ ...gameData.newEvent });
-          }
-          break;
-        case "rule":
-          currentData.rules.push({ ...gameData.newEvent });
-          break;
+      if (gameData.newEvent.timing !== "One time event") {
+        currentData.cards.push({ ...gameData.newEvent });
       }
+
       currentData.newEvent = undefined;
       setGameData({
         ...currentData,
@@ -322,11 +246,11 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
   };
 
   const setEventIsDone = (id: CardID) => {
-    if (gameData?.events) {
-      let currentData = { ...gameData };
+    if (gameData?.cards) {
+      const currentData = { ...gameData };
 
-      const removeIndex = currentData.events.findIndex((evt) => evt.id === id);
-      currentData.events.splice(removeIndex, 1);
+      const removeIndex = currentData.cards.findIndex((card) => card.id === id);
+      currentData.cards.splice(removeIndex, 1);
 
       setGameData({
         ...currentData,
@@ -338,9 +262,9 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
   };
 
   const setbarbarianShipArrived = () => {
-    gameData.events
-      .filter((evt) => evt.timing === "Until barbarian ship")
-      .forEach((evt) => setEventIsDone(evt.id));
+    gameData.cards
+      .filter((card) => card.timing === "Until barbarian ship")
+      .forEach((card) => setEventIsDone(card.id));
   };
 
   const resetGame = () => {
