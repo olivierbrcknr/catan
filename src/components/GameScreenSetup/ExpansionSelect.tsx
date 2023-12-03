@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as RadixRadioGroup from "@radix-ui/react-radio-group";
 import clsx from "clsx";
 
 import type { ExpansionPack } from "../GameContainer/types";
@@ -47,19 +48,23 @@ const expansions: {
 
 const ExpansionSelect = ({ value, onChange }: ExpansionSelectProps) => {
   return (
-    <div className={styles.ExpansionSelect}>
+    <RadixRadioGroup.Root
+      className={styles.ExpansionSelect}
+      onValueChange={(label) => {
+        const set = expansions.find((exp) => exp.label === label);
+        onChange(set.value);
+      }}
+    >
       {expansions.map((exp, i) => (
-        <div
+        <RadixRadioGroup.Item
           key={"expansion-" + i}
-          onClick={() => {
-            onChange(exp.value);
-          }}
           className={clsx(
             styles.Expansion,
             value === exp.value && styles.isSelected,
             value.size === 0 && i === 0 && styles.isSelected,
             exp.className
           )}
+          value={exp.label}
         >
           <div className={styles.IconContainer}>
             {Array.isArray(exp.icon) ? (
@@ -82,9 +87,9 @@ const ExpansionSelect = ({ value, onChange }: ExpansionSelectProps) => {
             )}
           </div>
           <span className={styles.Label}>{exp.label}</span>
-        </div>
+        </RadixRadioGroup.Item>
       ))}
-    </div>
+    </RadixRadioGroup.Root>
   );
 };
 export default ExpansionSelect;

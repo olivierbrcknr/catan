@@ -4,6 +4,7 @@ import clsx from "clsx";
 import Head from "next/head";
 
 import GameContainer from "../components/GameContainer";
+import ZoomUI from "../components/ZoomUI";
 
 import styles from "../styles/Home.module.scss";
 
@@ -41,12 +42,13 @@ function Home() {
         <link rel="apple-touch-icon" href="/AppIcon.png" />
       </Head>
       <div className={clsx(styles.Wrapper, gameIsRunning && styles.isGame)}>
+        <ZoomUI />
         <main>
           {/* This is the main game container, it is wrapped to allow for more 'website' stuff around it */}
           <GameContainer onChangeInGame={setGameIsRunning} />
         </main>
         <footer>
-          <span>
+          <span className="footer_bg">
             2023 &copy;{" "}
             <a target="_blank" href="http://felixlaarmann.de/">
               Felix Laarmann
@@ -57,7 +59,7 @@ function Home() {
             </a>
           </span>
 
-          <ul>
+          <ul className="footer_bg">
             {footerLinks.map((link, i) => (
               <li key={`footer-link-${i}`}>
                 <a target="_blank" href={link.url}>

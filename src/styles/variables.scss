@@ -1,46 +1,56 @@
 :root {
-  --font-family-reg: "Inter", "Helvetica", sans-serif;
+  --font-family-reg: "Inter Variable", "Helvetica", sans-serif;
 
-  --color-page-background: #e7e4eb;
+  // Sizes
+  --stroke-width: 0.1rem;
+  --shadow-offset: 0.2rem;
 
-  --color-background: #fff;
+  // Sizes Radius
+  --border-radius-button: 0.4rem;
+  --border-radius-card: 0.8rem;
+  --border-radius-big: 1.6rem;
 
-  --color-black: #000;
-  --color-white: #fff;
-  --color-gray: #e4e7eb;
+  // Colors Font
+  --color-font-reg: #000000; // hsl(240, 100%, 8%);
+  --color-font-med: #0000004d; // 30% opacity
 
-  --color-primary: #8500ff;
-  --color-primary-transparent: #8500ff33;
-  --color-secondary: #fff500;
+  --color-white: #ffffff;
+  --color-black: var(--color-font-reg);
+  --color-black--STAY: #000000;
 
-  --color-font-reg: hsl(0, 0%, 0%);
-  --color-font-med: hsl(0, 0%, 40%);
-  --color-font-dis: hsl(0, 0%, 60%);
+  // Colors
+  --color-highlight: #8500ff;
+  --color-highlight-alpha: #8500ffbb;
+  --color-border: var(--color-font-reg);
+  --color-background: #f7f7f7;
+  --color-card-bg: var(--color-white);
 
-  --card-width: 150px;
-  --card-height: 240px;
-
-  --card-color-bg: var(--color-white);
-  --card-color-outline: var(--color-black);
-
-  --outline-width: 2px;
-  --outline-color: var(--color-black);
-  --outline-radius: 8px;
-
-  --color-player-red: #ff0000;
+  // Colors Players
+  --color-player-red: #ef1616;
   --color-player-orange: #ff9900;
   --color-player-blue: #3083ff;
   --color-player-white: #ffffff;
-  --color-player-brown: #734113;
-  --color-player-green: #1f9d96;
+  --color-player-brown: #bb6e1b;
+  --color-player-green: #3dc70d;
 
-  --color-event-type-temporary: #37d2ad;
+  // Colors Events
+  --color-event-type-temporary: #04d47c;
   --color-event-type-barbarian-ship: #ff9900;
-  --color-event-type-one-time: #8500ff;
+  --color-event-type-one-time: var(--color-highlight);
+  --color-event-type-rule: #00b2ff;
+}
 
-  --color-rule: #4082e3;
+@media (prefers-color-scheme: dark) {
+  :root {
+    // Colors Font
+    --color-font-reg: #cccccc; // hsl(240, 100%, 8%);
+    --color-font-med: #cccccc4d; // 30% opacity
 
-  --player-background-opacity: 0.5;
+    --color-white: #333;
 
-  --gap: 20px;
+    // Colors
+    --color-highlight: #a645ff;
+    --color-highlight-alpha: #a645ffbb;
+    --color-background: #222;
+  }
 }

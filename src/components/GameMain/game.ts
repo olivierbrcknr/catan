@@ -247,6 +247,7 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
     console.log("init game");
     const initGameData = startGame(cards, settings);
     setGameData(initGameData);
+    setIsPause(true);
   }, [cards, settings]);
 
   // setup our interval checker
@@ -302,7 +303,10 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
 
       switch (gameData.newEvent.type) {
         case "event":
-          currentData.events.push({ ...gameData.newEvent });
+          // one time events get deleted immedately
+          if (gameData.newEvent.timing !== "One time event") {
+            currentData.events.push({ ...gameData.newEvent });
+          }
           break;
         case "rule":
           currentData.rules.push({ ...gameData.newEvent });
@@ -353,5 +357,6 @@ export const useGameChange = (cards: AirtableData, settings: GameSettings) => {
     setbarbarianShipArrived,
     resetGame,
     spawnCard,
+    sec,
   };
 };

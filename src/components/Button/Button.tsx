@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import clsx from "clsx";
 
@@ -12,6 +12,7 @@ interface ButtonProps {
   disabled?: boolean;
   isSmall?: boolean;
   className?: string;
+  defaultFocus?: boolean;
 }
 
 const Button = ({
@@ -20,9 +21,19 @@ const Button = ({
   disabled,
   isSmall,
   className,
+  defaultFocus = false,
 }: ButtonProps) => {
+  const ref = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (ref.current && defaultFocus) {
+      ref.current.focus();
+    }
+  }, [defaultFocus, ref]);
+
   return (
     <button
+      ref={ref}
       onClick={disabled ? null : onClick}
       className={clsx(
         styles.Button,
@@ -35,4 +46,4 @@ const Button = ({
     </button>
   );
 };
-export default Button;
+export default React.memo(Button);

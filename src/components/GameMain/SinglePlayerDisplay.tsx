@@ -60,4 +60,4 @@ const SinglePlayerDisplay = ({
     </div>
   );
 };
-export default SinglePlayerDisplay;
+export default React.memo(SinglePlayerDisplay);

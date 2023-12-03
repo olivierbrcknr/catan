@@ -30,12 +30,14 @@ const GameEventPopover = ({
 
   return (
     <div className={styles.GameEventPopover}>
-      <h3>New {newEvent.type === "event" ? newEvent.timing : "Rule"}</h3>
-
       <div className={styles.CardContainer}>
         <Card isInit isPause event={newEvent} />
       </div>
-      <Button onClick={onClickContinue}>Continue</Button>
+      <div className={styles.ButtonWrapper}>
+        <Button defaultFocus onClick={onClickContinue}>
+          Continue
+        </Button>
+      </div>
     </div>
   );
 };

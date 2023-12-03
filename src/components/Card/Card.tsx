@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as RadixProgress from "@radix-ui/react-progress";
 import clsx from "clsx";
 
 import { useIsMobile } from "../../utils/hooks";
@@ -73,11 +74,7 @@ const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
   let timeRemaining: number;
   let timeRemainingLabel: string;
 
-  if (
-    !isInit &&
-    event.type === "event" &&
-    event?.timing === "Temporary Event"
-  ) {
+  if (event.type === "event" && event?.timing === "Temporary Event") {
     timeRemaining = (1 - progress / 100) * event.timingDetails;
 
     if (timeRemaining < 1) {
@@ -93,6 +90,7 @@ const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
         styles.Card,
         event.type === "event" && styles.isEvent,
         event.type === "rule" && styles.isRule,
+        event.type === "rule" && styles.typeRule,
         event.type === "event" &&
           event.timing === "Temporary Event" &&
           styles.typeTemporary,
@@ -105,43 +103,53 @@ const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
         isInit && styles.isInit
       )}
     >
-      <div className={styles.Icon}>
-        {/* @ts-ignore */}
-        <FontAwesomeIcon className={styles.CardIcon} icon={event.icon} />
+      <div className={styles.Header}>
+        <div className={styles.Icon}>
+          {/* @ts-ignore */}
+          <FontAwesomeIcon className={styles.CardIcon} icon={event.icon} />
+        </div>
+        <div className={styles.Title}>{event.name}</div>
       </div>
-      <div className={styles.Title}>{event.name}</div>
       <div className={styles.Description}>{event.description}</div>
 
-      {!isInit && event.type === "event" && (
-        <div className={styles.Controls}>
-          {event.timing === "One time event" && (
-            <Button
-              className={styles.DoneButton}
-              onClick={() => onIsDone(event.id)}
-              isSmall
-            >
-              Close
-            </Button>
-          )}
-          {event.timing === "Until barbarian ship" && (
-            <>
-              {/* @ts-ignore */}
-              <FontAwesomeIcon
-                className={styles.BarbarianShipIcon}
-                icon="sailboat"
-              />
-            </>
-          )}
-          {event.timing === "Temporary Event" && (
-            <div className={styles.ControlsProgress}>
-              <progress value={progress} max={100} />
-              <label>{timeRemainingLabel}</label>
-            </div>
-          )}
+      {event.type === "rule" && (
+        <div className={styles.Footer}>
+          <div className={styles.FooterLine} />
+          <div className={styles.FooterLabel}>Rule</div>
+          <div className={styles.FooterLine} />
+        </div>
+      )}
+      {event.type === "event" && event.timing === "One time event" && (
+        <div className={styles.Footer}>
+          <div className={styles.FooterLine} />
+          <div className={styles.FooterLabel}>Event</div>
+          <div className={styles.FooterLine} />
+        </div>
+      )}
+      {event.type === "event" && event.timing === "Until barbarian ship" && (
+        <div className={styles.Footer}>
+          <div className={styles.FooterLine} />
+          <div className={styles.FooterLabel}>Barbarian Ship</div>
+          <div className={styles.FooterLine} />
+        </div>
+      )}
+      {event.type === "event" && event.timing === "Temporary Event" && (
+        <div className={styles.Footer}>
+          <RadixProgress.Root
+            className={styles.Progress}
+            value={progress}
+            max={100}
+          >
+            <RadixProgress.Indicator
+              className={styles.ProgressIndicator}
+              style={{ transform: `translateX(-${100 - progress}%)` }}
+            />
+          </RadixProgress.Root>
+          <label>{timeRemainingLabel}</label>
         </div>
       )}
     </div>
   );
 };
 
-export default Card;
+export default React.memo(Card);

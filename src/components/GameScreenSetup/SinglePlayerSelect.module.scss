@@ -2,12 +2,14 @@
 
 .SinglePlayerSelect {
   @include box-design(var(--player-color));
-  padding: 10px;
-  padding-right: 40px;
+  padding: 1rem;
+  padding-right: 4rem;
   overflow: hidden;
 
   display: flex;
   flex: 1;
+
+  color: var(--color-black--STAY);
 
   &:before {
     content: "";
@@ -19,6 +21,10 @@
     bottom: 0;
     background-color: var(--player-color);
     opacity: var(--player-background-opacity);
+  }
+
+  :global(.keyboard-focus) &:focus-within {
+    @include keyboard-focus();
   }
 }
 
@@ -63,13 +69,14 @@
 
 .RemoveButton {
   @include center-children;
-  padding-bottom: 4px;
+  padding-bottom: 0.4rem;
+  font-size: 1.6rem;
 
   position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
-  width: 40px;
+  width: 4rem;
 
   cursor: pointer;
   opacity: 0.3;

@@ -4,27 +4,32 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  gap: var(--gap);
+  gap: 1rem;
 }
 
 .Tab {
   @include button-reset;
   @include box-design(var(--color-white), true);
   @include center-children;
+  @include font-gamma;
 
   width: 100%;
-  min-height: 50px;
+  min-height: 5rem;
 
   text-align: center;
 
   &:active {
-    transform: translate(4px, 4px);
+    transform: translate(var(--shadow-offset), var(--shadow-offset));
     box-shadow: none !important;
   }
 
   &.isSelected {
-    @include box-design(var(--color-primary), true);
+    @include box-design(var(--color-highlight), true);
     color: var(--color-white);
+  }
+
+  :global(.keyboard-focus) &:focus {
+    @include keyboard-focus();
   }
 }
 

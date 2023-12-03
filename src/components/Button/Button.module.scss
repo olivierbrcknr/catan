@@ -5,15 +5,20 @@
   @include box-design(var(--color-white), true);
   @include center-children;
   @include font-gamma;
+  font-weight: 600;
 
   min-width: 10em;
-  min-height: 50px;
+  min-height: 5rem;
 
   text-align: center;
 
   &:active:not(.isDisabled) {
-    transform: translate(4px, 4px);
+    transform: translate(var(--shadow-offset), var(--shadow-offset));
     box-shadow: none !important;
+  }
+
+  :global(.keyboard-focus) &:focus {
+    @include keyboard-focus();
   }
 }
 

@@ -1,0 +1,48 @@
+@import "../../styles/mixins.scss";
+
+.ZoomUI {
+  position: absolute;
+  top: 1.2rem;
+  right: 2rem;
+  z-index: 100;
+}
+
+.BG {
+  padding: 0.2rem;
+  background: var(--color-background);
+
+  display: flex;
+  gap: 0.1rem;
+
+  border-radius: 0.4rem;
+}
+
+.Button {
+  @include button-reset;
+  @include center-children;
+
+  width: 3rem;
+  height: 3rem;
+
+  border-radius: 0.4rem;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:active {
+    opacity: 0.7;
+
+    & .Icon {
+      height: 1.5rem;
+    }
+  }
+
+  :global(.keyboard-focus) &:focus {
+    @include keyboard-focus();
+  }
+}
+
+.Icon {
+  height: 1.6rem;
+}

@@ -39,3 +39,30 @@ export const useIsMobile = () => {
 
   return isMobile;
 };
+
+export const useIsDarkmode = () => {
+  const [isDarkmode, setIsDarkmode] = useState(false);
+
+  useEffect(() => {
+    const checkIfDarkmode = () => {
+      setIsDarkmode(
+        window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+      );
+    };
+
+    checkIfDarkmode();
+
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", checkIfDarkmode);
+
+    return () => {
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .removeEventListener("change", checkIfDarkmode);
+    };
+  }, []);
+
+  return isDarkmode;
+};

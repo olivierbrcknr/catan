@@ -14,6 +14,7 @@ export interface GameControlsProps {
   players: Player[];
   setPlayers: (v: Player[]) => void;
   isPause: boolean;
+  isNewEvent: boolean;
   onTogglePause: () => void;
   onBarbarianShipArrived: () => void;
   hasShipExtension: boolean;
@@ -28,6 +29,7 @@ const GameControls = ({
   players,
   setPlayers,
   isPause,
+  isNewEvent,
   onTogglePause,
   onBarbarianShipArrived,
   hasShipExtension,
@@ -50,21 +52,19 @@ const GameControls = ({
   return (
     <div className={styles.GameControls}>
       <div className={styles.playpause}>
-        <div className={styles.Button_Play}>
-          <Button onClick={onTogglePause}>
-            {isPause ? (
-              <>
-                <FontAwesomeIcon className={styles.Button_Icon} icon="play" />
-                <span className={styles.Button_Text}>Play</span>
-              </>
-            ) : (
-              <>
-                <FontAwesomeIcon className={styles.Button_Icon} icon="pause" />
-                <span className={styles.Button_Text}>Pause</span>
-              </>
-            )}
-          </Button>
-        </div>
+        <Button disabled={isNewEvent} onClick={onTogglePause}>
+          {isPause || isNewEvent ? (
+            <>
+              <FontAwesomeIcon className={styles.Button_Icon} icon="play" />
+              <span className={styles.Button_Text}>Play</span>
+            </>
+          ) : (
+            <>
+              <FontAwesomeIcon className={styles.Button_Icon} icon="pause" />
+              <span className={styles.Button_Text}>Pause</span>
+            </>
+          )}
+        </Button>
 
         {hasShipExtension && (
           <Button disabled={isPause} onClick={onBarbarianShipArrived}>
@@ -101,4 +101,4 @@ const GameControls = ({
   );
 };
 
-export default GameControls;
+export default React.memo(GameControls);

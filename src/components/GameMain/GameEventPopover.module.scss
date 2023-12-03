@@ -1,13 +1,22 @@
+@import "../../styles/mixins.scss";
+
 .GameEventPopover {
   display: flex;
   flex-direction: column;
-  gap: var(--gap);
+  gap: 1rem;
   align-items: center;
 }
 
-.GameEventPopover h3 {
-  color: var(--color-white);
+.CardContainer {
+  zoom: 1.4;
+
+  max-width: 60vw;
 }
 
-.CardContainer {
+.ButtonWrapper {
+  border-radius: var(--border-radius-button);
+
+  &:focus-within {
+    @include keyboard-focus;
+  }
 }
