@@ -2,6 +2,7 @@
 import { faTwitter, faFontAwesome } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import "@fontsource-variable/inter";
 import "../styles/variables.scss";
 import "../styles/globals.scss";
 import clsx from "clsx";
