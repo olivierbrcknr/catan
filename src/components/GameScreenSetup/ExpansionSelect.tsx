@@ -28,13 +28,13 @@ const expansions: {
   },
   {
     label: "Seafarers",
-    value: new Set([exp1]),
+    value: new Set([exp2]),
     className: styles.TypeSeafarers,
     icon: "anchor",
   },
   {
     label: "Cities & Knights",
-    value: new Set([exp2]),
+    value: new Set([exp1]),
     className: styles.TypeCitiesKinghts,
     icon: "chess-knight",
   },
