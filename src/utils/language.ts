@@ -179,6 +179,10 @@ const LocalizedLabel = {
     en: "Done",
     de: "Fertig",
   },
+  loading: <Label>{
+    en: "is loading",
+    de: "lädt…",
+  },
 } as const;
 
 type Labels = keyof typeof LocalizedLabel;

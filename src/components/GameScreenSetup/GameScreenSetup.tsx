@@ -17,6 +17,7 @@ import type {
   CardFilter,
   ExpansionPack,
 } from "../GameContainer/types";
+import LoadingIndicator from "../LoadingIndicator";
 import Slider from "../Slider";
 import TabSelect from "../TabSelect";
 
@@ -35,6 +36,7 @@ export interface GameScreenSetupProps {
   onChangeFilters: (v: CardFilter) => void;
   filteredData: AirtableData;
   language: Language;
+  hasAirtableData: boolean;
 }
 
 const GameScreenSetup = ({
@@ -47,6 +49,7 @@ const GameScreenSetup = ({
   onChangeFilters,
   filteredData,
   language,
+  hasAirtableData,
 }: GameScreenSetupProps) => {
   const onSinglePlayerChange = (updatedPlayer: Player, index: number) => {
     const allPlayers = players;
@@ -214,9 +217,14 @@ const GameScreenSetup = ({
               {printLabel("CardCheck", language)} {gameSettings.eventFrequency}s
             </span>
           </div>
+
+          {!hasAirtableData && <LoadingIndicator language={language} />}
+
           <Button
             className={styles.StartButton}
-            disabled={players.filter((p) => p.isActive).length < 2}
+            disabled={
+              players.filter((p) => p.isActive).length < 2 || !hasAirtableData
+            }
             onClick={onClickStart}
           >
             {printLabel("StartToPlay", language)}

@@ -126,6 +126,7 @@ const GameContainer = ({ onChangeInGame, language }: GameContainerProps) => {
           onChangeFilters={setFilter}
           filteredData={filteredData}
           language={language}
+          hasAirtableData={airTableData.length > 0}
         />
       )}
 

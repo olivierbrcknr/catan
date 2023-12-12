@@ -1,0 +1,39 @@
+@import "../../styles/mixins.scss";
+
+.LoadingIndicator {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  height: max-content;
+
+  white-space: nowrap;
+
+  color: var(--color-highlight);
+  background: var(--color-highlight-alpha-light);
+
+  border-radius: var(--border-radius-big);
+  padding: 1rem 1.5rem;
+}
+
+.Icon {
+  width: 1rem;
+
+  animation-name: rotate;
+  animation-duration: 5s;
+  animation-direction: linear;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Label {
+  font-weight: 600;
+}
