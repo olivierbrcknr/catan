@@ -7,8 +7,8 @@ import GameContainer from "../components/GameContainer";
 import LanguageSelect from "../components/LanguageSelect";
 import ZoomUI from "../components/ZoomUI";
 import {
-  type Label as LanguageLabel,
   type Language,
+  type Label as LanguageLabel,
   printLabel,
 } from "../utils/language";
 

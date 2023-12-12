@@ -1,14 +1,14 @@
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { BASE_PROBABILITY } from "../utils/constants";
 
 import { airtableDataToCards, getCardData } from "./airtableDataToCards";
 import type {
   AirtableData,
-  GameData,
-  GameSettings,
   Card,
   CardID,
+  GameData,
+  GameSettings,
 } from "./types";
 
 type DeckCard = {
@@ -18,6 +18,8 @@ type DeckCard = {
 let currentDeck: DeckCard[] = [];
 
 const startGame = (cards: AirtableData, settings: GameSettings) => {
+  console.table(settings);
+
   // generate initial setup
   cards.forEach((e) => {
     // add card id in amount of probability to deck

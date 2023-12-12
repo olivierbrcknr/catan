@@ -2,11 +2,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as RadixRadioGroup from "@radix-ui/react-radio-group";
 import clsx from "clsx";
 
-import {
-  type Label as LanguageLabel,
-  type Language,
-} from "../../utils/language";
 import type { ExpansionPack } from "../../game/types";
+import {
+  type Language,
+  type Label as LanguageLabel,
+} from "../../utils/language";
 
 import styles from "./ExpansionSelect.module.scss";
 

@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
-import { getCookies, setCookie, deleteCookie, getCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 
 import {
   type Language,
-  isPossibleLanguage,
   Languages,
+  isPossibleLanguage,
 } from "../../utils/language";
 import TooltipLabel from "../TooltipLabel";
 
@@ -35,14 +34,6 @@ const LanguageSelect = ({ onChange }: LanguageSelectProps) => {
     setCookie("language", language);
     onChange(language);
   }, [language, onChange]);
-
-  // useEffect(() => {
-  //   const zoomFromCookies = getCookie("zoom");
-
-  //   if (typeof zoomFromCookies === "number") {
-  //     setZoomLevel(zoomFromCookies);
-  //   }
-  // }, []);
 
   return (
     <div className={styles.LanguageSelect}>

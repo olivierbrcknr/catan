@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import clsx from "clsx";
-import { getCookies, setCookie, deleteCookie, getCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 
-import { printLabel, type Language } from "../../utils/language";
+import { type Language, printLabel } from "../../utils/language";
 import TooltipLabel from "../TooltipLabel";
 
 import styles from "./ZoomUI.module.scss";
@@ -35,12 +34,6 @@ const ZoomUI = ({ language }: ZoomUIProps) => {
     setZoomLevel(newZoomLevel);
     setCookie("zoom", newZoomLevel);
   };
-
-  // // we can use it anywhere
-  // getCookies();
-  // getCookie('key');
-  // setCookie('key', 'value');
-  // deleteCookie('key');
 
   return (
     <div className={styles.ZoomUI}>

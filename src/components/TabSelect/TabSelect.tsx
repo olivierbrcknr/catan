@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import * as RadixRadioGroup from "@radix-ui/react-radio-group";
 import clsx from "clsx";
 
-import type { ExpansionPack } from "../GameContainer/types";
-
 import styles from "./TabSelect.module.scss";
 
 interface TabSelectProps {
-  onChange: (v: string | number) => void;
+  onChange: (_v: string | number) => void;
   options: { label: string; value: string | number }[];
   value: string | number;
   name: string;

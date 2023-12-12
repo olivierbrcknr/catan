@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const useKeyboardFocus = () => {
   const [keyboardFocus, setKeyboardFocus] = useState(false);

@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 // import { useIsMobile } from "../../utils/hooks";
 import type { SetupCard as SetupCardType } from "../../game/types";
-import { printLabel, type Language, type Labels } from "../../utils/language";
+import { type Labels, type Language, printLabel } from "../../utils/language";
 import ProgressBar, { ProgressBarTheme } from "../ProgressBar";
 
 import styles from "./SetupCard.module.scss";

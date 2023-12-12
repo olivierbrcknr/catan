@@ -2,9 +2,9 @@ import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { printLabel, type Language } from "../../utils/language";
-import Button from "../Button";
 import type { Player } from "../../game/types";
+import { type Language, printLabel } from "../../utils/language";
+import Button from "../Button";
 
 import SinglePlayerDisplay from "./SinglePlayerDisplay";
 

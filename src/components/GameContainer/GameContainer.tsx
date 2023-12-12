@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 // import filterData from "../../game/filter";
 import type {
-  Player,
-  GameSettings,
-  CardFilter,
   AirtableData,
+  CardFilter,
+  GameSettings,
+  Player,
 } from "../../game/types";
 import { fetchAirTableData } from "../../utils/airtable";
 import {

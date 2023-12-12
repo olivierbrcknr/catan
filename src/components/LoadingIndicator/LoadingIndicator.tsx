@@ -2,7 +2,7 @@ import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { printLabel, type Language } from "../../utils/language";
+import { type Language, printLabel } from "../../utils/language";
 
 import styles from "./LoadingIndicator.module.scss";
 

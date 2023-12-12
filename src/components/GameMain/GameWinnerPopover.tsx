@@ -1,8 +1,8 @@
 import clsx from "clsx";
 
-import { printLabel, type Language } from "../../utils/language";
-import Button from "../Button";
 import type { Player } from "../../game/types";
+import { type Language, printLabel } from "../../utils/language";
+import Button from "../Button";
 
 import styles from "./GameWinnerPopover.module.scss";
 

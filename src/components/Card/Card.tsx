@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 
 // import { useIsMobile } from "../../utils/hooks";
-import type { InGameCard, CardID } from "../../game/types";
-import { printLabel, type Language } from "../../utils/language";
-
+import type { CardID, InGameCard } from "../../game/types";
+import { type Language, printLabel } from "../../utils/language";
 import ProgressBar from "../ProgressBar";
 
 import styles from "./Card.module.scss";

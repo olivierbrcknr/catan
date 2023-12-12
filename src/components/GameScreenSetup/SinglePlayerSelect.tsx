@@ -2,8 +2,8 @@ import React from "react";
 
 import clsx from "clsx";
 
-import { printLabel, type Language } from "../../utils/language";
 import type { Player } from "../../game/types";
+import { type Language, printLabel } from "../../utils/language";
 
 import styles from "./SinglePlayerSelect.module.scss";
 

@@ -3,8 +3,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 
-import Button from "../Button";
 import type { Player } from "../../game/types";
+import Button from "../Button";
 
 import styles from "./SinglePlayerDisplay.module.scss";
 

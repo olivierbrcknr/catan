@@ -1,11 +1,12 @@
 {
-  "extends": ["next", "plugin:prettier/recommended", "prettier"],
+  "extends": ["next", "plugin:prettier/recommended", "prettier", "plugin:@typescript-eslint/recommended"],
   "rules": {
     "@next/next/no-img-element": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "react/display-name": "off",
     "prettier/prettier": "warn",
     "prefer-const": "warn",
-    "no-unused-vars": "warn",
     "import/order": [
       "warn",
       {
@@ -38,6 +39,7 @@
         "newlines-between": "always",
         "warnOnUnassignedImports": true,
       }
-    ]
+    ],
+
   }
 }

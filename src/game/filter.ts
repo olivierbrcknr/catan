@@ -1,4 +1,4 @@
-import type { GameSettings, CardFilter, AirtableData, Card } from "./types";
+import type { AirtableData, Card, CardFilter, GameSettings } from "./types";
 
 export const filterData = (
   airTableData: AirtableData,

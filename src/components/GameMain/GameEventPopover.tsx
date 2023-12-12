@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 
-import { printLabel, type Language } from "../../utils/language";
+import type { InGameCard } from "../../game/types";
+import { type Language, printLabel } from "../../utils/language";
 import Button from "../Button";
 import Card from "../Card";
-import type { InGameCard } from "../../game/types";
 
 import styles from "./GameEventPopover.module.scss";
 

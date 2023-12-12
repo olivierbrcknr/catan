@@ -1,7 +1,6 @@
-import React, { useState, useLayoutEffect } from "react";
+import React from "react";
 
 import * as RadixTooltip from "@radix-ui/react-tooltip";
-import clsx from "clsx";
 
 import styles from "./TooltipLabel.module.scss";
 
@@ -22,12 +21,6 @@ const TooltipLabel = ({
   sideOffset = 2,
   delayDuration = 0,
 }: TooltipLabelProps) => {
-  // const [floatingLayer, setFloatingLayer] = useState<HTMLElement | undefined>();
-
-  // useLayoutEffect(() => {
-  //   setFloatingLayer(document.querySelector("#floating") as HTMLElement);
-  // }, []);
-
   return (
     <RadixTooltip.Provider
       delayDuration={delayDuration}

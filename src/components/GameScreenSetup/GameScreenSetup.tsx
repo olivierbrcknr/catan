@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { filterData } from "../../game";
 import type {
   AirtableData,
-  Player,
-  GameSettings,
   CardFilter,
   ExpansionPack,
+  GameSettings,
+  Player,
 } from "../../game/types";
 import {
-  // CARD_VARIETY_LOW,
-  // CARD_VARIETY_MEDIUM,
-  // CARD_VARIETY_HIGH,
   EVENT_FREQUENCY_LOW,
   EVENT_FREQUENCY_MEDIUM,
   EVENT_FREQUENCY_HIGH,
 } from "../../utils/constants";
-import { printLabel, type Language } from "../../utils/language";
+import { type Language, printLabel } from "../../utils/language";
 import Button from "../Button";
 import CardOverview from "../CardOverview";
 import LoadingIndicator from "../LoadingIndicator";
@@ -36,9 +33,7 @@ export interface GameScreenSetupProps {
   onChangeSettings: (v: GameSettings) => void;
   activeFilters: CardFilter;
   onChangeFilters: (v: CardFilter) => void;
-  // filteredData: AirtableData;
   language: Language;
-  // hasAirtableData: boolean;
   airTableData: AirtableData;
   onFilterData: (v: AirtableData) => void;
 }
@@ -51,9 +46,7 @@ const GameScreenSetup = ({
   onChangeSettings,
   activeFilters,
   onChangeFilters,
-  // filteredData,
   language,
-  // hasAirtableData,
   airTableData,
   onFilterData,
 }: GameScreenSetupProps) => {
@@ -82,7 +75,7 @@ const GameScreenSetup = ({
     });
   };
 
-  const settingsChange = (value: any, setting: string) => {
+  const settingsChange = (value: string | number, setting: string) => {
     const newSettings = { ...gameSettings };
     newSettings[setting] = value;
     onChangeSettings({ ...newSettings });

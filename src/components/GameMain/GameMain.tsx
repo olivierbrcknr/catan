@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 
 import { useGameChange } from "../../game/game";
-import type { Player, GameSettings, AirtableData } from "../../game/types";
-import { printLabel, type Language } from "../../utils/language";
+import type { AirtableData, GameSettings, Player } from "../../game/types";
+import { type Language, printLabel } from "../../utils/language";
 import Card from "../Card";
 
 import GameControls from "./GameControls";
@@ -91,7 +91,7 @@ const GameMain = ({
         </div>
 
         <div className={styles.Events}>
-          {gameData?.cards.map((card, i) => (
+          {gameData?.cards.map((card) => (
             <Card
               isPause={isPause}
               key={`Card-${card.id}`}

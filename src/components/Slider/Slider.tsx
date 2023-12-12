@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import * as RadixSlider from "@radix-ui/react-slider";
-import clsx from "clsx";
 
 import styles from "./Slider.module.scss";
 

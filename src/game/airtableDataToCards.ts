@@ -1,4 +1,4 @@
-import type { AirtableData, InGameCard, CardID } from "./types";
+import type { AirtableData, CardID, InGameCard } from "./types";
 
 export const airtableDataToCards = (airTableData: AirtableData) => {
   const cards = airTableData

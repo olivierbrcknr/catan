@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-import type {
-  AirtableData,
-  SetupCard as SetupCardType,
-  filterData,
-} from "../../game";
-import { printLabel, type Language } from "../../utils/language";
+import type { AirtableData, SetupCard as SetupCardType } from "../../game";
+import { type Language, printLabel } from "../../utils/language";
 
 import SetupCard from "./SetupCard";
 
@@ -80,7 +76,7 @@ const CardOverview = ({
 
       {isShown && (
         <div className={styles.Grid}>
-          {cards.map((card, i) => (
+          {cards.map((card) => (
             <SetupCard
               key={`SetupCard-${card.id}`}
               card={card}

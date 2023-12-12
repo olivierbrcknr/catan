@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 import clsx from "clsx";
-
-import type { ExpansionPack } from "../GameContainer/types";
 
 import styles from "./Button.module.scss";
 

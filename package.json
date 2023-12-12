@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint-fix": "npx eslint './src/**/*.{j,t}s{,x}' --fix"
+    "lint-fix": "npx eslint --fix './src/**/*.{j,t}s{,x}'"
   },
   "devDependencies": {
     "@types/react": "18.0.35",
