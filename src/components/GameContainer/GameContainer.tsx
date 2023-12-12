@@ -6,6 +6,7 @@ import {
   EVENT_FREQUENCY_MEDIUM,
   PLAYER_START_POINTS,
 } from "../../utils/constants";
+import { type Language } from "../../utils/language";
 import GameMain from "../GameMain";
 import GameScreenSetup from "../GameScreenSetup";
 
@@ -16,13 +17,14 @@ import styles from "./GameContainer.module.scss";
 
 export interface GameContainerProps {
   onChangeInGame: (v: boolean) => void;
+  language: Language;
 }
 
 // const MAX_STEPS = 2;
 
 const isDev = process.env.NODE_ENV === "development";
 
-const GameContainer = ({ onChangeInGame }: GameContainerProps) => {
+const GameContainer = ({ onChangeInGame, language }: GameContainerProps) => {
   const [airTableData, setAirTableData] = useState<AirtableData>([]);
   const [filteredData, setFilteredData] = useState<AirtableData>([]);
 
@@ -111,6 +113,7 @@ const GameContainer = ({ onChangeInGame }: GameContainerProps) => {
           onClickCancelGame={handleEndGame}
           gameSettings={gameSettings}
           filteredData={filteredData}
+          language={language}
         />
       ) : (
         <GameScreenSetup
@@ -122,6 +125,7 @@ const GameContainer = ({ onChangeInGame }: GameContainerProps) => {
           activeFilters={filter}
           onChangeFilters={setFilter}
           filteredData={filteredData}
+          language={language}
         />
       )}
 

@@ -4,16 +4,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { getCookies, setCookie, deleteCookie, getCookie } from "cookies-next";
 
+import { printLabel, type Language } from "../../utils/language";
 import TooltipLabel from "../TooltipLabel";
 
 import styles from "./ZoomUI.module.scss";
 
-interface ZoomUIProps {}
+interface ZoomUIProps {
+  language: Language;
+}
 
 const ZOOM_SCALE = 0.1;
 const BASE_REM = 10;
 
-const ZoomUI = ({}: ZoomUIProps) => {
+const ZoomUI = ({ language }: ZoomUIProps) => {
   const [zoomLevel, setZoomLevel] = useState(1);
 
   useEffect(() => {
@@ -42,7 +45,7 @@ const ZoomUI = ({}: ZoomUIProps) => {
   return (
     <div className={styles.ZoomUI}>
       <div className={styles.BG}>
-        <TooltipLabel label="Zoom Out">
+        <TooltipLabel label={printLabel("Zoom Out", language)}>
           <button
             className={styles.Button}
             onClick={() => adjustZoomLevel(zoomLevel - ZOOM_SCALE)}
@@ -54,7 +57,7 @@ const ZoomUI = ({}: ZoomUIProps) => {
           </button>
         </TooltipLabel>
 
-        <TooltipLabel label="Zoom In">
+        <TooltipLabel label={printLabel("Zoom In", language)}>
           <button
             className={styles.Button}
             onClick={() => adjustZoomLevel(zoomLevel + ZOOM_SCALE)}
@@ -66,7 +69,7 @@ const ZoomUI = ({}: ZoomUIProps) => {
           </button>
         </TooltipLabel>
 
-        <TooltipLabel label="Reset Zoom Level">
+        <TooltipLabel label={printLabel("Reset Zoom", language)}>
           <button className={styles.Button} onClick={() => adjustZoomLevel(1)}>
             <FontAwesomeIcon className={styles.Icon} icon="rotate-left" />
           </button>

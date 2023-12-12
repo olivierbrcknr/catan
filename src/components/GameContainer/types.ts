@@ -31,13 +31,15 @@ export type CardID = string;
 
 export type Card = {
   Name: string;
-  Evil: number;
+  "Name ENG": string;
+  Description: string;
+  "Description ENG": string;
   "Expansion Packs"?: ExpansionPack[];
   "Enabled (Moderated)"?: boolean;
   "Timing Details"?: number;
   "Active at the beginning"?: boolean;
+  Evil: number;
   Funk: number;
-  Description: string;
   Type: EventType;
   "Start Time"?: number;
   "End Time"?: number;
@@ -51,8 +53,14 @@ export type Card = {
 export type AirtableData = Card[];
 
 export type InGameCard = {
-  name: string;
-  description: string;
+  name: {
+    en: string;
+    de: string;
+  };
+  description: {
+    en: string;
+    de: string;
+  };
   icon: string;
   isNew?: boolean;
   id: CardID;

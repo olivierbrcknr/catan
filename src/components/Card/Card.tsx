@@ -5,6 +5,7 @@ import * as RadixProgress from "@radix-ui/react-progress";
 import clsx from "clsx";
 
 // import { useIsMobile } from "../../utils/hooks";
+import { printLabel, type Language } from "../../utils/language";
 import type { InGameCard, CardID } from "../GameContainer/types";
 
 import styles from "./Card.module.scss";
@@ -15,9 +16,10 @@ export interface CardProps {
   onIsDone?: (id: CardID) => void;
   isInit?: boolean;
   isPopOver?: boolean;
+  language: Language;
 }
 
-const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
+const Card = ({ isPause, event, onIsDone, isInit, language }: CardProps) => {
   const [sec, setSec] = useState(0);
 
   const [progress, setProgress] = useState(0);
@@ -88,28 +90,34 @@ const Card = ({ isPause, event, onIsDone, isInit }: CardProps) => {
           {/* @ts-ignore */}
           <FontAwesomeIcon className={styles.CardIcon} icon={event.icon} />
         </div>
-        <div className={styles.Title}>{event.name}</div>
+        <div className={styles.Title}>{event.name[language]}</div>
       </div>
-      <div className={styles.Description}>{event.description}</div>
+      <div className={styles.Description}>{event.description[language]}</div>
 
       {event.timing === "Permanent Rule" && (
         <div className={styles.Footer}>
           <div className={styles.FooterLine} />
-          <div className={styles.FooterLabel}>Rule</div>
+          <div className={styles.FooterLabel}>
+            {printLabel("TypeRule", language)}
+          </div>
           <div className={styles.FooterLine} />
         </div>
       )}
       {event.timing === "One time event" && (
         <div className={styles.Footer}>
           <div className={styles.FooterLine} />
-          <div className={styles.FooterLabel}>Event</div>
+          <div className={styles.FooterLabel}>
+            {printLabel("TypeEvent", language)}
+          </div>
           <div className={styles.FooterLine} />
         </div>
       )}
       {event.timing === "Until barbarian ship" && (
         <div className={styles.Footer}>
           <div className={styles.FooterLine} />
-          <div className={styles.FooterLabel}>Barbarian Ship</div>
+          <div className={styles.FooterLabel}>
+            {printLabel("TypeShip", language)}
+          </div>
           <div className={styles.FooterLine} />
         </div>
       )}

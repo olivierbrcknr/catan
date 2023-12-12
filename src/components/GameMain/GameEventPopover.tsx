@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 
+import { printLabel, type Language } from "../../utils/language";
 import Button from "../Button";
 import Card from "../Card";
 import type { InGameCard } from "../GameContainer/types";
@@ -9,11 +10,13 @@ import styles from "./GameEventPopover.module.scss";
 export interface GameEventPopoverProps {
   newEvent: InGameCard;
   onClickContinue: () => void;
+  language: Language;
 }
 
 const GameEventPopover = ({
   newEvent,
   onClickContinue,
+  language,
 }: GameEventPopoverProps) => {
   useEffect(() => {
     const audio = new Audio("/sound.wav");
@@ -23,11 +26,11 @@ const GameEventPopover = ({
   return (
     <div className={styles.GameEventPopover}>
       <div className={styles.CardContainer}>
-        <Card isInit isPause event={newEvent} />
+        <Card isInit isPause event={newEvent} language={language} />
       </div>
       <div className={styles.ButtonWrapper}>
         <Button defaultFocus onClick={onClickContinue}>
-          Continue
+          {printLabel("EventButtonLabel", language)}
         </Button>
       </div>
     </div>

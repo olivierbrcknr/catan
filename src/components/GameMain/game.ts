@@ -31,8 +31,14 @@ const startGame = (cards: AirtableData, settings: GameSettings) => {
       // return simplified version of event
       const transformedCard: InGameCard = {
         id: r.id,
-        name: r.Name,
-        description: r.Description,
+        name: {
+          de: r.Name,
+          en: r["Name ENG"],
+        },
+        description: {
+          de: r.Description,
+          en: r["Description ENG"],
+        },
         icon: r.Icon,
         timing: r.Type,
         timingDetails: r?.["Timing Details"],
@@ -122,8 +128,14 @@ const getCardData = (id: CardID, cards: AirtableData) => {
 
   const eventData: InGameCard = {
     id: id,
-    name: event.Name,
-    description: event.Description,
+    name: {
+      de: event.Name,
+      en: event["Name ENG"],
+    },
+    description: {
+      de: event.Description,
+      en: event["Description ENG"],
+    },
     icon: event.Icon,
     isNew: true,
     timing: event.Type,

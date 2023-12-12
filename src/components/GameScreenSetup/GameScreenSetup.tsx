@@ -8,6 +8,7 @@ import {
   EVENT_FREQUENCY_MEDIUM,
   EVENT_FREQUENCY_HIGH,
 } from "../../utils/constants";
+import { printLabel, type Language } from "../../utils/language";
 import Button from "../Button";
 import type {
   AirtableData,
@@ -33,6 +34,7 @@ export interface GameScreenSetupProps {
   activeFilters: CardFilter;
   onChangeFilters: (v: CardFilter) => void;
   filteredData: AirtableData;
+  language: Language;
 }
 
 const GameScreenSetup = ({
@@ -44,6 +46,7 @@ const GameScreenSetup = ({
   activeFilters,
   onChangeFilters,
   filteredData,
+  language,
 }: GameScreenSetupProps) => {
   const onSinglePlayerChange = (updatedPlayer: Player, index: number) => {
     const allPlayers = players;
@@ -71,11 +74,12 @@ const GameScreenSetup = ({
       <h1>Fate of Catan</h1>
 
       <section>
-        <h2>Extensions</h2>
+        <h2>{printLabel("Extensions", language)}</h2>
 
         <ExpansionSelect
           value={activeFilters.expansionPacks}
           onChange={onExpansionChange}
+          language={language}
         />
 
         {/*<div onChange={onExpansionChange}>
@@ -94,7 +98,7 @@ const GameScreenSetup = ({
       </section>
 
       <section>
-        <h2>Who‘s Playing?</h2>
+        <h2>{printLabel("Who is Playing", language)}</h2>
 
         <div className={styles.Row}>
           {players.map((p, i) => (
@@ -102,16 +106,20 @@ const GameScreenSetup = ({
               key={`Player-${i}`}
               player={p}
               onChange={(v) => onSinglePlayerChange(v, i)}
+              language={language}
             />
           ))}
         </div>
       </section>
 
       <section>
-        <h2>Rules</h2>
+        <h2>{printLabel("Rules", language)}</h2>
 
         <div className={styles.Row}>
-          <h3>Victory Points ({gameSettings.maxPointsNeeded})</h3>
+          <h3>
+            {printLabel("Victory Points", language)} (
+            {gameSettings.maxPointsNeeded})
+          </h3>
           <Slider
             name="Victory Points"
             value={gameSettings.maxPointsNeeded}
@@ -123,22 +131,22 @@ const GameScreenSetup = ({
       </section>
 
       <section>
-        <h2>Events</h2>
+        <h2>{printLabel("Events", language)}</h2>
         <div className={styles.Row}>
-          <h3>Frequency</h3>
+          <h3>{printLabel("Frequency", language)}</h3>
           <TabSelect
             name="Frequency"
             options={[
               {
-                label: "Low",
+                label: printLabel("Low", language),
                 value: EVENT_FREQUENCY_LOW,
               },
               {
-                label: "Medium",
+                label: printLabel("Medium", language),
                 value: EVENT_FREQUENCY_MEDIUM,
               },
               {
-                label: "High",
+                label: printLabel("High", language),
                 value: EVENT_FREQUENCY_HIGH,
               },
             ]}
@@ -147,26 +155,26 @@ const GameScreenSetup = ({
           />
         </div>
         <div className={styles.Row}>
-          <h3>Evilness</h3>
+          <h3>{printLabel("Evilness", language)}</h3>
           <Slider
             name="Evilness Level"
             value={gameSettings.evilLevel}
             min={0}
-            labelMin={"kind"}
+            labelMin={printLabel("kind", language)}
             max={10}
-            labelMax={"evil"}
+            labelMax={printLabel("evil", language)}
             onChange={(v) => settingsChange(v, "evilLevel")}
           />
         </div>
         <div className={styles.Row}>
-          <h3>Funkiness</h3>
+          <h3>{printLabel("Funkiness", language)}</h3>
           <Slider
             name="Funkiness Level"
             value={gameSettings.funkLevel}
             min={0}
-            labelMin={"ordinary"}
+            labelMin={printLabel("ordinary", language)}
             max={10}
-            labelMax={"funky"}
+            labelMax={printLabel("funky", language)}
             onChange={(v) => settingsChange(v, "funkLevel")}
           />
         </div>
@@ -199,15 +207,19 @@ const GameScreenSetup = ({
             Edit Deck
           </Button>*/}
           <div className={styles.DisplaySettings}>
-            <span>Cards: {filteredData.length}</span>
-            <span>New card check every {gameSettings.eventFrequency}s</span>
+            <span>
+              {printLabel("Cards", language)}: {filteredData.length}
+            </span>
+            <span>
+              {printLabel("CardCheck", language)} {gameSettings.eventFrequency}s
+            </span>
           </div>
           <Button
             className={styles.StartButton}
             disabled={players.filter((p) => p.isActive).length < 2}
             onClick={onClickStart}
           >
-            Play!
+            {printLabel("StartToPlay", language)}
           </Button>
         </div>
       </section>

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { printLabel, type Language } from "../../utils/language";
 import Button from "../Button";
 import type { Player } from "../GameContainer/types";
 
@@ -20,9 +21,10 @@ export interface GameControlsProps {
   hasShipExtension: boolean;
   maxPoints: number;
   onClickSpawnCard: () => void;
+  language: Language;
 }
 
-const isDev = process.env.NODE_ENV === "development";
+// const isDev = process.env.NODE_ENV === "development";
 
 const GameControls = ({
   onClickCancelGame,
@@ -35,13 +37,14 @@ const GameControls = ({
   hasShipExtension,
   maxPoints,
   onClickSpawnCard,
+  language,
 }: GameControlsProps) => {
   const onSinglePlayerChangePoints = (
     player: Player,
     index: number,
     value: number
   ) => {
-    let allPlayers = players;
+    const allPlayers = players;
     allPlayers[index] = {
       ...player,
       points: value,
@@ -56,12 +59,16 @@ const GameControls = ({
           {isPause || isNewEvent ? (
             <>
               <FontAwesomeIcon className={styles.Button_Icon} icon="play" />
-              <span className={styles.Button_Text}>Play</span>
+              <span className={styles.Button_Text}>
+                {printLabel("Play", language)}
+              </span>
             </>
           ) : (
             <>
               <FontAwesomeIcon className={styles.Button_Icon} icon="pause" />
-              <span className={styles.Button_Text}>Pause</span>
+              <span className={styles.Button_Text}>
+                {printLabel("Pause", language)}
+              </span>
             </>
           )}
         </Button>
@@ -70,7 +77,9 @@ const GameControls = ({
           <Button disabled={isPause} onClick={onBarbarianShipArrived}>
             <>
               <FontAwesomeIcon className={styles.Button_Icon} icon="sailboat" />
-              <span className={styles.Button_Text}>Ship</span>
+              <span className={styles.Button_Text}>
+                {printLabel("Ship", language)}
+              </span>
             </>
           </Button>
         )}
@@ -87,14 +96,14 @@ const GameControls = ({
       </div>
       <div className={styles.settings}>
         <Button isSmall onClick={onClickSpawnCard} disabled={isPause}>
-          Spawn Card
+          {printLabel("Spawn Card", language)}
         </Button>
         <Button
           className={styles.ExitButton}
           isSmall
           onClick={onClickCancelGame}
         >
-          Exit
+          {printLabel("Exit", language)}
         </Button>
       </div>
     </div>

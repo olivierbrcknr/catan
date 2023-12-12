@@ -37,6 +37,7 @@ const fetchAirTableData = async () => {
 
   return await Promise.all([getCards()])
     .then(() => {
+      console.log(cards);
       return cards;
     })
     .catch(console.error);

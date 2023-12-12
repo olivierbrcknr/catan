@@ -4,19 +4,26 @@ import clsx from "clsx";
 import Head from "next/head";
 
 import GameContainer from "../components/GameContainer";
+import LanguageSelect from "../components/LanguageSelect";
 import ZoomUI from "../components/ZoomUI";
+import {
+  type Label as LanguageLabel,
+  type Language,
+  printLabel,
+} from "../utils/language";
 
 import styles from "../styles/Home.module.scss";
 
-const footerLinks: { url: string; title: string }[] = [
+const footerLinks: { url: string; title: LanguageLabel }[] = [
   {
-    title: "Suggest a new card",
+    title: { en: "Suggest a New Card", de: "Regel Vorschlagen" },
     url: "https://airtable.com/shr5RxS1iU5lIEsb9",
   },
 ];
 
 function Home() {
   const [gameIsRunning, setGameIsRunning] = useState(false);
+  const [language, setLanguage] = useState<Language>("de");
 
   return (
     <>
@@ -38,10 +45,14 @@ function Home() {
         <link rel="apple-touch-icon" href="/AppIcon.png" />
       </Head>
       <div className={clsx(styles.Wrapper, gameIsRunning && styles.isGame)}>
-        <ZoomUI />
+        <LanguageSelect onChange={setLanguage} />
+        <ZoomUI language={language} />
         <main>
           {/* This is the main game container, it is wrapped to allow for more 'website' stuff around it */}
-          <GameContainer onChangeInGame={setGameIsRunning} />
+          <GameContainer
+            language={language}
+            onChangeInGame={setGameIsRunning}
+          />
         </main>
         <footer>
           <span className="footer_bg">
@@ -49,7 +60,7 @@ function Home() {
             <a target="_blank" href="http://felixlaarmann.de/">
               Felix Laarmann
             </a>{" "}
-            and{" "}
+            {printLabel("and", language)}{" "}
             <a target="_blank" href="https://olivierbrueckner.de/">
               Olivier Brückner
             </a>
@@ -59,7 +70,7 @@ function Home() {
             {footerLinks.map((link, i) => (
               <li key={`footer-link-${i}`}>
                 <a target="_blank" href={link.url}>
-                  {link.title}
+                  {link.title[language]}
                 </a>
               </li>
             ))}

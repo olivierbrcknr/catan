@@ -2,6 +2,7 @@ import React from "react";
 
 import clsx from "clsx";
 
+import { printLabel, type Language } from "../../utils/language";
 import type { Player } from "../GameContainer/types";
 
 import styles from "./SinglePlayerSelect.module.scss";
@@ -9,9 +10,14 @@ import styles from "./SinglePlayerSelect.module.scss";
 interface SinglePlayerSelectProps {
   player: Player;
   onChange: (v: Player) => void;
+  language: Language;
 }
 
-const SinglePlayerSelect = ({ player, onChange }: SinglePlayerSelectProps) => {
+const SinglePlayerSelect = ({
+  player,
+  onChange,
+  language,
+}: SinglePlayerSelectProps) => {
   const onChangeName = (v: string) => {
     onChange({
       ...player,
@@ -37,7 +43,10 @@ const SinglePlayerSelect = ({ player, onChange }: SinglePlayerSelectProps) => {
       )}
     >
       <input
-        placeholder={`Player ${player.color}`}
+        placeholder={`${printLabel("Player", language)} ${printLabel(
+          player.color,
+          language
+        )}`}
         value={player?.name || ""}
         onChange={(evt) => onChangeName(evt.target.value)}
       />

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 
+import { printLabel, type Language } from "../../utils/language";
 import Card from "../Card";
 import type {
   Player,
@@ -24,6 +25,7 @@ export interface GameMainProps {
   gameSettings: GameSettings;
   filteredData: AirtableData;
   hasShipExtension: boolean;
+  language: Language;
 }
 
 const GameMain = ({
@@ -33,6 +35,7 @@ const GameMain = ({
   gameSettings,
   filteredData,
   hasShipExtension,
+  language,
 }: GameMainProps) => {
   const {
     gameData,
@@ -85,7 +88,7 @@ const GameMain = ({
       <div className={styles.Wrapper}>
         <div className={styles.Header}>
           <div className={clsx(styles.Stats)}>
-            <label>Time Running</label>
+            <label>{printLabel("PlayTime", language)}</label>
             {hours}:{minutesRemaining < 10 && "0"}
             {minutesRemaining}
           </div>
@@ -98,6 +101,7 @@ const GameMain = ({
               key={`Card-${card.id}`}
               event={card}
               onIsDone={setEventIsDone}
+              language={language}
             />
           ))}
         </div>
@@ -128,6 +132,7 @@ const GameMain = ({
             <GameEventPopover
               onClickContinue={setEventIsRead}
               newEvent={gameData.newEvent}
+              language={language}
             />
           </div>
         )}
@@ -147,12 +152,17 @@ const GameMain = ({
           maxPoints={gameSettings.maxPointsNeeded}
           onClickSpawnCard={spawnCard}
           isNewEvent={gameData.newEvent ? true : false}
+          language={language}
         />
       </div>
 
       {winner && (
         <div className={styles.WinnerContainer}>
-          <GameWinnerPopover onDone={handleCancelGame} winner={winner} />
+          <GameWinnerPopover
+            onDone={handleCancelGame}
+            winner={winner}
+            language={language}
+          />
         </div>
       )}
     </div>
