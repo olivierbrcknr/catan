@@ -1,5 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
+import { filterData } from "../../game";
+import type {
+  AirtableData,
+  Player,
+  GameSettings,
+  CardFilter,
+  ExpansionPack,
+} from "../../game/types";
 import {
   // CARD_VARIETY_LOW,
   // CARD_VARIETY_MEDIUM,
@@ -10,13 +18,7 @@ import {
 } from "../../utils/constants";
 import { printLabel, type Language } from "../../utils/language";
 import Button from "../Button";
-import type {
-  AirtableData,
-  Player,
-  GameSettings,
-  CardFilter,
-  ExpansionPack,
-} from "../GameContainer/types";
+import CardOverview from "../CardOverview";
 import LoadingIndicator from "../LoadingIndicator";
 import Slider from "../Slider";
 import TabSelect from "../TabSelect";
@@ -34,9 +36,11 @@ export interface GameScreenSetupProps {
   onChangeSettings: (v: GameSettings) => void;
   activeFilters: CardFilter;
   onChangeFilters: (v: CardFilter) => void;
-  filteredData: AirtableData;
+  // filteredData: AirtableData;
   language: Language;
-  hasAirtableData: boolean;
+  // hasAirtableData: boolean;
+  airTableData: AirtableData;
+  onFilterData: (v: AirtableData) => void;
 }
 
 const GameScreenSetup = ({
@@ -47,10 +51,22 @@ const GameScreenSetup = ({
   onChangeSettings,
   activeFilters,
   onChangeFilters,
-  filteredData,
+  // filteredData,
   language,
-  hasAirtableData,
+  // hasAirtableData,
+  airTableData,
+  onFilterData,
 }: GameScreenSetupProps) => {
+  const [filteredData, setFilteredData] = useState<AirtableData>([]);
+
+  useEffect(() => {
+    onFilterData(filteredData);
+  }, [filteredData, onFilterData]);
+
+  useEffect(() => {
+    setFilteredData(filterData(airTableData, activeFilters, gameSettings));
+  }, [airTableData, activeFilters, gameSettings]);
+
   const onSinglePlayerChange = (updatedPlayer: Player, index: number) => {
     const allPlayers = players;
     allPlayers[index] = {
@@ -158,11 +174,13 @@ const GameScreenSetup = ({
           />
         </div>
         <div className={styles.Row}>
-          <h3>{printLabel("Evilness", language)}</h3>
+          <h3>
+            {printLabel("Evilness", language)} ({gameSettings.evilLevel})
+          </h3>
           <Slider
             name="Evilness Level"
             value={gameSettings.evilLevel}
-            min={0}
+            min={1}
             labelMin={printLabel("kind", language)}
             max={10}
             labelMax={printLabel("evil", language)}
@@ -170,17 +188,30 @@ const GameScreenSetup = ({
           />
         </div>
         <div className={styles.Row}>
-          <h3>{printLabel("Funkiness", language)}</h3>
+          <h3>
+            {printLabel("Funkiness", language)} ({gameSettings.funkLevel})
+          </h3>
           <Slider
             name="Funkiness Level"
             value={gameSettings.funkLevel}
-            min={0}
+            min={1}
             labelMin={printLabel("ordinary", language)}
             max={10}
             labelMax={printLabel("funky", language)}
             onChange={(v) => settingsChange(v, "funkLevel")}
           />
         </div>
+      </section>
+
+      <section>
+        <div className={styles.Row}>
+          <CardOverview
+            airTableData={airTableData}
+            language={language}
+            filteredData={filteredData}
+          />
+        </div>
+
         {/*<div className={styles.Row}>
           <h3>Card Variety</h3>
           <TabSelect
@@ -218,12 +249,13 @@ const GameScreenSetup = ({
             </span>
           </div>
 
-          {!hasAirtableData && <LoadingIndicator language={language} />}
+          {airTableData.length <= 0 && <LoadingIndicator language={language} />}
 
           <Button
             className={styles.StartButton}
             disabled={
-              players.filter((p) => p.isActive).length < 2 || !hasAirtableData
+              players.filter((p) => p.isActive).length < 2 ||
+              airTableData.length <= 0
             }
             onClick={onClickStart}
           >

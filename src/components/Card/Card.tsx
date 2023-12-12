@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import * as RadixProgress from "@radix-ui/react-progress";
 import clsx from "clsx";
 
 // import { useIsMobile } from "../../utils/hooks";
+import type { InGameCard, CardID } from "../../game/types";
 import { printLabel, type Language } from "../../utils/language";
-import type { InGameCard, CardID } from "../GameContainer/types";
+
+import ProgressBar from "../ProgressBar";
 
 import styles from "./Card.module.scss";
 
@@ -123,17 +124,7 @@ const Card = ({ isPause, event, onIsDone, isInit, language }: CardProps) => {
       )}
       {event.timing === "Temporary Event" && (
         <div className={styles.Footer}>
-          <RadixProgress.Root
-            className={styles.Progress}
-            value={progress}
-            max={100}
-          >
-            <RadixProgress.Indicator
-              className={styles.ProgressIndicator}
-              style={{ transform: `translateX(-${100 - progress}%)` }}
-            />
-          </RadixProgress.Root>
-          <label>{timeRemainingLabel}</label>
+          <ProgressBar value={progress} max={100} label={timeRemainingLabel} />
         </div>
       )}
     </div>

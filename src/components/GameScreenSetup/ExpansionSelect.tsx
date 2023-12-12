@@ -6,7 +6,7 @@ import {
   type Label as LanguageLabel,
   type Language,
 } from "../../utils/language";
-import type { ExpansionPack } from "../GameContainer/types";
+import type { ExpansionPack } from "../../game/types";
 
 import styles from "./ExpansionSelect.module.scss";
 

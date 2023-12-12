@@ -1,0 +1,42 @@
+@import "../../styles/mixins.scss";
+
+.CardOverview {
+  width: 100%;
+}
+
+.Grid {
+  grid-gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+}
+
+.Header {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ShowHideButton {
+  @include button-reset;
+  @include center-children;
+
+  border-radius: 0.4rem;
+
+  white-space: nowrap;
+
+  padding: 0.3rem 0.6rem;
+
+  color: var(--color-highlight);
+
+  &:hover {
+    background: var(--color-highlight-alpha-light);
+  }
+
+  &:active {
+    opacity: 0.8;
+  }
+
+  :global(.keyboard-focus) &:focus {
+    @include keyboard-focus();
+  }
+}

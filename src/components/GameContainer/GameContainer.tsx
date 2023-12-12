@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
 
+// import filterData from "../../game/filter";
+import type {
+  Player,
+  GameSettings,
+  CardFilter,
+  AirtableData,
+} from "../../game/types";
 import { fetchAirTableData } from "../../utils/airtable";
 import {
   CARD_VARIETY_MEDIUM,
@@ -9,9 +16,6 @@ import {
 import { type Language } from "../../utils/language";
 import GameMain from "../GameMain";
 import GameScreenSetup from "../GameScreenSetup";
-
-import filterData from "./filter";
-import type { Player, GameSettings, CardFilter, AirtableData } from "./types";
 
 import styles from "./GameContainer.module.scss";
 
@@ -85,9 +89,9 @@ const GameContainer = ({ onChangeInGame, language }: GameContainerProps) => {
     fetchData().catch(console.error);
   }, []);
 
-  useEffect(() => {
-    setFilteredData(filterData(airTableData, filter, gameSettings));
-  }, [airTableData, filter, gameSettings]);
+  // useEffect(() => {
+  //   setFilteredData(filterData(airTableData, filter, gameSettings));
+  // }, [airTableData, filter, gameSettings]);
 
   useEffect(() => {
     onChangeInGame(gameIsRunning);
@@ -124,9 +128,11 @@ const GameContainer = ({ onChangeInGame, language }: GameContainerProps) => {
           onChangeSettings={setGameSettings}
           activeFilters={filter}
           onChangeFilters={setFilter}
-          filteredData={filteredData}
+          // filteredData={filteredData}
+          airTableData={airTableData}
+          onFilterData={setFilteredData}
           language={language}
-          hasAirtableData={airTableData.length > 0}
+          // hasAirtableData={airTableData.length > 0}
         />
       )}
 

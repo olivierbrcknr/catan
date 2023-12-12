@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { printLabel, type Language } from "../../utils/language";
 import Button from "../Button";
-import type { Player } from "../GameContainer/types";
+import type { Player } from "../../game/types";
 
 import SinglePlayerDisplay from "./SinglePlayerDisplay";
 

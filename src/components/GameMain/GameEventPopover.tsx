@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { printLabel, type Language } from "../../utils/language";
 import Button from "../Button";
 import Card from "../Card";
-import type { InGameCard } from "../GameContainer/types";
+import type { InGameCard } from "../../game/types";
 
 import styles from "./GameEventPopover.module.scss";
 

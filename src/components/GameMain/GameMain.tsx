@@ -3,15 +3,11 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 
+import { useGameChange } from "../../game/game";
+import type { Player, GameSettings, AirtableData } from "../../game/types";
 import { printLabel, type Language } from "../../utils/language";
 import Card from "../Card";
-import type {
-  Player,
-  GameSettings,
-  AirtableData,
-} from "../GameContainer/types";
 
-import { useGameChange } from "./game";
 import GameControls from "./GameControls";
 import GameEventPopover from "./GameEventPopover";
 import GameWinnerPopover from "./GameWinnerPopover";

@@ -1,6 +1,6 @@
 import type { GameSettings, CardFilter, AirtableData, Card } from "./types";
 
-const filterData = (
+export const filterData = (
   airTableData: AirtableData,
   filter: CardFilter,
   settings: GameSettings
@@ -36,5 +36,3 @@ const filterData = (
 
   return filteredData;
 };
-
-export default filterData;

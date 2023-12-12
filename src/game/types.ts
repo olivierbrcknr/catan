@@ -50,6 +50,16 @@ export type Card = {
   Probability: number;
 };
 
+export interface SetupCard extends InGameCard {
+  isUsed: boolean;
+  stats: {
+    funk: number;
+    evil: number;
+    probability: number;
+    expansionPacks?: ExpansionPack[];
+  };
+}
+
 export type AirtableData = Card[];
 
 export type InGameCard = {

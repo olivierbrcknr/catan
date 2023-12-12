@@ -1,14 +1,15 @@
 import { useEffect, useState, useCallback } from "react";
 
-import { BASE_PROBABILITY } from "../../utils/constants";
+import { BASE_PROBABILITY } from "../utils/constants";
+
+import { airtableDataToCards, getCardData } from "./airtableDataToCards";
 import type {
   AirtableData,
   GameData,
   GameSettings,
   Card,
-  InGameCard,
   CardID,
-} from "../GameContainer/types";
+} from "./types";
 
 type DeckCard = {
   id: CardID;
@@ -25,27 +26,9 @@ const startGame = (cards: AirtableData, settings: GameSettings) => {
     }
   });
 
-  const startCards = cards
-    .filter((c) => c["Active at the beginning"] === true)
-    .map((r) => {
-      // return simplified version of event
-      const transformedCard: InGameCard = {
-        id: r.id,
-        name: {
-          de: r.Name,
-          en: r["Name ENG"],
-        },
-        description: {
-          de: r.Description,
-          en: r["Description ENG"],
-        },
-        icon: r.Icon,
-        timing: r.Type,
-        timingDetails: r?.["Timing Details"],
-      };
-
-      return transformedCard;
-    });
+  const startCards = airtableDataToCards(
+    cards.filter((c) => c["Active at the beginning"] === true)
+  );
 
   const initGameData: GameData = {
     // events: [],
@@ -121,28 +104,6 @@ const getNextEvent = () => {
   shuffle(currentDeck);
 
   return currentDeck[0];
-};
-
-const getCardData = (id: CardID, cards: AirtableData) => {
-  const event = cards.find((e) => e.id === id);
-
-  const eventData: InGameCard = {
-    id: id,
-    name: {
-      de: event.Name,
-      en: event["Name ENG"],
-    },
-    description: {
-      de: event.Description,
-      en: event["Description ENG"],
-    },
-    icon: event.Icon,
-    isNew: true,
-    timing: event.Type,
-    timingDetails: event?.["Timing Details"],
-  };
-
-  return eventData;
 };
 
 const checkForEvent = () => {

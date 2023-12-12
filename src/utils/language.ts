@@ -59,6 +59,10 @@ const LocalizedLabel = {
     en: "Funkiness",
     de: "Verrücktheit",
   },
+  Probability: <Label>{
+    en: "Probability",
+    de: "Wahrscheinlichkeit",
+  },
   ordinary: <Label>{
     en: "ordinary",
     de: "ruhig",
@@ -163,6 +167,10 @@ const LocalizedLabel = {
     en: "Until Next Barbarian Ship",
     de: "Bis zum nächsten Barbarenschiff",
   },
+  TypeTemporary: <Label>{
+    en: "Temporary Rule",
+    de: "Zeitlich Begrenzte Regel",
+  },
   EventButtonLabel: <Label>{
     en: "Continue",
     de: "Weiterspielen",
@@ -183,9 +191,21 @@ const LocalizedLabel = {
     en: "is loading",
     de: "lädt…",
   },
+  CardOverview: <Label>{
+    en: "Cards",
+    de: "Karten",
+  },
+  ShowCards: <Label>{
+    en: "Show Cards",
+    de: "Karten Anzeigen",
+  },
+  HideCards: <Label>{
+    en: "Hide Cards",
+    de: "Karten Verstecken",
+  },
 } as const;
 
-type Labels = keyof typeof LocalizedLabel;
+export type Labels = keyof typeof LocalizedLabel;
 
 export const printLabel = (
   label: Labels,

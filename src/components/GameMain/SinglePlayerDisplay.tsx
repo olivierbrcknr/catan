@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 
 import Button from "../Button";
-import type { Player } from "../GameContainer/types";
+import type { Player } from "../../game/types";
 
 import styles from "./SinglePlayerDisplay.module.scss";
 

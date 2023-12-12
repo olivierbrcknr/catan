@@ -3,7 +3,7 @@ import React from "react";
 import clsx from "clsx";
 
 import { printLabel, type Language } from "../../utils/language";
-import type { Player } from "../GameContainer/types";
+import type { Player } from "../../game/types";
 
 import styles from "./SinglePlayerSelect.module.scss";
 
