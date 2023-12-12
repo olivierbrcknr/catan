@@ -21,8 +21,8 @@ const ZoomUI = ({ language }: ZoomUIProps) => {
   useEffect(() => {
     const zoomFromCookies = getCookie("zoom");
 
-    if (typeof zoomFromCookies === "number") {
-      setZoomLevel(zoomFromCookies);
+    if (zoomFromCookies && zoomFromCookies !== "") {
+      setZoomLevel(parseFloat(zoomFromCookies));
     }
   }, []);
 
