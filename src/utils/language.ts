@@ -223,6 +223,10 @@ const LocalizedLabel = {
     en: "cards shown",
     de: "Karten angezeigt",
   },
+  duration: <Label>{
+    en: "Duration",
+    de: "Dauer",
+  },
 } as const;
 
 export type Labels = keyof typeof LocalizedLabel;

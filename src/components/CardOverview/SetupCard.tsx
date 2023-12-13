@@ -90,6 +90,13 @@ const SetupCard = ({ card, language, isUsed }: SetupCardProps) => {
       <div className={styles.Description}>{card.description[language]}</div>
 
       <div className={styles.Stats}>
+        {card.timing === "Temporary Event" && (
+          <div className={styles.Timing}>
+            {/*{printLabel("duration", language)}: */}
+            {card.timingDetails}min
+          </div>
+        )}
+
         <h4>{printLabel("Evilness", language)}</h4>
         <ProgressBar
           value={card.stats.evil}
