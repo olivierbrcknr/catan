@@ -202,6 +202,7 @@ const GameScreenSetup = ({
             airTableData={airTableData}
             language={language}
             filteredData={filteredData}
+            cardFilter={activeFilters}
           />
         </div>
 

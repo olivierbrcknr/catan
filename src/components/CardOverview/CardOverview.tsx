@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import type { AirtableData, SetupCard as SetupCardType } from "../../game";
+import type {
+  AirtableData,
+  SetupCard as SetupCardType,
+  CardFilter,
+} from "../../game";
 import { type Language, printLabel } from "../../utils/language";
+import Dropdown from "../Dropdown";
+import Toggle from "../Toggle";
 
 import SetupCard from "./SetupCard";
 
@@ -11,16 +17,29 @@ export interface CardOverviewProps {
   language: Language;
   airTableData: AirtableData;
   filteredData: AirtableData;
+  cardFilter: CardFilter;
+}
+
+interface SortSettings {
+  hideInvalidCards: boolean;
+  order: "type" | "id" | "funkiness" | "evilness" | "probablity";
 }
 
 const CardOverview = ({
   language,
   airTableData,
   filteredData,
+  cardFilter,
 }: CardOverviewProps) => {
   const [cards, setCards] = useState<SetupCardType[]>([]);
+  const [sortedCards, setSortedCards] = useState<SetupCardType[]>([]);
 
   const [isShown, setIsShown] = useState(false);
+
+  const [sortSettings, setSortSettings] = useState<SortSettings>({
+    hideInvalidCards: true,
+    order: "type",
+  });
 
   useEffect(() => {
     const cards = airTableData
@@ -57,6 +76,47 @@ const CardOverview = ({
     setCards(cards);
   }, [airTableData, filteredData]);
 
+  useEffect(() => {
+    let sorted = [...cards];
+
+    if (sortSettings.hideInvalidCards) {
+      sorted = sorted.filter((c) => {
+        let expansionsNum = c.stats.expansionPacks?.length ?? 0;
+
+        c.stats.expansionPacks?.forEach((exp) => {
+          cardFilter?.expansionPacks?.has(exp) && expansionsNum--;
+        });
+
+        return expansionsNum === 0;
+      });
+    }
+
+    switch (sortSettings.order) {
+      case "type":
+        sorted = sorted.sort((a, b) => (a.timing < b.timing ? -1 : 1));
+        break;
+      case "evilness":
+        sorted = sorted.sort((a, b) => (a.stats.evil < b.stats.evil ? -1 : 1));
+        break;
+      case "funkiness":
+        sorted = sorted.sort((a, b) => (a.stats.funk < b.stats.funk ? -1 : 1));
+        break;
+      case "probablity":
+        sorted = sorted.sort((a, b) =>
+          a.stats.probability < b.stats.probability ? -1 : 1
+        );
+        break;
+      default:
+      case "id":
+        sorted = sorted.sort((a, b) => (a.id < b.id ? -1 : 1));
+        break;
+    }
+
+    setSortedCards(sorted);
+  }, [cards, sortSettings, cardFilter]);
+
+  // filter invalid cards
+
   return (
     <div className={styles.CardOverview}>
       <div className={styles.Header}>
@@ -76,15 +136,78 @@ const CardOverview = ({
       </div>
 
       {isShown && (
-        <div className={styles.Grid}>
-          {cards.map((card) => (
-            <SetupCard
-              key={`SetupCard-${card.id}`}
-              card={card}
-              language={language}
-              isUsed={card.isUsed}
-            />
-          ))}
+        <div className={styles.Wrapper}>
+          <div className={styles.Filter}>
+            <span>
+              <label>
+                {" "}
+                {sortedCards.length} {printLabel("cardsShown", language)}
+              </label>
+            </span>
+
+            <span>
+              <label>{printLabel("hideInvalidCards", language)}</label>
+
+              <Toggle
+                value={sortSettings.hideInvalidCards}
+                onChange={(v) =>
+                  setSortSettings({
+                    ...sortSettings,
+                    hideInvalidCards: v,
+                  })
+                }
+              />
+            </span>
+
+            <span>
+              <label>{printLabel("SortBy", language)}</label>
+
+              <Dropdown
+                name="Frequency"
+                options={[
+                  {
+                    label: "ID",
+                    value: "id",
+                  },
+                  {
+                    label: printLabel("Type", language),
+                    value: "type",
+                  },
+                  {
+                    label: printLabel("Evilness", language),
+                    value: "evilness",
+                  },
+                  {
+                    label: printLabel("Funkiness", language),
+                    value: "funkiness",
+                  },
+                  {
+                    label: printLabel("Probability", language),
+                    value: "probablity",
+                  },
+                ]}
+                value={sortSettings.order}
+                onChange={(v) =>
+                  setSortSettings({
+                    ...sortSettings,
+                    // @ts-ignore
+                    order: v,
+                  })
+                }
+              />
+            </span>
+          </div>
+
+          <div className={styles.Grid}>
+            {sortedCards.map((card) => (
+              <SetupCard
+                key={`SetupCard-${card.id}`}
+                card={card}
+                language={language}
+                isUsed={card.isUsed}
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>

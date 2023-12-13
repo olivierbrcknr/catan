@@ -207,6 +207,22 @@ const LocalizedLabel = {
     en: "This card requires the expansion",
     de: "Diese Karte benötigt die Erweiterung",
   },
+  Type: <Label>{
+    en: "Type",
+    de: "Typ",
+  },
+  hideInvalidCards: <Label>{
+    en: "Hide invalid cards",
+    de: "Verstecke ungültig Karten",
+  },
+  SortBy: <Label>{
+    en: "Sort by",
+    de: "Sortiere Nach",
+  },
+  cardsShown: <Label>{
+    en: "cards shown",
+    de: "Karten angezeigt",
+  },
 } as const;
 
 export type Labels = keyof typeof LocalizedLabel;

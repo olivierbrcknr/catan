@@ -1,0 +1,53 @@
+@import "../../styles/mixins.scss";
+
+.Toggle {
+  @include button-reset;
+
+  --knob-size: 2.5rem;
+
+  width: 4rem;
+  height: var(--knob-size);
+
+  border-radius: 1000000px;
+  border: solid var(--stroke-width) var(--color-border);
+  background-color: var(--color-background);
+
+  margin-top: calc((var(--shadow-offset) + var(--stroke-width)));
+
+  :global(.keyboard-focus) &:focus {
+    @include keyboard-focus();
+  }
+
+  cursor: pointer;
+
+  &:active:not(.isDisabled) .Knob {
+    transform: translate(var(--shadow-offset), var(--shadow-offset));
+    box-shadow: none !important;
+  }
+}
+
+.Knob {
+  @include box-design(var(--color-white), true);
+
+  border-radius: 10000px;
+  height: var(--knob-size);
+  width: var(--knob-size);
+
+  position: absolute;
+
+  top: calc(-1 * (var(--shadow-offset) + var(--stroke-width)));
+  left: calc(-1 * (var(--shadow-offset) + var(--stroke-width)));
+}
+
+.isPressed {
+  background-color: var(--color-highlight);
+
+  .Knob {
+    left: calc(100% - var(--knob-size));
+  }
+}
+
+.isDisabled {
+  opacity: 0.4;
+  cursor: default;
+}

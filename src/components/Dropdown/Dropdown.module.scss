@@ -1,0 +1,66 @@
+@import "../../styles/mixins.scss";
+
+.Trigger {
+  @include button-reset;
+  @include box-design(var(--color-white), true);
+  @include center-children;
+  @include font-gamma;
+  font-weight: 600;
+
+  min-width: 10em;
+  min-height: 5rem;
+
+  text-align: center;
+  min-width: initial;
+  min-height: initial;
+  padding: 0.2em 0.5em;
+
+  &:active:not(.isDisabled) {
+    transform: translate(var(--shadow-offset), var(--shadow-offset));
+    box-shadow: none !important;
+  }
+
+  :global(.keyboard-focus) &:focus {
+    @include keyboard-focus();
+  }
+}
+
+.DropdownIcon {
+  width: 1rem;
+  margin-left: 0.4rem;
+}
+
+.Content {
+  @include box-design(var(--color-white), true);
+  @include font-gamma;
+  font-weight: 600;
+}
+
+.Item {
+  display: flex;
+
+  padding: 0.2em 0.5em 0.2em 1.8em;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-highlight-alpha);
+  }
+
+  &.isSelected {
+  }
+
+  :global(.keyboard-focus) &:focus {
+    @include keyboard-focus();
+  }
+}
+
+.CheckIcon {
+  color: var(--color-highlight);
+  width: 1rem;
+  margin-left: -1.6rem;
+}
+
+.isDisabled {
+  opacity: 0.4;
+  cursor: default;
+}

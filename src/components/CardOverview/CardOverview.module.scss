@@ -16,6 +16,24 @@
   margin-bottom: 1rem;
 }
 
+.Filter {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 2rem;
+
+  span {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  label {
+    @include font-epsilon;
+  }
+}
+
 .ShowHideButton {
   @include button-reset;
   @include center-children;
@@ -38,5 +56,13 @@
 
   :global(.keyboard-focus) &:focus {
     @include keyboard-focus();
+  }
+}
+
+@media only screen and (max-width: $mobile-width) {
+  .Filter {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
   }
 }
