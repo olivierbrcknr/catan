@@ -4,9 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 
 // import { useIsMobile } from "../../utils/hooks";
-import type { SetupCard as SetupCardType } from "../../game/types";
+import { type SetupCard as SetupCardType, expansions } from "../../game";
 import { type Labels, type Language, printLabel } from "../../utils/language";
 import ProgressBar, { ProgressBarTheme } from "../ProgressBar";
+import TooltipLabel from "../TooltipLabel";
 
 import styles from "./SetupCard.module.scss";
 
@@ -50,6 +51,35 @@ const SetupCard = ({ card, language, isUsed }: SetupCardProps) => {
         !isUsed && styles.isNotUsed
       )}
     >
+      {card.stats.expansionPacks && (
+        <div className={styles.ExpansionPackContainer}>
+          {card.stats.expansionPacks?.map((exp) => {
+            const expObj = expansions.find((e) => e.value.has(exp));
+            return (
+              <div
+                key={`${card.id} {exp}`}
+                className={clsx(styles.ExpansionPack, expObj.className)}
+              >
+                <TooltipLabel
+                  label={
+                    printLabel("requiresExpansion", language) +
+                    " “" +
+                    expObj.label[language] +
+                    "”"
+                  }
+                >
+                  <FontAwesomeIcon
+                    className={styles.ExpIcon}
+                    // @ts-ignore
+                    icon={expObj.icon}
+                  />
+                </TooltipLabel>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       <div className={styles.Header}>
         <div className={styles.Icon}>
           {/* @ts-ignore */}

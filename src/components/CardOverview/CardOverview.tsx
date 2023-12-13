@@ -61,7 +61,8 @@ const CardOverview = ({
     <div className={styles.CardOverview}>
       <div className={styles.Header}>
         <h2>
-          {printLabel("CardOverview", language)} ({filteredData.length})
+          {printLabel("CardOverview", language)} ({filteredData.length}/
+          {airTableData.length})
         </h2>
 
         <button

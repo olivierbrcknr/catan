@@ -164,8 +164,8 @@ const LocalizedLabel = {
     de: "Ereignis",
   },
   TypeShip: <Label>{
-    en: "Until Next Barbarian Ship",
-    de: "Bis zum nächsten Barbarenschiff",
+    en: "Barbarian Ship",
+    de: "Barbarenschiff",
   },
   TypeTemporary: <Label>{
     en: "Temporary Rule",
@@ -203,13 +203,14 @@ const LocalizedLabel = {
     en: "Hide Cards",
     de: "Karten Verstecken",
   },
+  requiresExpansion: <Label>{
+    en: "This card requires the expansion",
+    de: "Diese Karte benötigt die Erweiterung",
+  },
 } as const;
 
 export type Labels = keyof typeof LocalizedLabel;
 
-export const printLabel = (
-  label: Labels,
-  language: Language = "en"
-): string => {
+export const printLabel = (label: Labels, language: Language): string => {
   return LocalizedLabel[label][language];
 };

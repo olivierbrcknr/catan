@@ -235,7 +235,8 @@ const GameScreenSetup = ({
           </Button>*/}
           <div className={styles.DisplaySettings}>
             <span>
-              {printLabel("Cards", language)}: {filteredData.length}
+              {printLabel("Cards", language)}: {filteredData.length} /{" "}
+              {airTableData.length}
             </span>
             <span>
               {printLabel("CardCheck", language)} {gameSettings.eventFrequency}s

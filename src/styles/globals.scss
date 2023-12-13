@@ -87,6 +87,19 @@ footer {
   background: var(--color-background);
 }
 
+.expansion--type-base {
+  --expansion-highlight-color: #ff0000;
+}
+.expansion--type-seafarers {
+  --expansion-highlight-color: #019dcd;
+}
+.expansion--type-cities-and-knights {
+  --expansion-highlight-color: #d97f1e;
+}
+.expansion--type-cities-and-knights-and-seafarers {
+  --expansion-highlight-color: #8500ff;
+}
+
 @media only screen and (max-width: $mobile-width) {
   body {
     background: var(--color-background);

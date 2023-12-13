@@ -52,21 +52,6 @@
   @include font-gamma;
 }
 
-.TypeBase {
-  --expansion-highlight-color: #ff0000;
-}
-
-.TypeSeafarers {
-  --expansion-highlight-color: #019dcd;
-}
-.TypeCitiesKinghts {
-  --expansion-highlight-color: #d97f1e;
-}
-
-.TypeSeaAndKinights {
-  --expansion-highlight-color: #8500ff;
-}
-
 @media only screen and (max-width: $mobile-width) {
   .ExpansionSelect {
     flex-direction: column;
