@@ -56,16 +56,16 @@ const GameContainer = ({ onChangeInGame, language }: GameContainerProps) => {
       color: "white",
       points: PLAYER_START_POINTS,
     },
-    // {
-    //   isActive: false,
-    //   color: "green",
-    //   points: 2,
-    // },
-    // {
-    //   isActive: false,
-    //   color: "brown",
-    //   points: 2,
-    // },
+    {
+      isActive: false,
+      color: "green",
+      points: 2,
+    },
+    {
+      isActive: false,
+      color: "brown",
+      points: 2,
+    },
   ]);
 
   const [gameSettings, setGameSettings] = useState<GameSettings>({
