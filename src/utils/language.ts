@@ -88,7 +88,7 @@ const LocalizedLabel = {
     de: "Generator Benutzen",
   },
   CardCheck: <Label>{
-    en: "New card check",
+    en: "New card check every",
     de: "Potentiell neue Karte alle",
   },
   StartToPlay: <Label>{
