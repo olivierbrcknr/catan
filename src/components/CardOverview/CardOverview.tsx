@@ -18,6 +18,7 @@ export interface CardOverviewProps {
   airTableData: AirtableData;
   filteredData: AirtableData;
   cardFilter: CardFilter;
+  onCardToggle: (id: string, value: boolean) => void;
 }
 
 interface SortSettings {
@@ -25,11 +26,22 @@ interface SortSettings {
   order: "type" | "id" | "funkiness" | "evilness" | "probablity";
 }
 
+const isUsable = (c: SetupCardType, filter: CardFilter) => {
+  let expansionsNum = c.stats.expansionPacks?.length ?? 0;
+
+  c.stats.expansionPacks?.forEach((exp) => {
+    filter?.expansionPacks?.has(exp) && expansionsNum--;
+  });
+
+  return expansionsNum === 0;
+};
+
 const CardOverview = ({
   language,
   airTableData,
   filteredData,
   cardFilter,
+  onCardToggle,
 }: CardOverviewProps) => {
   const [cards, setCards] = useState<SetupCardType[]>([]);
   const [sortedCards, setSortedCards] = useState<SetupCardType[]>([]);
@@ -80,15 +92,7 @@ const CardOverview = ({
     let sorted = [...cards];
 
     if (sortSettings.hideInvalidCards) {
-      sorted = sorted.filter((c) => {
-        let expansionsNum = c.stats.expansionPacks?.length ?? 0;
-
-        c.stats.expansionPacks?.forEach((exp) => {
-          cardFilter?.expansionPacks?.has(exp) && expansionsNum--;
-        });
-
-        return expansionsNum === 0;
-      });
+      sorted = sorted.filter((c) => isUsable(c, cardFilter));
     }
 
     switch (sortSettings.order) {
@@ -114,8 +118,6 @@ const CardOverview = ({
 
     setSortedCards(sorted);
   }, [cards, sortSettings, cardFilter]);
-
-  // filter invalid cards
 
   return (
     <div className={styles.CardOverview}>
@@ -205,6 +207,8 @@ const CardOverview = ({
                 card={card}
                 language={language}
                 isUsed={card.isUsed}
+                isUsable={isUsable(card, cardFilter)}
+                onToggle={(v) => onCardToggle(card.id, v)}
               />
             ))}
           </div>

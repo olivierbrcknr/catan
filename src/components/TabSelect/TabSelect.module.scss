@@ -18,7 +18,7 @@
 
   text-align: center;
 
-  &:active {
+  .TabSelect:not(.isDisabled) &:active {
     transform: translate(var(--shadow-offset), var(--shadow-offset));
     box-shadow: none !important;
   }

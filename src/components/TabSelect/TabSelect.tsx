@@ -10,18 +10,26 @@ interface TabSelectProps {
   options: { label: string; value: string | number }[];
   value: string | number;
   name: string;
+  disabled?: boolean;
 }
 
-const TabSelect = ({ onChange, options, value, name }: TabSelectProps) => {
+const TabSelect = ({
+  onChange,
+  options,
+  value,
+  name,
+  disabled = false,
+}: TabSelectProps) => {
   return (
     <RadixRadioGroup.Root
-      className={styles.TabSelect}
+      className={clsx(styles.TabSelect, disabled && styles.isDisabled)}
       aria-label={name}
       onValueChange={(v) => {
         const corredtedVal = typeof value === "number" ? parseInt(v) : v;
         onChange(corredtedVal);
       }}
       value={typeof value === "number" ? value.toString() : value}
+      disabled={disabled}
     >
       {options.map((tab, i) => (
         <RadixRadioGroup.Item

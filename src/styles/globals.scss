@@ -63,6 +63,19 @@ h4 {
   opacity: 0.5;
 }
 
+.info {
+  height: max-content;
+  width: max-content;
+  max-width: 100%;
+
+  color: var(--color-highlight-alpha);
+  background: var(--color-highlight-alpha-light);
+
+  border-radius: var(--border-radius-card);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
 footer {
   @include font-gamma;
   padding: 2rem;

@@ -4,6 +4,7 @@
   @include button-reset;
 
   --knob-size: 2.5rem;
+  --toggle-color: var(--color-highlight);
 
   width: 4rem;
   height: var(--knob-size);
@@ -40,7 +41,7 @@
 }
 
 .isPressed {
-  background-color: var(--color-highlight);
+  background-color: var(--toggle-color);
 
   .Knob {
     left: calc(100% - var(--knob-size));
@@ -50,4 +51,17 @@
 .isDisabled {
   opacity: 0.4;
   cursor: default;
+}
+
+.Theme--green {
+  --toggle-color: var(--color-event-type-temporary);
+}
+.Theme--blue {
+  --toggle-color: var(--color-event-type-rule);
+}
+.Theme--orange {
+  --toggle-color: var(--color-event-type-barbarian-ship);
+}
+.Theme--purple {
+  --toggle-color: var(--color-highlight);
 }

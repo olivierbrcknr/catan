@@ -79,6 +79,14 @@ const LocalizedLabel = {
     en: "evil",
     de: "gemein",
   },
+  CustomCardsNotice: <Label>{
+    en: "You are using custom cards, therefore the generator is inactive. Using it again will remove your custom selection.",
+    de: "Du benutzt eine individuelle Auswahl an Karten, daher ist der Generator inaktiv. Ihn wieder zu benutzen löscht alle individuell ausgewählten Karten.",
+  },
+  UseGenerator: <Label>{
+    en: "Use Generator",
+    de: "Generator Benutzen",
+  },
   CardCheck: <Label>{
     en: "New card check",
     de: "Potentiell neue Karte alle",

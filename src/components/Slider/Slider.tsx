@@ -1,6 +1,7 @@
 import React from "react";
 
 import * as RadixSlider from "@radix-ui/react-slider";
+import clsx from "clsx";
 
 import styles from "./Slider.module.scss";
 
@@ -12,6 +13,7 @@ interface SliderProps {
   labelMin?: string;
   labelMax?: string;
   name?: string;
+  disabled?: boolean;
 }
 
 const Slider = ({
@@ -22,13 +24,14 @@ const Slider = ({
   labelMin,
   labelMax,
   name = "Slider",
+  disabled = false,
 }: SliderProps) => {
   const handleChange = (val: number[]) => {
     onChange(val[0]);
   };
 
   return (
-    <div className={styles.Slider}>
+    <div className={clsx(styles.Slider, disabled && styles.isDisabled)}>
       <div className={styles.Label}>{labelMin ?? min}</div>
 
       <RadixSlider.Root
@@ -37,6 +40,7 @@ const Slider = ({
         onValueChange={handleChange}
         min={min}
         max={max}
+        disabled={disabled}
       >
         <RadixSlider.Track className={styles.Track}>
           <RadixSlider.Range className={styles.Range} />

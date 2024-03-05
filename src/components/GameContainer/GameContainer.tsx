@@ -31,6 +31,7 @@ const isDev = process.env.NODE_ENV === "development";
 const GameContainer = ({ onChangeInGame, language }: GameContainerProps) => {
   const [airTableData, setAirTableData] = useState<AirtableData>([]);
   const [filteredData, setFilteredData] = useState<AirtableData>([]);
+  const [gameCards, setGameCards] = useState<string[]>([]);
 
   const [gameIsRunning, setGameIsRunning] = useState(false);
 

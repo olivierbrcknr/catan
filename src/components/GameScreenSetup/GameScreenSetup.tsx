@@ -51,14 +51,36 @@ const GameScreenSetup = ({
   onFilterData,
 }: GameScreenSetupProps) => {
   const [filteredData, setFilteredData] = useState<AirtableData>([]);
+  const [selectedIDs, setSelectedIDs] = useState<string[]>([]);
+  const [isUsingGenerator, setIsUsingGenerator] = useState(true);
 
   useEffect(() => {
     onFilterData(filteredData);
   }, [filteredData, onFilterData]);
 
   useEffect(() => {
-    setFilteredData(filterData(airTableData, activeFilters, gameSettings));
-  }, [airTableData, activeFilters, gameSettings]);
+    if (isUsingGenerator) {
+      const filteredAirTable = filterData(
+        airTableData,
+        activeFilters,
+        gameSettings
+      );
+      setFilteredData(filteredAirTable);
+      setSelectedIDs(filteredAirTable.map((card) => card.id));
+    } else {
+      const filteredAirTable = airTableData.filter((card) =>
+        selectedIDs.includes(card.id)
+      );
+      setFilteredData(filteredAirTable);
+    }
+  }, [
+    airTableData,
+    activeFilters,
+    gameSettings,
+    isUsingGenerator,
+    setSelectedIDs,
+    selectedIDs,
+  ]);
 
   const onSinglePlayerChange = (updatedPlayer: Player, index: number) => {
     const allPlayers = players;
@@ -79,6 +101,26 @@ const GameScreenSetup = ({
     const newSettings = { ...gameSettings };
     newSettings[setting] = value;
     onChangeSettings({ ...newSettings });
+  };
+
+  const handleCardToggle = (id: string, value: boolean) => {
+    setSelectedIDs((ids) => {
+      const newIDs = [...ids];
+      if (value) {
+        newIDs.push(id);
+      } else {
+        const index = newIDs.indexOf(id);
+        if (index > -1) {
+          newIDs.splice(index, 1);
+        }
+      }
+      return newIDs;
+    });
+    setIsUsingGenerator(false);
+  };
+
+  const handleUseGeneratorButton = () => {
+    setIsUsingGenerator(true);
   };
 
   return (
@@ -144,6 +186,7 @@ const GameScreenSetup = ({
 
       <section>
         <h2>{printLabel("Events", language)}</h2>
+
         <div className={styles.Row}>
           <h3>{printLabel("Frequency", language)}</h3>
           <TabSelect
@@ -171,6 +214,7 @@ const GameScreenSetup = ({
             {printLabel("Evilness", language)} ({gameSettings.evilLevel})
           </h3>
           <Slider
+            disabled={!isUsingGenerator}
             name="Evilness Level"
             value={gameSettings.evilLevel}
             min={1}
@@ -185,6 +229,7 @@ const GameScreenSetup = ({
             {printLabel("Funkiness", language)} ({gameSettings.funkLevel})
           </h3>
           <Slider
+            disabled={!isUsingGenerator}
             name="Funkiness Level"
             value={gameSettings.funkLevel}
             min={1}
@@ -194,6 +239,18 @@ const GameScreenSetup = ({
             onChange={(v) => settingsChange(v, "funkLevel")}
           />
         </div>
+
+        {!isUsingGenerator && (
+          <div>
+            <div className="info">
+              {printLabel("CustomCardsNotice", language)}
+            </div>
+
+            <Button onClick={handleUseGeneratorButton}>
+              {printLabel("UseGenerator", language)}
+            </Button>
+          </div>
+        )}
       </section>
 
       <section>
@@ -203,6 +260,7 @@ const GameScreenSetup = ({
             language={language}
             filteredData={filteredData}
             cardFilter={activeFilters}
+            onCardToggle={handleCardToggle}
           />
         </div>
 

@@ -1,10 +1,16 @@
 @import "../../styles/mixins.scss";
 
+.Wrapper {
+  width: 100%;
+  height: 100%;
+}
+
 .SetupCard {
   --event-card-highlight-color: #000;
 
   width: 100%;
   min-height: 30rem;
+  height: 100%;
 
   border-radius: var(--border-radius-card);
   border: solid var(--stroke-width) var(--color-border);
@@ -38,10 +44,16 @@
 
 // Style
 
-.ExpansionPackContainer {
+.Toggle {
   position: absolute;
   top: 1rem;
   right: 1rem;
+}
+
+.ExpansionPackContainer {
+  position: absolute;
+  top: 1.7rem;
+  right: 6rem;
   display: flex;
   gap: 0.5rem;
 }
@@ -68,6 +80,7 @@
 .Title {
   @include font-beta;
   color: var(--event-card-highlight-color);
+  padding-right: 6.5rem;
 }
 
 .Description {
