@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import Head from "next/head";
 
+import GitHubButton from "react-github-btn";
+
 import GameContainer from "../components/GameContainer";
 import LanguageSelect from "../components/LanguageSelect";
 import ZoomUI from "../components/ZoomUI";
@@ -19,6 +21,10 @@ const footerLinks: { url: string; title: LanguageLabel }[] = [
     title: { en: "Suggest a New Card", de: "Regel Vorschlagen" },
     url: "https://airtable.com/shr5RxS1iU5lIEsb9",
   },
+  // {
+  //   title: { en: "GitHub", de: "GitHub" },
+  //   url: "https://github.com/olivierbrcknr/catan",
+  // },
 ];
 
 function Home() {
@@ -74,6 +80,17 @@ function Home() {
                 </a>
               </li>
             ))}
+            <li>
+              <GitHubButton
+                href="https://github.com/olivierbrcknr/catan"
+                data-color-scheme="no-preference: light; light: light; dark: dark;"
+                data-size="large"
+                data-show-count="true"
+                aria-label="Star olivierbrcknr/catan on GitHub"
+              >
+                Star
+              </GitHubButton>
+            </li>
           </ul>
         </footer>
       </div>
