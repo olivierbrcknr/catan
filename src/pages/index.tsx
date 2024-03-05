@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 import clsx from "clsx";
+import moment from "moment";
 import Head from "next/head";
-
 import GitHubButton from "react-github-btn";
 
 import GameContainer from "../components/GameContainer";
@@ -62,7 +62,7 @@ function Home() {
         </main>
         <footer>
           <span className="footer_bg">
-            2023 &copy;{" "}
+            2023&thinsp;–&thinsp;{moment().year()} &copy;{" "}
             <a target="_blank" href="http://felixlaarmann.de/">
               Felix Laarmann
             </a>{" "}
