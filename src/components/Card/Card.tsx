@@ -123,7 +123,12 @@ const Card = ({ isPause, event, onIsDone, isInit, language }: CardProps) => {
       )}
       {event.timing === "Temporary Event" && (
         <div className={styles.Footer}>
-          <ProgressBar value={progress} max={100} label={timeRemainingLabel} />
+          <ProgressBar
+            value={progress}
+            max={100}
+            label={timeRemainingLabel}
+            theme="green"
+          />
         </div>
       )}
     </div>
