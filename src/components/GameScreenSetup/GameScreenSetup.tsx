@@ -12,8 +12,10 @@ import {
   EVENT_FREQUENCY_LOW,
   EVENT_FREQUENCY_MEDIUM,
   EVENT_FREQUENCY_HIGH,
+  BASE_PROBABILITY,
 } from "../../utils/constants";
 import { type Language, printLabel } from "../../utils/language";
+import { secToMin } from "../../utils/convert";
 import Button from "../Button";
 import CardOverview from "../CardOverview";
 import LoadingIndicator from "../LoadingIndicator";
@@ -193,15 +195,27 @@ const GameScreenSetup = ({
             name="Frequency"
             options={[
               {
-                label: printLabel("Low", language),
+                label:
+                  printLabel("Low", language) +
+                  " (approx. every " +
+                  secToMin(EVENT_FREQUENCY_LOW * (1 / BASE_PROBABILITY)) +
+                  " min)",
                 value: EVENT_FREQUENCY_LOW,
               },
               {
-                label: printLabel("Medium", language),
+                label:
+                  printLabel("Medium", language) +
+                  " (approx. every " +
+                  secToMin(EVENT_FREQUENCY_MEDIUM * (1 / BASE_PROBABILITY)) +
+                  " min)",
                 value: EVENT_FREQUENCY_MEDIUM,
               },
               {
-                label: printLabel("High", language),
+                label:
+                  printLabel("High", language) +
+                  " (approx. every " +
+                  secToMin(EVENT_FREQUENCY_HIGH * (1 / BASE_PROBABILITY)) +
+                  " min)",
                 value: EVENT_FREQUENCY_HIGH,
               },
             ]}
@@ -299,6 +313,9 @@ const GameScreenSetup = ({
             </span>
             <span>
               {printLabel("CardCheck", language)} {gameSettings.eventFrequency}s
+              (new event approx. every{" "}
+              {secToMin(gameSettings.eventFrequency * (1 / BASE_PROBABILITY))}
+              &thinsp;min)
             </span>
           </div>
 
