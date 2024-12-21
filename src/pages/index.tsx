@@ -5,6 +5,7 @@ import moment from "moment";
 import Head from "next/head";
 import GitHubButton from "react-github-btn";
 
+import BackgroundMusicToggle from "../components/BackgroundMusicToggle";
 import GameContainer from "../components/GameContainer";
 import LanguageSelect from "../components/LanguageSelect";
 import ZoomUI from "../components/ZoomUI";
@@ -51,6 +52,7 @@ function Home() {
         <link rel="apple-touch-icon" href="/AppIcon.png" />
       </Head>
       <div className={clsx(styles.Wrapper, gameIsRunning && styles.isGame)}>
+        <BackgroundMusicToggle />
         <LanguageSelect onChange={setLanguage} />
         <ZoomUI language={language} />
         <main>
